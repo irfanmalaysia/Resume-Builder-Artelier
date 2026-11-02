@@ -1,0 +1,1564 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Pembina Resume Percuma | ArtelierIrfan</title>
+<meta name="description" content="Bina resume profesional dalam 5 minit. Pilih templat, isi maklumat dan muat turun PDF. Percuma, dalam Bahasa Melayu dan English.">
+<meta name="theme-color" content="#F4F4F2">
+<link rel="icon" type="image/png" href="assets/logo.png">
+<link rel="apple-touch-icon" href="assets/logo.png">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Pembina Resume Percuma | ArtelierIrfan">
+<meta property="og:description" content="Bina resume profesional dalam 5 minit dan muat turun PDF. Percuma.">
+<meta property="og:image" content="assets/logo.png">
+<style>html,body{margin:0;height:100%;background:#E7E5DF;overscroll-behavior:none}</style>
+<script src="vendor/react.production.min.js"></script>
+<script src="vendor/react-dom.production.min.js"></script>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<style>
+  * { -webkit-font-smoothing: antialiased; box-sizing: border-box; }
+  body { margin: 0; }
+  .scroll::-webkit-scrollbar { width: 0; height: 0; }
+  .chips::-webkit-scrollbar { display: none; }
+  .fld { width:100%; background:#fff; border:1px solid #E6E6E2; border-radius:13px; padding:12px 14px; font-family:'Plus Jakarta Sans',system-ui,sans-serif; font-size:14.5px; color:#15171B; outline:none; }
+  .fld:focus { border-color:#15171B; }
+  .fld::placeholder { color:#B4B7BC; }
+  textarea.fld { resize:vertical; line-height:1.45; min-height:84px; }
+</style>
+</helmet>
+
+<div style="--accent: {{ accent }}; height:100dvh; box-sizing:border-box; display:flex; justify-content:center; background:#E7E5DF; font-family:'Plus Jakarta Sans',system-ui,sans-serif;">
+
+<div style="width:100%; max-width:480px; height:100%; box-shadow:0 0 40px rgba(21,23,27,.08); position:relative; overflow:hidden; background:#F4F4F2; font-family:'Plus Jakarta Sans',system-ui,sans-serif; color:#15171B;">
+
+  <!-- ============ TOP BAR (all screens) ============ -->
+  <div style="position:absolute; top:0; left:0; right:0; z-index:40; background:#F4F4F2; padding:calc(14px + env(safe-area-inset-top)) 20px 10px; display:flex; align-items:center; justify-content:space-between;">
+    <div style="display:flex; align-items:center; gap:11px;">
+      <img src="assets/logo.png" alt="ArtelierIrfan" style="width:40px; height:40px; border-radius:50%; object-fit:cover; display:block;">
+      <div style="display:flex; flex-direction:column; line-height:1.15;">
+        <span style="font-size:11px; color:#90949B; font-weight:500;">{{ t.brandSub }}</span>
+        <span style="font-size:15.5px; color:#15171B; font-weight:700;">ArtelierIrfan</span>
+      </div>
+    </div>
+    <!-- language toggle -->
+    <div style="display:flex; background:#fff; border:1px solid #ECECE9; border-radius:13px; padding:3px; gap:2px;">
+      <div onClick="{{ setMs }}" style="padding:8px 11px; border-radius:10px; font-size:12.5px; font-weight:800; cursor:pointer; background:{{ msBg }}; color:#15171B;">BM</div>
+      <div onClick="{{ setEn }}" style="padding:8px 11px; border-radius:10px; font-size:12.5px; font-weight:800; cursor:pointer; background:{{ enBg }}; color:#15171B;">EN</div>
+    </div>
+  </div>
+
+  <!-- ============ HOME ============ -->
+  <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+  <div data-screen-label="Home" class="scroll" style="height:100%; overflow-y:auto; padding:calc(76px + env(safe-area-inset-top)) 0 calc(100px + env(safe-area-inset-bottom));">
+    <!-- hero -->
+    <div style="padding:6px 20px 0;">
+      <div style="height:208px; border-radius:26px; background:var(--accent,#B7F23A); padding:24px; position:relative; overflow:hidden;">
+        <div style="position:relative; z-index:2; max-width:60%;">
+          <div style="font-size:11px; font-weight:800; letter-spacing:1.2px; text-transform:uppercase; color:rgba(21,23,27,.55);">{{ t.heroEyebrow }}</div>
+          <div style="font-size:23px; font-weight:800; line-height:1.1; color:#15171B; margin-top:9px;">{{ t.heroTitle }}</div>
+          <div onClick="{{ startBuild }}" style="display:inline-flex; align-items:center; gap:7px; margin-top:16px; background:#15171B; color:#fff; padding:11px 16px; border-radius:13px; font-size:13.5px; font-weight:700; cursor:pointer;">
+            {{ t.heroCta }}
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+          </div>
+        </div>
+        <!-- hero art: stacked resume sheets -->
+        <div style="position:absolute; right:-14px; bottom:-22px; width:150px; height:190px;">
+          <div style="position:absolute; right:22px; bottom:20px; width:108px; height:148px; border-radius:12px; background:rgba(255,255,255,.45); transform:rotate(10deg);"></div>
+          <div style="position:absolute; right:10px; bottom:12px; width:108px; height:148px; border-radius:12px; background:rgba(255,255,255,.7); transform:rotate(5deg);"></div>
+          <div style="position:absolute; right:0; bottom:0; width:108px; height:148px; border-radius:12px; background:#fff; box-shadow:0 8px 24px rgba(21,23,27,.18); padding:12px; display:flex; flex-direction:column; gap:6px;">
+            <div style="display:flex; gap:7px; align-items:center;">
+              <div style="width:22px; height:22px; border-radius:50%; background:#15171B;"></div>
+              <div style="flex:1; display:flex; flex-direction:column; gap:3px;"><div style="height:5px; border-radius:3px; background:#15171B;"></div><div style="height:4px; width:70%; border-radius:3px; background:#C9CBC4;"></div></div>
+            </div>
+            <div style="height:3px; background:#ECECE9; margin:3px 0;"></div>
+            <div style="height:4px; width:40%; border-radius:3px; background:#15171B;"></div>
+            <div style="height:3px; border-radius:3px; background:#DEDFDA;"></div>
+            <div style="height:3px; width:85%; border-radius:3px; background:#DEDFDA;"></div>
+            <div style="height:4px; width:45%; border-radius:3px; background:#15171B; margin-top:4px;"></div>
+            <div style="height:3px; border-radius:3px; background:#DEDFDA;"></div>
+            <div style="height:3px; width:75%; border-radius:3px; background:#DEDFDA;"></div>
+            <div style="display:flex; gap:3px; margin-top:4px;"><div style="height:8px; width:22px; border-radius:3px; background:var(--accent,#B7F23A);"></div><div style="height:8px; width:18px; border-radius:3px; background:var(--accent,#B7F23A);"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- public counter (appears once the Google Sheet total reaches showCounterFrom) -->
+    <sc-if value="{{ showCounter }}" hint-placeholder-val="{{ false }}">
+      <div style="padding:12px 20px 0;">
+        <div style="display:flex; align-items:center; gap:10px; background:#fff; border:1px solid #ECECE9; border-radius:16px; padding:11px 14px;">
+          <div style="width:28px; height:28px; flex:none; border-radius:9px; background:var(--accent,#B7F23A); display:flex; align-items:center; justify-content:center;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="#15171B" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+          </div>
+          <span style="font-size:13.5px; font-weight:800;">{{ counterLabel }}</span>
+        </div>
+      </div>
+    </sc-if>
+
+    <!-- templates -->
+    <div style="padding:24px 20px 0; display:flex; align-items:baseline; justify-content:space-between;">
+      <span style="font-size:18px; font-weight:800;">{{ t.chooseTpl }}</span>
+      <span style="font-size:12px; color:#90949B; font-weight:600;">{{ t.tplCount }}</span>
+    </div>
+    <div style="padding:12px 20px 0; display:grid; grid-template-columns:repeat(2, minmax(0, 1fr)); gap:12px;">
+      <sc-for list="{{ templates }}" as="tp" hint-placeholder-count="4">
+        <div onClick="{{ tp.pick }}" style="background:#fff; border-radius:20px; padding:9px; border:{{ tp.border }}; cursor:pointer; position:relative;">
+          <div data-rv="{{ tp.id }}" data-rv-crop="1" style="width:100%; height:205px; border-radius:12px; overflow:hidden; background:#F4F4F2; pointer-events:none; box-shadow:inset 0 0 0 1px #ECECE9;"></div>
+          <div style="position:absolute; top:16px; left:16px; background:{{ tp.badgeBg }}; color:{{ tp.badgeFg }}; font-size:10px; font-weight:800; letter-spacing:.6px; text-transform:uppercase; padding:4px 8px; border-radius:8px;">{{ tp.tierLabel }}</div>
+          <div style="padding:9px 4px 3px;">
+            <div style="font-size:14px; font-weight:800;">{{ tp.name }}</div>
+            <div style="display:flex; align-items:center; gap:6px; margin-top:3px;">
+              <span style="font-size:12px; color:#A8ACB2; text-decoration:line-through; font-weight:600;">{{ tp.price }}</span>
+              <span style="font-size:12.5px; font-weight:800; color:#15171B;">{{ t.free }}</span>
+            </div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+
+    <!-- how it works -->
+    <div style="padding:26px 20px 0;">
+      <div style="font-size:18px; font-weight:800; margin-bottom:12px;">{{ t.how }}</div>
+      <div style="background:#fff; border:1px solid #ECECE9; border-radius:22px; padding:6px 16px;">
+        <sc-for list="{{ howSteps }}" as="h" hint-placeholder-count="3">
+          <div style="display:flex; gap:14px; align-items:center; padding:13px 0; border-bottom:{{ h.divider }};">
+            <div style="width:36px; height:36px; flex:none; border-radius:12px; background:var(--accent,#B7F23A); display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:800;">{{ h.n }}</div>
+            <div>
+              <div style="font-size:14px; font-weight:700;">{{ h.title }}</div>
+              <div style="font-size:12.5px; color:#90949B; margin-top:2px; line-height:1.4;">{{ h.desc }}</div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+      <div style="margin-top:14px; background:#15171B; color:#fff; border-radius:20px; padding:16px 18px; display:flex; gap:12px; align-items:flex-start;">
+        <div style="font-size:11px; font-weight:800; background:var(--accent,#B7F23A); color:#15171B; padding:4px 7px; border-radius:7px; flex:none;">ATS</div>
+        <div style="font-size:12.5px; line-height:1.5; color:rgba(255,255,255,.82);">{{ t.atsNote }}</div>
+      </div>
+      <!-- privacy note -->
+      <div style="margin-top:12px; background:#fff; border:1px solid #ECECE9; border-radius:20px; padding:15px 16px; display:flex; gap:12px; align-items:flex-start;">
+        <div style="width:32px; height:32px; flex:none; border-radius:10px; background:#F4F4F2; display:flex; align-items:center; justify-content:center;">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><rect x="5" y="10.5" width="14" height="10" rx="2.5" stroke="#15171B" stroke-width="2"></rect><path d="M8.5 10.5V8a3.5 3.5 0 0 1 7 0v2.5" stroke="#15171B" stroke-width="2" stroke-linecap="round"></path></svg>
+        </div>
+        <div>
+          <div style="font-size:13.5px; font-weight:800;">{{ t.privacyTitle }}</div>
+          <div style="font-size:12.5px; color:#6B7079; margin-top:3px; line-height:1.5;">{{ t.privacyText }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </sc-if>
+
+  <!-- ============ BUILDER ============ -->
+  <sc-if value="{{ isBuild }}" hint-placeholder-val="{{ false }}">
+  <div data-screen-label="Builder" class="scroll" style="height:100%; overflow-y:auto; padding:calc(76px + env(safe-area-inset-top)) 20px calc(108px + env(safe-area-inset-bottom));">
+    <!-- step header -->
+    <div style="display:flex; align-items:center; justify-content:space-between; margin-top:2px;">
+      <div>
+        <div style="font-size:12px; color:#90949B; font-weight:700; letter-spacing:.4px;">{{ stepLabel }}</div>
+        <div style="font-size:21px; font-weight:800; margin-top:2px;">{{ stepTitle }}</div>
+      </div>
+      <div style="display:flex; gap:6px;">
+        <div onClick="{{ loadSample }}" style="font-size:12px; font-weight:700; padding:8px 10px; border-radius:11px; background:#fff; border:1px solid #ECECE9; cursor:pointer;">{{ t.sample }}</div>
+        <div onClick="{{ clearAll }}" style="font-size:12px; font-weight:700; padding:8px 10px; border-radius:11px; background:#fff; border:1px solid #ECECE9; cursor:pointer; color:#B4412E;">{{ t.clear }}</div>
+      </div>
+    </div>
+    <div style="display:grid; grid-template-columns:repeat(4, minmax(0, 1fr)); gap:6px; margin:14px 0 18px;">
+      <sc-for list="{{ stepBars }}" as="sb" hint-placeholder-count="4">
+        <div onClick="{{ sb.go }}" style="height:6px; border-radius:3px; background:{{ sb.bg }}; cursor:pointer;"></div>
+      </sc-for>
+    </div>
+
+    <!-- step 1: personal -->
+    <sc-if value="{{ isStep0 }}" hint-placeholder-val="{{ true }}">
+      <div style="display:flex; align-items:center; gap:14px; background:#fff; border:1px solid #ECECE9; border-radius:20px; padding:14px; margin-bottom:14px;">
+        <div style="width:68px; height:68px; flex:none; border-radius:50%; background:#EDEDEA; background-image:{{ photoBg }}; background-size:cover; background-position:center; display:flex; align-items:center; justify-content:center;">
+          <sc-if value="{{ noPhoto }}" hint-placeholder-val="{{ true }}">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="3.4" stroke="#A8ACB2" stroke-width="2"></circle><path d="M5 20c0-3.3 3.1-6 7-6s7 2.7 7 6" stroke="#A8ACB2" stroke-width="2" stroke-linecap="round"></path></svg>
+          </sc-if>
+        </div>
+        <div style="flex:1; min-width:0;">
+          <div style="font-size:13.5px; font-weight:700;">{{ t.photo }}</div>
+          <div style="font-size:11.5px; color:#90949B; margin-top:2px;">{{ t.photoHint }}</div>
+          <div style="display:flex; gap:8px; margin-top:9px;">
+            <label style="font-size:12.5px; font-weight:800; background:var(--accent,#B7F23A); padding:8px 12px; border-radius:11px; cursor:pointer;">{{ t.uploadPhoto }}<input type="file" accept="image/*" onChange="{{ onPhoto }}" style="display:none;"></label>
+            <sc-if value="{{ hasPhoto }}" hint-placeholder-val="{{ false }}">
+              <div onClick="{{ removePhoto }}" style="font-size:12.5px; font-weight:700; padding:8px 12px; border-radius:11px; background:#F4F4F2; cursor:pointer;">{{ t.removePhoto }}</div>
+            </sc-if>
+          </div>
+        </div>
+      </div>
+      <div style="display:grid; grid-template-columns:repeat(2, minmax(0, 1fr)); gap:12px;">
+        <sc-for list="{{ personalFields }}" as="f" hint-placeholder-count="6">
+          <div style="grid-column:{{ f.span }}; display:flex; flex-direction:column; gap:6px;">
+            <span style="font-size:12px; font-weight:700; color:#6B7079;">{{ f.label }}</span>
+            <sc-if value="{{ f.multi }}" hint-placeholder-val="{{ false }}">
+              <textarea class="fld" rows="5" value="{{ f.value }}" placeholder="{{ f.placeholder }}" onChange="{{ f.onChange }}"></textarea>
+            </sc-if>
+            <sc-if value="{{ f.single }}" hint-placeholder-val="{{ true }}">
+              <input class="fld" type="text" value="{{ f.value }}" placeholder="{{ f.placeholder }}" onChange="{{ f.onChange }}">
+            </sc-if>
+          </div>
+        </sc-for>
+      </div>
+    </sc-if>
+
+    <!-- step 2 & 3: experience / education (repeatable lists) -->
+    <sc-if value="{{ isListStep }}" hint-placeholder-val="{{ false }}">
+      <sc-for list="{{ listItems }}" as="it" hint-placeholder-count="2">
+        <div style="background:#fff; border:1px solid #ECECE9; border-radius:20px; padding:14px; margin-bottom:12px;">
+          <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:10px;">
+            <span style="font-size:12px; font-weight:800; letter-spacing:.6px; text-transform:uppercase; color:#90949B;">{{ it.heading }}</span>
+            <div onClick="{{ it.remove }}" style="width:30px; height:30px; border-radius:10px; background:#F4F4F2; display:flex; align-items:center; justify-content:center; cursor:pointer;">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M5 7h14M10 11v6M14 11v6M6 7l1 12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-12M9 7V5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2" stroke="#6B7079" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+            </div>
+          </div>
+          <div style="display:grid; grid-template-columns:repeat(2, minmax(0, 1fr)); gap:10px;">
+            <sc-for list="{{ it.fields }}" as="f" hint-placeholder-count="4">
+              <div style="grid-column:{{ f.span }}; display:flex; flex-direction:column; gap:6px;">
+                <span style="font-size:12px; font-weight:700; color:#6B7079;">{{ f.label }}</span>
+                <sc-if value="{{ f.multi }}" hint-placeholder-val="{{ false }}">
+                  <textarea class="fld" rows="4" value="{{ f.value }}" placeholder="{{ f.placeholder }}" onChange="{{ f.onChange }}"></textarea>
+                </sc-if>
+                <sc-if value="{{ f.single }}" hint-placeholder-val="{{ true }}">
+                  <input class="fld" type="text" value="{{ f.value }}" placeholder="{{ f.placeholder }}" onChange="{{ f.onChange }}">
+                </sc-if>
+              </div>
+            </sc-for>
+          </div>
+          <!-- duties & achievements: one box per point -->
+          <sc-if value="{{ it.isExp }}" hint-placeholder-val="{{ true }}">
+            <div style="margin-top:12px; background:#F7F7F5; border-radius:16px; padding:12px;">
+              <div style="font-size:12px; font-weight:700; color:#6B7079;">{{ t.dutiesLabel }}</div>
+              <div style="font-size:11.5px; color:#90949B; margin-top:3px; line-height:1.4;">{{ t.dutiesTip }}</div>
+              <div style="display:flex; flex-direction:column; gap:8px; margin-top:10px;">
+                <sc-for list="{{ it.bullets }}" as="b" hint-placeholder-count="2">
+                  <div style="display:flex; align-items:center; gap:8px;">
+                    <div style="width:22px; height:22px; flex:none; border-radius:7px; background:var(--accent,#B7F23A); display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:800;">{{ b.n }}</div>
+                    <input class="fld" type="text" data-b="{{ b.key }}" value="{{ b.value }}" placeholder="{{ b.placeholder }}" onChange="{{ b.onChange }}" onKeyDown="{{ b.onKeyDown }}" style="padding:10px 12px; font-size:13.5px;">
+                    <div onClick="{{ b.remove }}" style="width:30px; height:30px; flex:none; border-radius:10px; background:#fff; border:1px solid #ECECE9; display:flex; align-items:center; justify-content:center; cursor:pointer;">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="#6B7079" stroke-width="2.4" stroke-linecap="round"></path></svg>
+                    </div>
+                  </div>
+                </sc-for>
+              </div>
+              <div style="display:flex; flex-wrap:wrap; gap:8px; margin-top:10px;">
+                <div onClick="{{ it.addBullet }}" style="display:inline-flex; align-items:center; gap:6px; font-size:12.5px; font-weight:800; padding:8px 12px; border-radius:11px; background:#fff; border:1px solid #ECECE9; cursor:pointer;">{{ t.addDuty }}</div>
+                <div onClick="{{ it.openSamples }}" style="display:inline-flex; align-items:center; gap:6px; font-size:12.5px; font-weight:800; padding:8px 12px; border-radius:11px; background:var(--accent,#B7F23A); cursor:pointer;">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.4 1 1.1 1 1.8V16h5v-.3c0-.7.4-1.4 1-1.8A6 6 0 0 0 12 3z" stroke="#15171B" stroke-width="2" stroke-linejoin="round"></path></svg>
+                  {{ t.sampleDuties }}
+                </div>
+              </div>
+            </div>
+          </sc-if>
+        </div>
+      </sc-for>
+      <div onClick="{{ addItem }}" style="border:1.5px dashed #C9CBC4; border-radius:18px; padding:14px; text-align:center; font-size:13.5px; font-weight:800; cursor:pointer; color:#15171B;">{{ addLabel }}</div>
+    </sc-if>
+
+    <!-- step 4: skills -->
+    <sc-if value="{{ isStep3 }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex; flex-direction:column; gap:12px;">
+        <sc-for list="{{ skillFields }}" as="f" hint-placeholder-count="2">
+          <div style="display:flex; flex-direction:column; gap:6px;">
+            <span style="font-size:12px; font-weight:700; color:#6B7079;">{{ f.label }}</span>
+            <textarea class="fld" rows="4" value="{{ f.value }}" placeholder="{{ f.placeholder }}" onChange="{{ f.onChange }}"></textarea>
+          </div>
+        </sc-for>
+        <div style="display:flex; flex-wrap:wrap; gap:6px;">
+          <sc-for list="{{ skillChips }}" as="c" hint-placeholder-count="4">
+            <span style="background:#fff; border:1px solid #ECECE9; border-radius:9px; padding:6px 10px; font-size:12px; font-weight:700;">{{ c }}</span>
+          </sc-for>
+        </div>
+      </div>
+    </sc-if>
+
+    <!-- nav buttons -->
+    <div style="display:flex; gap:10px; margin-top:22px;">
+      <div onClick="{{ prevStep }}" style="flex:1; text-align:center; padding:15px; border-radius:15px; background:#fff; border:1px solid #ECECE9; font-size:14px; font-weight:800; cursor:pointer;">{{ t.back }}</div>
+      <div onClick="{{ nextStep }}" style="flex:1.6; text-align:center; padding:15px; border-radius:15px; background:#15171B; color:#fff; font-size:14px; font-weight:800; cursor:pointer;">{{ nextLabel }}</div>
+    </div>
+    <div style="text-align:center; font-size:11.5px; color:#A8ACB2; margin-top:12px;">{{ t.autosave }}</div>
+  </div>
+  </sc-if>
+
+  <!-- ============ PREVIEW ============ -->
+  <sc-if value="{{ isPreview }}" hint-placeholder-val="{{ false }}">
+  <div data-screen-label="Preview" class="scroll" style="height:100%; overflow-y:auto; padding:calc(76px + env(safe-area-inset-top)) 0 calc(108px + env(safe-area-inset-bottom));">
+    <div style="padding:2px 20px 0;">
+      <div style="font-size:21px; font-weight:800;">{{ t.preview }}</div>
+    </div>
+    <div class="chips" style="display:flex; gap:8px; overflow-x:auto; padding:12px 20px 4px;">
+      <sc-for list="{{ templates }}" as="tp" hint-placeholder-count="4">
+        <div onClick="{{ tp.choose }}" style="flex:none; padding:9px 14px; border-radius:12px; font-size:13px; font-weight:800; cursor:pointer; background:{{ tp.chipBg }}; color:{{ tp.chipFg }}; border:1px solid #ECECE9;">{{ tp.name }}</div>
+      </sc-for>
+    </div>
+    <!-- Moden colour picker -->
+    <sc-if value="{{ isModen }}" hint-placeholder-val="{{ true }}">
+      <div style="padding:10px 20px 0;">
+        <div style="display:flex; align-items:center; justify-content:space-between;">
+          <span style="font-size:13px; font-weight:800;">{{ t.colorLabel }}</span>
+          <span style="font-size:12px; color:#6B7079; font-weight:700;">{{ colorName }}</span>
+        </div>
+        <div class="chips" style="display:flex; gap:10px; overflow-x:auto; padding:9px 4px 6px;">
+          <sc-for list="{{ modenColors }}" as="c" hint-placeholder-count="8">
+            <div onClick="{{ c.pick }}" title="{{ c.name }}" style="flex:none; width:34px; height:34px; border-radius:50%; background:{{ c.bg }}; box-shadow:{{ c.ring }}; cursor:pointer;"></div>
+          </sc-for>
+        </div>
+      </div>
+    </sc-if>
+    <div style="padding:10px 20px 0;">
+      <div data-rv="{{ tpl }}" style="width:100%; min-height:200px; border-radius:6px; overflow:hidden; background:#fff; box-shadow:0 10px 30px rgba(21,23,27,.14);"></div>
+      <!-- page counter -->
+      <div style="display:flex; align-items:center; justify-content:space-between; gap:10px; margin-top:12px;">
+        <span style="font-size:12px; color:#6B7079; font-weight:600;"><sc-if value="{{ multiPage }}" hint-placeholder-val="{{ false }}">{{ t.pageLegend }}</sc-if></span>
+        <span style="flex:none; font-size:12.5px; font-weight:800; padding:6px 10px; border-radius:9px; background:{{ pagesBg }}; color:#15171B;">{{ pagesLabel }}</span>
+      </div>
+      <sc-if value="{{ multiPage }}" hint-placeholder-val="{{ false }}">
+        <div style="margin-top:10px; background:#FFF1E8; border:1px solid #F6D2BF; border-radius:15px; padding:12px 14px; font-size:12.5px; line-height:1.45; color:#5B3A2A;">{{ pageTip }}</div>
+      </sc-if>
+    </div>
+    <div style="padding:16px 20px 0;">
+      <div style="background:#fff; border:1px solid #ECECE9; border-radius:20px; padding:14px 16px; display:flex; align-items:center; justify-content:space-between; gap:10px;">
+        <div>
+          <div style="font-size:12px; color:#90949B; font-weight:700;">{{ curTierName }}</div>
+          <div style="display:flex; align-items:baseline; gap:8px; margin-top:2px;">
+            <span style="font-size:20px; font-weight:800;">{{ t.free }}</span>
+            <span style="font-size:13px; color:#A8ACB2; text-decoration:line-through; font-weight:700;">{{ curPrice }}</span>
+          </div>
+        </div>
+        <span style="font-size:11px; font-weight:800; background:var(--accent,#B7F23A); padding:5px 9px; border-radius:8px; text-align:center; white-space:pre-line; line-height:1.25;">{{ t.launchPromo }}</span>
+      </div>
+      <sc-if value="{{ atsNoPhoto }}" hint-placeholder-val="{{ false }}">
+        <div style="font-size:12px; color:#6B7079; margin-top:10px; line-height:1.45;">{{ t.atsPhotoNote }}</div>
+      </sc-if>
+      <div onClick="{{ download }}" style="margin-top:14px; display:flex; align-items:center; justify-content:center; gap:9px; background:#15171B; color:#fff; padding:16px; border-radius:16px; font-size:15px; font-weight:800; cursor:pointer;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 4v11M7 10l5 5 5-5M5 20h14" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        {{ downloadLabel }}
+      </div>
+      <div style="text-align:center; font-size:11.5px; color:#90949B; margin-top:9px;">{{ t.downloadHint }}</div>
+      <div onClick="{{ printDownload }}" style="text-align:center; font-size:11.5px; color:#6B7079; margin-top:6px; text-decoration:underline; cursor:pointer;">{{ t.printAlt }}</div>
+      <div onClick="{{ goBuild }}" style="margin-top:12px; text-align:center; padding:14px; border-radius:15px; background:#fff; border:1px solid #ECECE9; font-size:14px; font-weight:800; cursor:pointer;">{{ t.editInfo }}</div>
+    </div>
+  </div>
+  </sc-if>
+
+  <!-- ===== SAMPLE DUTIES BOTTOM SHEET ===== -->
+  <sc-if value="{{ sheetOpen }}" hint-placeholder-val="{{ false }}">
+    <div style="position:absolute; inset:0; z-index:90; display:flex; flex-direction:column; justify-content:flex-end;">
+      <div onClick="{{ closeSheet }}" style="position:absolute; inset:0; background:rgba(21,23,27,.45);"></div>
+      <div style="position:relative; background:#fff; border-radius:26px 26px 0 0; max-height:78%; display:flex; flex-direction:column; padding:10px 0 28px;">
+        <div style="width:40px; height:5px; border-radius:3px; background:#DEDFDA; margin:0 auto 12px;"></div>
+        <div style="padding:0 20px; display:flex; align-items:flex-start; justify-content:space-between; gap:10px;">
+          <div>
+            <div style="font-size:18px; font-weight:800;">{{ t.sampleDuties }}</div>
+            <div style="font-size:12px; color:#90949B; margin-top:3px; line-height:1.4;">{{ t.sheetTip }}</div>
+          </div>
+          <div onClick="{{ closeSheet }}" style="flex:none; font-size:13px; font-weight:800; padding:9px 14px; border-radius:12px; background:#15171B; color:#fff; cursor:pointer;">{{ t.done }}</div>
+        </div>
+        <!-- search -->
+        <div style="padding:12px 20px 4px; flex:none; position:relative;">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" style="position:absolute; left:34px; top:26px; pointer-events:none;"><circle cx="11" cy="11" r="6.5" stroke="#90949B" stroke-width="2"></circle><path d="M16 16l4 4" stroke="#90949B" stroke-width="2" stroke-linecap="round"></path></svg>
+          <input class="fld" type="text" value="{{ dutyQuery }}" placeholder="{{ t.searchPh }}" onChange="{{ onDutyQuery }}" style="padding-left:40px; background:#F4F4F2; border-color:#F4F4F2;">
+        </div>
+        <div class="scroll" style="overflow-y:auto; flex:1; min-height:0; padding:8px 20px 0;">
+          <sc-if value="{{ notSearching }}" hint-placeholder-val="{{ true }}">
+            <!-- AI assistant -->
+            <div style="background:#15171B; color:#fff; border-radius:18px; padding:14px; margin-bottom:12px;">
+              <div style="display:flex; align-items:center; gap:8px;">
+                <span style="width:24px; height:24px; border-radius:7px; background:var(--accent,#B7F23A); display:flex; align-items:center; justify-content:center;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 3l2.2 5.8L20 11l-5.8 2.2L12 19l-2.2-5.8L4 11l5.8-2.2z" fill="#15171B"></path></svg></span>
+                <span style="font-size:14px; font-weight:800;">{{ t.aiTitle }}</span>
+              </div>
+              <div style="font-size:12px; color:rgba(255,255,255,.7); margin-top:6px; line-height:1.45;">{{ t.aiDesc }}</div>
+              <div style="display:flex; gap:8px; margin-top:10px;">
+                <input class="fld" type="text" value="{{ aiRole }}" placeholder="{{ t.aiRolePh }}" onChange="{{ onAiRole }}" onKeyDown="{{ onAiKey }}" style="padding:10px 12px; font-size:13.5px; flex:1; min-width:0;">
+                <div onClick="{{ runAI }}" style="flex:none; display:flex; align-items:center; background:var(--accent,#B7F23A); color:#15171B; padding:0 14px; border-radius:12px; font-weight:800; font-size:13px; cursor:pointer; white-space:nowrap;">{{ aiBtnLabel }}</div>
+              </div>
+              <sc-if value="{{ aiHasErr }}" hint-placeholder-val="{{ false }}">
+                <div style="font-size:12px; color:#FFB9A8; margin-top:8px; line-height:1.4;">{{ aiErr }}</div>
+              </sc-if>
+            </div>
+            <sc-if value="{{ hasAiItems }}" hint-placeholder-val="{{ false }}">
+              <div style="font-size:12px; font-weight:800; letter-spacing:.5px; text-transform:uppercase; color:#90949B; margin:2px 0 8px;">{{ aiListLabel }}</div>
+              <div style="display:flex; flex-direction:column; gap:8px; margin-bottom:16px;">
+                <sc-for list="{{ aiItems }}" as="si" hint-placeholder-count="3">
+                  <div onClick="{{ si.toggle }}" style="display:flex; align-items:center; gap:12px; padding:12px 14px; border-radius:15px; cursor:pointer; background:{{ si.bg }}; border:1px solid {{ si.border }};">
+                    <div style="flex:1; font-size:13.5px; line-height:1.4; font-weight:600;">{{ si.text }}</div>
+                    <div style="width:28px; height:28px; flex:none; border-radius:9px; background:{{ si.iconBg }}; color:{{ si.iconFg }}; display:flex; align-items:center; justify-content:center; font-size:15px; font-weight:800;">{{ si.icon }}</div>
+                  </div>
+                </sc-for>
+              </div>
+            </sc-if>
+            <!-- categories -->
+            <div style="font-size:12px; font-weight:800; letter-spacing:.5px; text-transform:uppercase; color:#90949B; margin:2px 0 8px;">{{ t.byJob }}</div>
+            <div class="chips" style="display:flex; gap:8px; overflow-x:auto; padding:0 0 10px;">
+              <sc-for list="{{ sheetCats }}" as="sc" hint-placeholder-count="5">
+                <div onClick="{{ sc.pick }}" style="flex:none; padding:8px 13px; border-radius:11px; font-size:12.5px; font-weight:800; cursor:pointer; background:{{ sc.bg }}; color:{{ sc.fg }}; border:1px solid #ECECE9;">{{ sc.label }}</div>
+              </sc-for>
+            </div>
+          </sc-if>
+          <sc-if value="{{ searching }}" hint-placeholder-val="{{ false }}">
+            <div style="font-size:12px; font-weight:800; letter-spacing:.5px; text-transform:uppercase; color:#90949B; margin:2px 0 8px;">{{ searchLabel }}</div>
+          </sc-if>
+          <sc-if value="{{ noResults }}" hint-placeholder-val="{{ false }}">
+            <div style="font-size:13px; color:#6B7079; background:#F7F7F5; border-radius:15px; padding:14px; line-height:1.45;">{{ t.noResults }}</div>
+          </sc-if>
+          <div style="display:flex; flex-direction:column; gap:8px;">
+          <sc-for list="{{ sheetItems }}" as="si" hint-placeholder-count="5">
+            <div onClick="{{ si.toggle }}" style="display:flex; align-items:center; gap:12px; padding:12px 14px; border-radius:15px; cursor:pointer; background:{{ si.bg }}; border:1px solid {{ si.border }};">
+              <div style="flex:1;">
+                <sc-if value="{{ si.hasCat }}" hint-placeholder-val="{{ false }}">
+                  <div style="font-size:10.5px; font-weight:800; letter-spacing:.5px; text-transform:uppercase; color:#90949B; margin-bottom:2px;">{{ si.cat }}</div>
+                </sc-if>
+                <div style="font-size:13.5px; line-height:1.4; font-weight:600;">{{ si.text }}</div>
+              </div>
+              <sc-if value="{{ si.added }}" hint-placeholder-val="{{ false }}">
+                <div style="width:28px; height:28px; flex:none; border-radius:9px; background:#15171B; display:flex; align-items:center; justify-content:center;">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                </div>
+              </sc-if>
+              <sc-if value="{{ si.notAdded }}" hint-placeholder-val="{{ true }}">
+                <div style="width:28px; height:28px; flex:none; border-radius:9px; background:var(--accent,#B7F23A); display:flex; align-items:center; justify-content:center;">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="#15171B" stroke-width="2.6" stroke-linecap="round"></path></svg>
+                </div>
+              </sc-if>
+            </div>
+          </sc-for>
+          </div>
+          <div style="height:12px;"></div>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- ===== TOAST ===== -->
+  <sc-if value="{{ hasToast }}" hint-placeholder-val="{{ false }}">
+    <div style="position:absolute; left:20px; right:20px; bottom:calc(90px + env(safe-area-inset-bottom)); z-index:80; background:#15171B; color:#fff; border-radius:14px; padding:13px 16px; font-size:13px; font-weight:600; box-shadow:0 10px 30px rgba(21,23,27,.25);">{{ toast }}</div>
+  </sc-if>
+
+  <!-- ============ TAB BAR ============ -->
+  <div style="position:absolute; bottom:0; left:0; right:0; background:#fff; border-top:1px solid #ECECE9; padding:10px 18px calc(10px + env(safe-area-inset-bottom)); display:flex; align-items:center; z-index:50;">
+    <sc-for list="{{ tabs }}" as="tb" hint-placeholder-count="3">
+      <div onClick="{{ tb.go }}" style="flex:1; display:flex; justify-content:center; cursor:pointer;">
+        <sc-if value="{{ tb.active }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex; align-items:center; gap:8px; background:var(--accent,#B7F23A); color:#15171B; padding:10px 16px; border-radius:14px;">
+            <sc-if value="{{ tb.isHome }}" hint-placeholder-val="{{ false }}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M3 11l9-7 9 7v8a1 1 0 0 1-1 1h-4v-6H8v6H4a1 1 0 0 1-1-1z" stroke="#15171B" stroke-width="2" stroke-linejoin="round"></path></svg></sc-if>
+            <sc-if value="{{ tb.isBuild }}" hint-placeholder-val="{{ false }}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 20h4L19 9l-4-4L4 16z M13 7l4 4" stroke="#15171B" stroke-width="2" stroke-linejoin="round"></path></svg></sc-if>
+            <sc-if value="{{ tb.isPreview }}" hint-placeholder-val="{{ false }}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M6 3h9l4 4v14H6z M14 3v5h5 M9 13h7M9 17h5" stroke="#15171B" stroke-width="2" stroke-linejoin="round"></path></svg></sc-if>
+            <span style="font-size:13.5px; font-weight:800;">{{ tb.label }}</span>
+          </div>
+        </sc-if>
+        <sc-if value="{{ tb.inactive }}" hint-placeholder-val="{{ true }}">
+          <div style="padding:10px;">
+            <sc-if value="{{ tb.isHome }}" hint-placeholder-val="{{ false }}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M3 11l9-7 9 7v8a1 1 0 0 1-1 1h-4v-6H8v6H4a1 1 0 0 1-1-1z" stroke="#A8ACB2" stroke-width="2" stroke-linejoin="round"></path></svg></sc-if>
+            <sc-if value="{{ tb.isBuild }}" hint-placeholder-val="{{ false }}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 20h4L19 9l-4-4L4 16z M13 7l4 4" stroke="#A8ACB2" stroke-width="2" stroke-linejoin="round"></path></svg></sc-if>
+            <sc-if value="{{ tb.isPreview }}" hint-placeholder-val="{{ false }}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M6 3h9l4 4v14H6z M14 3v5h5 M9 13h7M9 17h5" stroke="#A8ACB2" stroke-width="2" stroke-linejoin="round"></path></svg></sc-if>
+          </div>
+        </sc-if>
+      </div>
+    </sc-for>
+  </div>
+
+</div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":"100%","height":974},"accentColor":{"editor":"color","default":"#B7F23A","options":["#B7F23A","#F2C94C","#7FD1F5","#F5A3C7"],"tsType":"string"}}'>
+class Component extends DCLogic {
+  state = { lang: 'ms', screen: 'home', step: 0, tpl: 'moden', d: null, toast: '' };
+
+  // ---------- copy (BM / EN) ----------
+  get STR() {
+    return {
+      ms: {
+        brandSub: 'Pembina Resume', heroEyebrow: 'Baharu · Percuma', heroTitle: 'Resume profesional dalam 5 minit', heroCta: 'Mula bina',
+        chooseTpl: 'Pilih templat', tplCount: '4 templat', free: 'Percuma', standard: 'Standard', ats: 'Mesra ATS',
+        how: 'Cara ia berfungsi',
+        how1: 'Pilih templat', how1d: 'Moden, Klasik, Minimalis atau ATS Pro.',
+        how2: 'Isi maklumat anda', how2d: 'Gambar, pengalaman, pendidikan & kemahiran.',
+        how3: 'Muat turun PDF', how3d: 'Sedia dihantar kepada majikan.',
+        atsNote: 'Templat ATS Pro direka supaya mudah dibaca oleh sistem saringan resume (ATS) yang digunakan oleh banyak syarikat besar.',
+        step: 'Langkah', of: 'daripada',
+        s0: 'Maklumat peribadi', s1: 'Pengalaman kerja', s2: 'Pendidikan', s3: 'Kemahiran & bahasa',
+        photo: 'Gambar profil', photoHint: 'Gambar berukuran pasport, latar belakang kemas.', uploadPhoto: 'Muat naik', removePhoto: 'Buang',
+        name: 'Nama penuh', title: 'Jawatan / bidang', phone: 'Telefon', email: 'E-mel', location: 'Lokasi', linkedin: 'LinkedIn / portfolio', summary: 'Ringkasan diri',
+        summaryPh: '2–3 ayat tentang pengalaman dan kekuatan anda',
+        role: 'Jawatan', company: 'Syarikat', start: 'Mula', end: 'Tamat', desc: 'Tugas & pencapaian',
+        dutiesLabel: 'Tugas & pencapaian', dutiesTip: 'Satu kotak untuk satu perkara. Mulakan dengan kata kerja dan letak angka jika ada. Tekan Enter untuk tambah baris baharu.',
+        generated: 'resume telah dijana', colorLabel: 'Warna templat', pageMark: 'Halaman', pageLegend: 'Garis merah putus-putus = mula halaman baharu', pageOne: '1 halaman ✓', pageMany: 'halaman',
+        pageTipA: 'Resume anda', pageTipB: 'halaman. Majikan biasanya lebih suka 1 halaman — cuba ringkaskan tugas, buang pengalaman lama, atau pilih templat ATS Pro yang lebih padat.',
+        searchPh: 'Cari tugas… cth. stok, pelanggan, Excel', byJob: 'Ikut jenis kerja', results: 'hasil carian', noResults: 'Tiada padanan. Cuba perkataan lain, atau guna Pembantu AI di atas.',
+        aiTitle: 'Cadangan pintar', aiDesc: 'Taip jawatan anda dan kami akan pilih tugas & pencapaian yang paling sesuai.', aiRolePh: 'cth. Kerani Akaun', aiBtn: 'Cadang', aiBusy: 'Cadang',
+        aiFor: 'Cadangan untuk', aiNoMatch: 'Tiada padanan tepat untuk', aiNoMatchTail: '— ini cadangan umum. Cuba guna carian atau pilih jenis kerja di bawah.', aiNeedRole: 'Taip jawatan dahulu.',
+        sampleDuties: 'Contoh tugas', done: 'Selesai', sheetTip: 'Ketik untuk tambah, ketik sekali lagi untuk buang. Tukar angka ikut pengalaman sebenar anda.',
+        addDuty: '+ Tambah tugas', dutyPh: ['cth. Mengurus stok dan pesanan harian kedai', 'cth. Meningkatkan jualan sebanyak 20% dalam 3 bulan', 'cth. Melatih 3 orang staf baharu'],
+        school: 'Institusi', qual: 'Kelayakan', year: 'Tahun', note: 'Catatan (CGPA, anugerah)',
+        expN: 'Pengalaman', eduN: 'Pendidikan', addExp: '+ Tambah pengalaman', addEdu: '+ Tambah pendidikan',
+        skills: 'Kemahiran (pisahkan dengan koma)', languages: 'Bahasa (pisahkan dengan koma)',
+        skillsPh: 'cth. Microsoft Excel, Canva, Pengurusan projek', langsPh: 'cth. Bahasa Melayu (Natif), Bahasa Inggeris (Fasih)',
+        next: 'Seterusnya', back: 'Kembali', toPreview: 'Lihat pratonton', clear: 'Kosongkan', sample: 'Isi contoh',
+        autosave: 'Disimpan secara automatik dalam peranti ini sahaja — tidak dihantar ke mana-mana.',
+        preview: 'Pratonton resume', download: 'Muat turun PDF', downloadHint: 'Fail PDF akan dimuat turun terus ke peranti anda.',
+        pdfMaking: 'Menyediakan PDF…', pdfSaved: 'PDF berjaya dimuat turun. Semak folder Muat Turun / Fail anda.',
+        printAlt: 'Ada masalah? Guna cara cetak', printHint: 'Pilih “Simpan sebagai PDF” di tetingkap cetak.',
+        privacyTitle: 'Privasi anda terjaga', privacyText: 'Maklumat resume anda disimpan dalam peranti anda sahaja dan tidak dihantar kepada kami. Kami hanya mengira penggunaan tanpa nama, seperti bilangan resume yang dijana.',
+        editInfo: 'Sunting maklumat', launchPromo: 'Promosi\npelancaran',
+        atsPhotoNote: 'Templat ATS Pro tidak memaparkan gambar dan warna — ini lebih selamat untuk sistem ATS.',
+        cleared: 'Borang dikosongkan.', sampleLoaded: 'Contoh dimuatkan — sunting ikut maklumat anda.', printing: 'Membuka tetingkap cetak…',
+        photoErr: 'Gambar tidak dapat dibaca. Cuba fail JPG atau PNG.',
+        tabHome: 'Utama', tabBuild: 'Bina', tabPreview: 'Pratonton',
+        hProfile: 'Profil', hExp: 'Pengalaman Kerja', hEdu: 'Pendidikan', hSkills: 'Kemahiran', hLangs: 'Bahasa', hContact: 'Hubungi',
+        yourName: 'Nama Anda', yourTitle: 'Jawatan Anda',
+      },
+      en: {
+        brandSub: 'Resume Builder', heroEyebrow: 'New · Free', heroTitle: 'A professional resume in 5 minutes', heroCta: 'Start building',
+        chooseTpl: 'Choose a template', tplCount: '4 templates', free: 'Free', standard: 'Standard', ats: 'ATS-friendly',
+        how: 'How it works',
+        how1: 'Pick a template', how1d: 'Modern, Classic, Minimal or ATS Pro.',
+        how2: 'Fill in your details', how2d: 'Photo, experience, education & skills.',
+        how3: 'Download as PDF', how3d: 'Ready to send to employers.',
+        atsNote: 'The ATS Pro template is built to be read cleanly by the resume screening systems (ATS) many large companies use.',
+        step: 'Step', of: 'of',
+        s0: 'Personal details', s1: 'Work experience', s2: 'Education', s3: 'Skills & languages',
+        photo: 'Profile photo', photoHint: 'Passport-style photo, clean background.', uploadPhoto: 'Upload', removePhoto: 'Remove',
+        name: 'Full name', title: 'Job title / field', phone: 'Phone', email: 'Email', location: 'Location', linkedin: 'LinkedIn / portfolio', summary: 'Professional summary',
+        summaryPh: '2–3 sentences about your experience and strengths',
+        role: 'Position', company: 'Company', start: 'Start', end: 'End', desc: 'Duties & achievements',
+        dutiesLabel: 'Duties & achievements', dutiesTip: 'One box per point. Start with an action verb and add numbers where you can. Press Enter to add a new line.',
+        generated: 'resumes created', colorLabel: 'Template colour', pageMark: 'Page', pageLegend: 'Red dashed line = a new page starts', pageOne: '1 page ✓', pageMany: 'pages',
+        pageTipA: 'Your resume is', pageTipB: 'pages. Employers usually prefer 1 page — try shortening duties, removing older jobs, or using the more compact ATS Pro template.',
+        searchPh: 'Search duties… e.g. stock, customer, Excel', byJob: 'By job type', results: 'results', noResults: 'No matches. Try another word, or use the AI assistant above.',
+        aiTitle: 'Smart suggestions', aiDesc: "Type your job title and we'll pick the best-matching duties & achievements.", aiRolePh: 'e.g. Account Clerk', aiBtn: 'Suggest', aiBusy: 'Suggest',
+        aiFor: 'Suggestions for', aiNoMatch: 'No exact match for', aiNoMatchTail: '— here are general suggestions. Try search or pick a job type below.', aiNeedRole: 'Type a job title first.',
+        sampleDuties: 'Sample duties', done: 'Done', sheetTip: 'Tap to add, tap again to remove. Change the numbers to match your real experience.',
+        addDuty: '+ Add duty', dutyPh: ['e.g. Managed daily stock and customer orders', 'e.g. Grew sales by 20% in 3 months', 'e.g. Trained 3 new staff members'],
+        school: 'Institution', qual: 'Qualification', year: 'Year', note: 'Notes (CGPA, awards)',
+        expN: 'Experience', eduN: 'Education', addExp: '+ Add experience', addEdu: '+ Add education',
+        skills: 'Skills (separate with commas)', languages: 'Languages (separate with commas)',
+        skillsPh: 'e.g. Microsoft Excel, Canva, Project management', langsPh: 'e.g. Malay (Native), English (Fluent)',
+        next: 'Next', back: 'Back', toPreview: 'See preview', clear: 'Clear', sample: 'Sample',
+        autosave: 'Saved automatically on this device only — never sent anywhere.',
+        preview: 'Resume preview', download: 'Download PDF', downloadHint: 'The PDF file downloads straight to your device.',
+        pdfMaking: 'Preparing PDF…', pdfSaved: 'PDF downloaded. Check your Downloads / Files folder.',
+        printAlt: 'Having trouble? Use the print method', printHint: 'Choose “Save as PDF” in the print window.',
+        privacyTitle: 'Your privacy is protected', privacyText: 'Your resume details stay on your device and are never sent to us. We only count anonymous usage, such as how many resumes are created.',
+        editInfo: 'Edit details', launchPromo: 'Launch\npromo',
+        atsPhotoNote: 'ATS Pro hides the photo and colours — safer for ATS screening systems.',
+        cleared: 'Form cleared.', sampleLoaded: 'Sample loaded — edit it with your own details.', printing: 'Opening print window…',
+        photoErr: "Couldn't read that photo. Try a JPG or PNG file.",
+        tabHome: 'Home', tabBuild: 'Build', tabPreview: 'Preview',
+        hProfile: 'Profile', hExp: 'Work Experience', hEdu: 'Education', hSkills: 'Skills', hLangs: 'Languages', hContact: 'Contact',
+        yourName: 'Your Name', yourTitle: 'Your Job Title',
+      },
+    };
+  }
+  T() { return this.STR[this.state.lang] || this.STR.ms; }
+
+  get TEMPLATES() {
+    return [
+      { id: 'moden', ms: 'Moden', en: 'Modern', tier: 'standard' },
+      { id: 'klasik', ms: 'Klasik', en: 'Classic', tier: 'standard' },
+      { id: 'minimal', ms: 'Minimalis', en: 'Minimal', tier: 'standard' },
+      { id: 'ats', ms: 'ATS Pro', en: 'ATS Pro', tier: 'ats' },
+    ];
+  }
+  price(tier) { return tier === 'ats' ? 'RM10' : 'RM5'; }
+
+  // =====================================================================
+  // ANALYTICS — paste your links here when ready. Empty = nothing is sent.
+  // Only anonymous counts are sent (no names, phone numbers or resume text).
+  // =====================================================================
+  get ANALYTICS() {
+    return {
+      // 1) Umami (private dashboard): umami.is → Add website → copy the "Website ID"
+      umamiWebsiteId: '',
+      umamiScript: 'https://cloud.umami.is/script.js',
+      // 2) Google Sheet counter: Apps Script → Deploy → Web app → copy the URL (ends with /exec)
+      sheetUrl: '',
+      // Show "X resume telah dijana" on Home only once the total reaches this number
+      showCounterFrom: 100,
+    };
+  }
+  // Events sent: app_open, start_build, template_pick, builder_step, preview_open,
+  // pdf_download, color_pick, lang_switch, sample_loaded, smart_suggest
+  track(name, data) {
+    const cfg = this.ANALYTICS;
+    const payload = Object.assign({ lang: this.state.lang, template: this.state.tpl }, data || {});
+    try { if (window.umami && typeof window.umami.track === 'function') window.umami.track(name, payload); } catch (e) {}
+    if (cfg.sheetUrl) {
+      try {
+        fetch(cfg.sheetUrl, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain' },
+          body: JSON.stringify(Object.assign({ event: name, time: new Date().toISOString() }, payload)) }).catch(() => {});
+      } catch (e) {}
+    }
+    if (!cfg.umamiWebsiteId && !cfg.sheetUrl) { try { console.info('[track]', name, payload); } catch (e) {} }
+  }
+  setupAnalytics() {
+    const cfg = this.ANALYTICS;
+    if (cfg.umamiWebsiteId && !document.getElementById('umami-script')) {
+      const sc = document.createElement('script');
+      sc.id = 'umami-script'; sc.defer = true; sc.src = cfg.umamiScript;
+      sc.setAttribute('data-website-id', cfg.umamiWebsiteId);
+      document.head.appendChild(sc);
+    }
+    if (cfg.sheetUrl) {
+      try {
+        fetch(cfg.sheetUrl).then((r) => r.json()).then((j) => {
+          const n = Number(j && j.downloads);
+          if (n >= 0) this.setState({ genCount: n });
+        }).catch(() => {});
+      } catch (e) {}
+    }
+    // wait a moment so Umami can load before the first event
+    setTimeout(() => this.track('app_open'), 1500);
+  }
+
+  // ---------- Template colours for Moden & Klasik (edit freely) ----------
+  // Moden:  bg = header, fg = header text, bar = heading mark & lines, tint = skill chips
+  // Klasik: side = sidebar, sideFg = sidebar text, sideHead = sidebar headings (bar is used for the main column)
+  get MODEN_COLORS() {
+    return [
+      { id: 'navy', ms: 'Biru Laut', en: 'Navy', bg: '#1F3A5F', fg: '#FFFFFF', bar: '#1F3A5F', tint: '#E8EEF5', side: '#1F3A5F', sideFg: '#E8EEF5', sideHead: '#9FC3EA' },
+      { id: 'softblue', ms: 'Biru Lembut', en: 'Soft Blue', bg: '#DCE8F5', fg: '#15171B', bar: '#3A6EA5', tint: '#EAF1F9', side: '#DCE8F5', sideFg: '#15171B', sideHead: '#2F5D8F' },
+      { id: 'emerald', ms: 'Hijau Zamrud', en: 'Emerald', bg: '#1E5E4E', fg: '#FFFFFF', bar: '#1E5E4E', tint: '#E6F0EC', side: '#1E5E4E', sideFg: '#E6F0EC', sideHead: '#A8D8C4' },
+      { id: 'sage', ms: 'Hijau Sage', en: 'Sage', bg: '#DDE7DD', fg: '#15171B', bar: '#5E7D5E', tint: '#EEF3EE', side: '#DDE7DD', sideFg: '#15171B', sideHead: '#4E6E4E' },
+      { id: 'charcoal', ms: 'Kelabu Arang', en: 'Charcoal', bg: '#2E3338', fg: '#FFFFFF', bar: '#2E3338', tint: '#EEEFF0', side: '#2E3338', sideFg: '#E9EAE6', sideHead: '#D9DCE0' },
+      { id: 'beige', ms: 'Krim', en: 'Cream', bg: '#EFE6D8', fg: '#15171B', bar: '#8A6E4B', tint: '#F6F1EA', side: '#EFE6D8', sideFg: '#15171B', sideHead: '#7A5E3C' },
+      { id: 'maroon', ms: 'Merah Maroon', en: 'Maroon', bg: '#6B2737', fg: '#FFFFFF', bar: '#6B2737', tint: '#F4E9EC', side: '#6B2737', sideFg: '#F4E9EC', sideHead: '#F2B8C4' },
+      { id: 'lime', ms: 'Hijau Limau', en: 'Lime', bg: '#B7F23A', fg: '#15171B', bar: '#15171B', tint: '#F1F2EE', side: '#15171B', sideFg: '#E9EAE6', sideHead: '#B7F23A' },
+    ];
+  }
+  modenColor() { const list = this.MODEN_COLORS; return list.find((c) => c.id === this.state.mColor) || list[0]; }
+
+  // ---------- ready-made duties (edit freely: ms = Bahasa Melayu, en = English) ----------
+  get DUTY_BANK() {
+    const d = (ms, en) => ({ ms, en });
+    return [
+      { id: 'admin', ms: 'Pentadbiran', en: 'Admin', items: [
+        d('Mengurus surat-menyurat, fail dan rekod pejabat', 'Managed office correspondence, filing and records'),
+        d('Menyediakan minit mesyuarat dan laporan bulanan', 'Prepared meeting minutes and monthly reports'),
+        d('Mengurus jadual dan temu janji pengurus', "Managed the manager's schedule and appointments"),
+        d('Memproses tuntutan, invois dan pesanan pembelian', 'Processed claims, invoices and purchase orders'),
+        d('Menyelenggara pangkalan data pekerja menggunakan Excel', 'Maintained the staff database in Excel'),
+        d('Menyelaras bekalan dan aset pejabat', 'Coordinated office supplies and assets'),
+      ] },
+      { id: 'sales', ms: 'Jualan', en: 'Sales', items: [
+        d('Mencapai 110% sasaran jualan bulanan', 'Achieved 110% of the monthly sales target'),
+        d('Membina dan menjaga hubungan dengan lebih 50 pelanggan tetap', 'Built and maintained relationships with 50+ regular customers'),
+        d('Menerangkan produk dan memberi cadangan kepada pelanggan', 'Explained products and recommended options to customers'),
+        d('Menyediakan sebut harga dan menyusul prospek baharu', 'Prepared quotations and followed up on new leads'),
+        d('Menyusun paparan produk dan promosi di kedai', 'Arranged product displays and in-store promotions'),
+        d('Merekod jualan harian dan melapor kepada penyelia', 'Recorded daily sales and reported to the supervisor'),
+      ] },
+      { id: 'cashier', ms: 'Juruwang', en: 'Cashier', items: [
+        d('Mengendalikan bayaran tunai, kad dan e-dompet dengan tepat', 'Handled cash, card and e-wallet payments accurately'),
+        d('Menutup kaunter dan mengimbangi wang tunai setiap hari', 'Closed the counter and balanced cash daily'),
+        d('Melayan purata 150 pelanggan sehari dengan mesra', 'Served an average of 150 customers a day'),
+        d('Mengurus pemulangan dan penukaran barang', 'Handled returns and exchanges'),
+        d('Memastikan harga dan tag promosi di rak adalah betul', 'Checked shelf prices and promotion tags were correct'),
+        d('Membantu menyusun stok dan menjaga kebersihan kaunter', 'Helped restock shelves and keep the counter tidy'),
+      ] },
+      { id: 'cs', ms: 'Khidmat Pelanggan', en: 'Customer Service', items: [
+        d('Menjawab pertanyaan pelanggan melalui telefon, WhatsApp dan e-mel', 'Answered customer enquiries by phone, WhatsApp and email'),
+        d('Menyelesaikan aduan pelanggan dalam masa 24 jam', 'Resolved customer complaints within 24 hours'),
+        d('Mengekalkan skor kepuasan pelanggan melebihi 90%', 'Kept customer satisfaction above 90%'),
+        d('Merekod maklum balas pelanggan dalam sistem', 'Logged customer feedback in the system'),
+        d('Menyelaras penghantaran dan status pesanan', 'Coordinated deliveries and order status updates'),
+        d('Membantu melatih staf baharu tentang prosedur layanan', 'Helped train new staff on service procedures'),
+      ] },
+      { id: 'accounts', ms: 'Akaun', en: 'Accounts', items: [
+        d('Merekod transaksi harian dalam sistem perakaunan (cth. SQL, AutoCount)', 'Recorded daily transactions in accounting software (e.g. SQL, AutoCount)'),
+        d('Menyediakan penyata penyesuaian bank bulanan', 'Prepared monthly bank reconciliations'),
+        d('Mengurus akaun belum bayar dan belum terima', 'Managed accounts payable and receivable'),
+        d('Menyediakan baucar bayaran dan resit', 'Prepared payment vouchers and receipts'),
+        d('Membantu menyediakan dokumen untuk audit tahunan', 'Assisted with documents for the annual audit'),
+        d('Memproses gaji, KWSP dan PERKESO pekerja', 'Processed staff payroll, EPF and SOCSO'),
+      ] },
+      { id: 'warehouse', ms: 'Gudang & Logistik', en: 'Warehouse', items: [
+        d('Menerima, memeriksa dan merekod stok masuk', 'Received, checked and recorded incoming stock'),
+        d('Menjalankan kiraan stok bulanan dengan ketepatan 99%', 'Ran monthly stock counts with 99% accuracy'),
+        d('Menyediakan pesanan untuk penghantaran tepat pada masanya', 'Prepared orders for on-time delivery'),
+        d('Mengendalikan forklift mengikut prosedur keselamatan', 'Operated a forklift following safety procedures'),
+        d('Menyusun gudang supaya barang mudah dicari', 'Organised the warehouse so items are easy to find'),
+      ] },
+      { id: 'fnb', ms: 'F&B', en: 'F&B', items: [
+        d('Mengambil pesanan dan menghidang makanan kepada pelanggan', 'Took orders and served food to customers'),
+        d('Menyediakan makanan mengikut standard resipi dan kebersihan', 'Prepared food to recipe and hygiene standards'),
+        d('Menjaga kebersihan dapur dan ruang makan', 'Kept the kitchen and dining area clean'),
+        d('Membantu mengurus stok bahan mentah', 'Helped manage raw ingredient stock'),
+        d('Mengendalikan kaunter bayaran semasa waktu puncak', 'Handled the payment counter during peak hours'),
+      ] },
+      { id: 'clerk', ms: 'Kerani', en: 'Clerk', items: [
+        d('Memasukkan data ke dalam sistem dengan pantas dan tepat', 'Entered data into the system quickly and accurately'),
+        d('Menyusun dan mengemas kini fail serta rekod jabatan', 'Organised and updated department files and records'),
+        d('Menjawab panggilan telefon dan menyampaikan mesej', 'Answered phone calls and passed on messages'),
+        d('Mengurus salinan, imbasan dan penghantaran dokumen', 'Handled photocopying, scanning and document dispatch'),
+        d('Merekod surat masuk dan keluar dalam daftar', 'Logged incoming and outgoing letters in the register'),
+        d('Membantu urusan kaunter dan pertanyaan orang awam', 'Assisted at the counter with public enquiries'),
+      ] },
+      { id: 'hr', ms: 'Sumber Manusia', en: 'HR', items: [
+        d('Mengurus proses pengambilan dari iklan jawatan hingga temu duga', 'Managed recruitment from job ads to interviews'),
+        d('Menyediakan surat tawaran dan rekod pekerja baharu', 'Prepared offer letters and new-hire records'),
+        d('Mengemas kini rekod cuti dan kehadiran pekerja', 'Updated staff leave and attendance records'),
+        d('Menyelaras program latihan untuk 40 orang pekerja', 'Coordinated training programmes for 40 staff'),
+        d('Membantu penyediaan gaji serta caruman KWSP, PERKESO dan SIP', 'Assisted with payroll and EPF, SOCSO and EIS contributions'),
+        d('Menjawab pertanyaan pekerja tentang polisi syarikat', 'Answered staff questions on company policies'),
+      ] },
+      { id: 'marketing', ms: 'Pemasaran', en: 'Marketing', items: [
+        d('Menghasilkan kandungan mingguan untuk Facebook, Instagram dan TikTok', 'Created weekly content for Facebook, Instagram and TikTok'),
+        d('Mengurus iklan berbayar dengan bajet RM5,000 sebulan', 'Managed paid ads with a RM5,000 monthly budget'),
+        d('Meningkatkan pengikut media sosial sebanyak 40% dalam 6 bulan', 'Grew social media followers by 40% in 6 months'),
+        d('Merancang dan melaksanakan kempen promosi bermusim', 'Planned and ran seasonal promotional campaigns'),
+        d('Menganalisis prestasi kempen menggunakan Meta Business Suite', 'Analysed campaign performance in Meta Business Suite'),
+        d('Mereka bentuk poster dan bahan promosi menggunakan Canva', 'Designed posters and promotional materials in Canva'),
+      ] },
+      { id: 'teacher', ms: 'Pendidikan', en: 'Education', items: [
+        d('Merancang dan mengajar 5 kelas setiap minggu', 'Planned and taught 5 classes each week'),
+        d('Menyediakan rancangan pengajaran harian dan bahan bantu mengajar', 'Prepared daily lesson plans and teaching aids'),
+        d('Meningkatkan peratus lulus kelas sebanyak 15%', 'Raised the class pass rate by 15%'),
+        d('Menjalankan kelas tambahan untuk murid yang memerlukan bimbingan', 'Ran extra classes for students who needed support'),
+        d('Mengurus aktiviti kokurikulum dan pertandingan sekolah', 'Managed co-curricular activities and school competitions'),
+        d('Berhubung dengan ibu bapa tentang perkembangan murid', 'Kept parents updated on student progress'),
+      ] },
+      { id: 'tech', ms: 'Teknikal', en: 'Technical', items: [
+        d('Menjalankan penyelenggaraan berkala ke atas mesin dan peralatan', 'Carried out scheduled maintenance on machines and equipment'),
+        d('Mengesan dan membaiki kerosakan elektrik dan mekanikal', 'Diagnosed and repaired electrical and mechanical faults'),
+        d('Mengurangkan masa henti mesin sebanyak 20%', 'Reduced machine downtime by 20%'),
+        d('Mematuhi prosedur keselamatan dan kesihatan pekerjaan', 'Followed occupational safety and health procedures'),
+        d('Merekod laporan kerja dan penggunaan alat ganti', 'Recorded job reports and spare parts usage'),
+        d('Memasang dan menguji peralatan baharu di tapak', 'Installed and tested new equipment on site'),
+      ] },
+      { id: 'it', ms: 'IT', en: 'IT', items: [
+        d('Memberi sokongan teknikal kepada lebih 50 pengguna', 'Provided technical support to 50+ users'),
+        d('Memasang dan mengemas kini komputer, pencetak dan perisian', 'Set up and updated computers, printers and software'),
+        d('Menyelenggara rangkaian, Wi-Fi dan sandaran data pejabat', 'Maintained the office network, Wi-Fi and data backups'),
+        d('Mengurus akaun e-mel dan akses pengguna', 'Managed email accounts and user access'),
+        d('Membangunkan laman web syarikat menggunakan WordPress', 'Built the company website using WordPress'),
+        d('Menyelesaikan 95% aduan teknikal dalam masa sehari', 'Resolved 95% of support tickets within one day'),
+      ] },
+      { id: 'driver', ms: 'Pemandu', en: 'Driver', items: [
+        d('Menghantar barang kepada pelanggan mengikut jadual', 'Delivered goods to customers on schedule'),
+        d('Merancang laluan penghantaran untuk menjimatkan masa dan minyak', 'Planned delivery routes to save time and fuel'),
+        d('Memastikan kenderaan sentiasa diselenggara dan bersih', 'Kept the vehicle maintained and clean'),
+        d('Memeriksa barang dan dokumen sebelum penghantaran', 'Checked goods and documents before delivery'),
+        d('Mengekalkan rekod pemanduan tanpa kemalangan', 'Maintained an accident-free driving record'),
+        d('Mengutip bayaran tunai dan menyerahkan resit', 'Collected cash payments and returned receipts'),
+      ] },
+      { id: 'intern', ms: 'Pelatih', en: 'Intern', items: [
+        d('Membantu jabatan dalam tugasan harian dan projek', 'Supported the department with daily tasks and projects'),
+        d('Menyediakan laporan dan pembentangan untuk penyelia', 'Prepared reports and presentations for my supervisor'),
+        d('Mempelajari sistem dan prosedur kerja syarikat', "Learned the company's systems and work procedures"),
+        d('Menjalankan kajian dan mengumpul data untuk projek', 'Carried out research and collected data for projects'),
+        d('Menghadiri mesyuarat dan menyediakan minit', 'Attended meetings and took minutes'),
+      ] },
+      { id: 'general', ms: 'Umum', en: 'General', items: [
+        d('Bekerjasama dengan pasukan untuk mencapai sasaran jabatan', 'Worked with the team to meet department targets'),
+        d('Menyiapkan tugasan tepat pada masanya walaupun di bawah tekanan', 'Delivered tasks on time, even under pressure'),
+        d('Mencadangkan penambahbaikan proses kerja yang diterima pengurusan', 'Suggested process improvements adopted by management'),
+        d('Dipilih sebagai Pekerja Terbaik Bulanan', 'Named Employee of the Month'),
+        d('Melatih dan membimbing rakan sekerja baharu', 'Trained and mentored new colleagues'),
+        d('Berhubung dengan jabatan lain untuk menyelaras kerja', 'Liaised with other departments to coordinate work'),
+      ] },
+    ];
+  }
+
+  // ---------- smart suggestions (free, no AI: matches the job title to the duty list) ----------
+  // Add words people might type for each job type. Lowercase only.
+  get JOB_KEYWORDS() {
+    return {
+      admin: ['admin', 'pentadbiran', 'tadbir', 'setiausaha', 'secretary', 'office', 'pejabat', 'koordinator', 'coordinator', 'pembantu am'],
+      sales: ['jualan', 'sales', 'jurujual', 'salesman', 'promoter', 'retail', 'runcit', 'kedai', 'perunding', 'consultant', 'ejen', 'agent'],
+      cashier: ['juruwang', 'cashier', 'kaunter', 'counter', 'kasir'],
+      cs: ['khidmat pelanggan', 'customer', 'pelanggan', 'service', 'call centre', 'call center', 'receptionist', 'penyambut tetamu', 'front desk', 'frontliner'],
+      accounts: ['akaun', 'account', 'accounts', 'kewangan', 'finance', 'akauntan', 'accountant', 'bookkeeper', 'audit', 'payroll', 'gaji', 'bendahari'],
+      warehouse: ['gudang', 'warehouse', 'stor', 'storekeeper', 'store keeper', 'logistik', 'logistics', 'inventori', 'inventory', 'stok', 'stock', 'forklift'],
+      fnb: ['f&b', 'fnb', 'restoran', 'restaurant', 'kafe', 'cafe', 'tukang masak', 'cook', 'chef', 'barista', 'pelayan', 'waiter', 'waitress', 'dapur', 'kitchen', 'makanan'],
+      clerk: ['kerani', 'clerk', 'data entry', 'kemasukan data'],
+      hr: ['sumber manusia', 'human resource', 'hr', 'pengambilan', 'recruitment', 'recruiter', 'personnel'],
+      marketing: ['pemasaran', 'marketing', 'media sosial', 'social media', 'digital', 'content', 'kandungan', 'pereka', 'designer', 'grafik', 'graphic', 'branding'],
+      teacher: ['guru', 'cikgu', 'teacher', 'pendidik', 'educator', 'pensyarah', 'lecturer', 'tutor', 'pengajar', 'tadika', 'prasekolah', 'kindergarten'],
+      tech: ['juruteknik', 'technician', 'teknikal', 'technical', 'jurutera', 'engineer', 'mekanik', 'mechanic', 'elektrik', 'electrician', 'wireman', 'penyelenggaraan', 'maintenance', 'kilang', 'factory', 'production', 'pengeluaran', 'operator'],
+      it: ['it', 'ict', 'komputer', 'computer', 'programmer', 'developer', 'sistem', 'system', 'network', 'rangkaian', 'software', 'perisian', 'web'],
+      driver: ['pemandu', 'driver', 'rider', 'penghantar', 'delivery', 'despatch', 'dispatch', 'lori', 'lorry', 'kurier', 'courier'],
+      intern: ['pelatih', 'intern', 'internship', 'latihan industri', 'praktikal', 'trainee'],
+      general: [],
+    };
+  }
+  smartSuggest(role) {
+    const lang = this.state.lang;
+    const text = ' ' + String(role).toLowerCase().replace(/[^a-z0-9&]+/g, ' ') + ' ';
+    const has = (kw) => text.indexOf(' ' + kw + ' ') >= 0 || (kw.length > 4 && text.indexOf(kw) >= 0);
+    const kws = this.JOB_KEYWORDS;
+    const scored = this.DUTY_BANK.map((c) => {
+      const words = (kws[c.id] || []).concat([c.ms.toLowerCase(), c.en.toLowerCase()]);
+      const score = words.reduce((s, w) => s + (has(w) ? w.length : 0), 0);
+      return { c, score };
+    }).filter((x) => x.score > 0 && x.c.id !== 'general').sort((a, b) => b.score - a.score).slice(0, 2);
+    const general = this.DUTY_BANK.find((c) => c.id === 'general');
+    let items = [];
+    if (scored.length === 2) {
+      // mix the two best job types: 1st, 2nd, 1st, 2nd…
+      const a = scored[0].c.items, b = scored[1].c.items;
+      for (let k = 0; k < Math.max(a.length, b.length); k++) { if (a[k]) items.push(a[k]); if (b[k]) items.push(b[k]); }
+    } else if (scored.length === 1) {
+      items = scored[0].c.items.slice();
+    }
+    const matched = items.length > 0;
+    items = items.slice(0, 8);
+    if (items.length < 8 && general) items = items.concat(general.items.slice(0, matched ? 2 : 6));
+    return { items: items.map((it) => it[lang] || it.ms), matched };
+  }
+  runAI() {
+    const t = this.T();
+    const role = String(this.state.aiRole || '').trim();
+    if (!role) { this.setState({ aiErr: t.aiNeedRole }); return; }
+    const r = this.smartSuggest(role);
+    this.setState({ aiItems: r.items, aiForRole: role, aiMatched: r.matched, aiErr: '' });
+    this.track('smart_suggest', { matched: r.matched });
+  }
+  toggleDuty(i, text) {
+    const exp = this.D().exp || [];
+    if (!exp[i]) return;
+    let a = String(exp[i].desc || '').split('\n');
+    const at = a.findIndex((x) => x.trim() === text);
+    if (at >= 0) { a.splice(at, 1); if (!a.length) a = ['']; }
+    else if (a.length && a[a.length - 1].trim() === '') a[a.length - 1] = text;
+    else a.push(text);
+    this.setListField('exp', i, 'desc', a.join('\n'));
+  }
+
+  // ---------- data ----------
+  blank() { return { name: '', title: '', phone: '', email: '', location: '', linkedin: '', summary: '', photo: '', exp: [this.blankExp()], edu: [this.blankEdu()], skills: '', languages: '' }; }
+  blankExp() { return { role: '', company: '', start: '', end: '', desc: '' }; }
+  blankEdu() { return { school: '', qual: '', year: '', note: '' }; }
+  sample(lang) {
+    if (lang === 'en') return {
+      name: 'Nur Aisyah binti Ahmad', title: 'Digital Marketing Executive', phone: '012-345 6789', email: 'aisyah.ahmad@email.com', location: 'Kemaman, Terengganu', linkedin: 'linkedin.com/in/nuraisyah', photo: '',
+      summary: 'Marketing executive with 4 years of experience running social media and e-commerce campaigns. Grows online sales through data-driven content strategy and close teamwork with sales.',
+      exp: [
+        { role: 'Digital Marketing Executive', company: 'Maju Jaya Sdn. Bhd.', start: 'Jan 2023', end: 'Present', desc: 'Managed Facebook & TikTok ad campaigns with a RM15,000 monthly budget\nGrew Shopee sales by 38% in 6 months\nSupervised 2 graphic design interns' },
+        { role: 'Marketing Assistant', company: 'Pantai Timur Mart', start: 'Jun 2021', end: 'Dec 2022', desc: 'Produced weekly social media content\nCoordinated seasonal sales promotions across 3 branches' },
+      ],
+      edu: [
+        { school: 'Universiti Malaysia Terengganu', qual: 'Bachelor of Business Administration (Marketing)', year: '2017 – 2021', note: 'CGPA 3.52 · Dean’s List' },
+        { school: 'SMK Sultan Ismail, Kemaman', qual: 'Sijil Pelajaran Malaysia (SPM)', year: '2016', note: '8A' },
+      ],
+      skills: 'Meta & TikTok Ads, Canva & Photoshop, Google Analytics, Copywriting, E-commerce (Shopee, Lazada)',
+      languages: 'Malay (Native), English (Fluent), Arabic (Basic)',
+    };
+    return {
+      name: 'Nur Aisyah binti Ahmad', title: 'Eksekutif Pemasaran Digital', phone: '012-345 6789', email: 'aisyah.ahmad@email.com', location: 'Kemaman, Terengganu', linkedin: 'linkedin.com/in/nuraisyah', photo: '',
+      summary: 'Eksekutif pemasaran dengan 4 tahun pengalaman mengurus kempen media sosial dan e-dagang. Berpengalaman meningkatkan jualan dalam talian melalui strategi kandungan berasaskan data.',
+      exp: [
+        { role: 'Eksekutif Pemasaran Digital', company: 'Maju Jaya Sdn. Bhd.', start: 'Jan 2023', end: 'Kini', desc: 'Mengurus kempen iklan Facebook & TikTok dengan bajet RM15,000 sebulan\nMeningkatkan jualan Shopee sebanyak 38% dalam 6 bulan\nMenyelia 2 orang pelatih reka grafik' },
+        { role: 'Pembantu Pemasaran', company: 'Pantai Timur Mart', start: 'Jun 2021', end: 'Dis 2022', desc: 'Menghasilkan kandungan media sosial mingguan\nMenyelaras promosi jualan bermusim di 3 cawangan' },
+      ],
+      edu: [
+        { school: 'Universiti Malaysia Terengganu', qual: 'Ijazah Sarjana Muda Pentadbiran Perniagaan (Pemasaran)', year: '2017 – 2021', note: 'CGPA 3.52 · Anugerah Dekan' },
+        { school: 'SMK Sultan Ismail, Kemaman', qual: 'Sijil Pelajaran Malaysia (SPM)', year: '2016', note: '8A' },
+      ],
+      skills: 'Pengiklanan Meta & TikTok, Canva & Photoshop, Google Analytics, Penulisan kandungan, E-dagang (Shopee, Lazada)',
+      languages: 'Bahasa Melayu (Natif), Bahasa Inggeris (Fasih), Bahasa Arab (Asas)',
+    };
+  }
+  D() { return this.state.d || this.sample(this.state.lang); }
+
+  setD(patch) { this.setState({ d: Object.assign({}, this.D(), patch) }); }
+  setF(k, v) { this.setD({ [k]: v }); }
+  setListField(list, i, k, v) {
+    const arr = this.D()[list].map((x, j) => (j === i ? Object.assign({}, x, { [k]: v }) : x));
+    this.setD({ [list]: arr });
+  }
+  showToast(msg) {
+    this.setState({ toast: msg });
+    clearTimeout(this._tt);
+    this._tt = setTimeout(() => this.setState({ toast: '' }), 2600);
+  }
+
+  // ---------- lifecycle: restore draft, paint resume previews ----------
+  componentDidMount() {
+    try {
+      const raw = window.localStorage.getItem('artelier-resume-v1');
+      if (raw) {
+        const o = JSON.parse(raw);
+        this.setState({ d: o.d || null, tpl: o.tpl || 'moden', lang: o.lang || 'ms', mColor: o.mColor || 'navy' });
+      }
+    } catch (e) {}
+    this.paint();
+    setTimeout(() => this.paint(), 400);
+    this.setupAnalytics();
+  }
+  componentDidUpdate() {
+    this.paint();
+    try { window.localStorage.setItem('artelier-resume-v1', JSON.stringify({ d: this.state.d, tpl: this.state.tpl, lang: this.state.lang, mColor: this.state.mColor })); } catch (e) {}
+  }
+  componentWillUnmount() { clearTimeout(this._tt); }
+
+  ensureCSS() {
+    if (document.getElementById('rv-css')) return;
+    const s = document.createElement('style');
+    s.id = 'rv-css';
+    // inside the app the preview is only a picture: links work in the downloaded PDF, not here
+    s.textContent = this.RESUME_CSS + '[data-rv] a{pointer-events:none;cursor:default}';
+    document.head.appendChild(s);
+  }
+  paint() {
+    this.ensureCSS();
+    const els = document.querySelectorAll('[data-rv]');
+    els.forEach((el) => {
+      const tpl = el.getAttribute('data-rv');
+      const crop = el.hasAttribute('data-rv-crop');
+      const w = el.clientWidth || 362;
+      const s = w / 794;
+      const html = this.resumeHTML(tpl);
+      const key = tpl + '|' + s + '|' + html.length + '|' + html;
+      if (el.__rvKey === key) return;
+      el.__rvKey = key;
+      el.innerHTML = '<div style="position:relative;width:794px;transform:scale(' + s + ');transform-origin:0 0;">' + html + '</div>';
+      if (crop) return;
+      const wrap = el.firstChild;
+      const pages = this.paginate(wrap, s);
+      el.style.height = Math.ceil(wrap.offsetHeight * s) + 'px';
+      const root = wrap.querySelector('.rv');
+      this._printHTML = root ? root.outerHTML : '';
+      this._printTpl = tpl;
+      if (pages !== this.state.pages) this.setState({ pages });
+    });
+  }
+
+  // ---------- A4 pages (matches the PDF: page 1 full-bleed, later pages have a top margin) ----------
+  get PAGE() { return { H: 1122, TOP: 60, SAFE: 52 }; }
+  pageStart(n) { const P = this.PAGE; return n <= 1 ? 0 : P.H + (n - 2) * (P.H - P.TOP); }
+  paginate(wrap, s) {
+    const P = this.PAGE;
+    const root = wrap.querySelector('.rv');
+    if (!root) return 1;
+    root.style.minHeight = '0px';
+    const rr = root.getBoundingClientRect();
+    const rootTop = rr.top;
+    s = rr.width / 794 || s; // real on-screen scale (includes any canvas zoom)
+    const y = (r) => ({ top: (r.top - rootTop) / s, bot: (r.bottom - rootTop) / s, left: r.left, right: r.right });
+    // Middle option: entries may split between pages line by line (each duty is its own piece),
+    // but a section heading or a job title never sits alone at the bottom of a page.
+    const sticky = (el) => el.classList.contains('sec-h') || el.classList.contains('job-top');
+    const blocks = Array.prototype.slice.call(root.querySelectorAll('.blk'));
+    for (let k = 0; k < blocks.length; k++) {
+      const b = blocks[k];
+      const r = y(b.getBoundingClientRect());
+      if (r.bot - r.top >= P.H - P.TOP - P.SAFE) continue; // taller than a page: let it split
+      let n = 1;
+      while (r.top >= this.pageStart(n + 1)) n++;
+      const limit = this.pageStart(n + 1) - P.SAFE;
+      if (r.bot <= limit) continue;
+      // push this line to the next page; take any heading / job title sitting right above it along
+      let target = b, tTop = r.top, cur0 = r;
+      for (let j = k - 1; j >= 0 && sticky(blocks[j]); j--) {
+        const pr = y(blocks[j].getBoundingClientRect());
+        const sameColumn = pr.left < cur0.right && pr.right > cur0.left;
+        if (!sameColumn || pr.top < this.pageStart(n) || cur0.top - pr.bot > 40) break;
+        target = blocks[j]; tTop = pr.top; cur0 = pr;
+      }
+      // a heading that is a cell of a 2-column grid row (Minimalis) moves the whole row
+      const parent = target.parentElement;
+      if (target.classList.contains('sec-h') && parent && window.getComputedStyle(parent).display === 'grid') {
+        tTop = y(parent.getBoundingClientRect()).top; target = parent;
+      }
+      // padding (not margin) so the gap never collapses into the gap above
+      const cur = parseFloat(window.getComputedStyle(target).paddingTop) || 0;
+      target.style.paddingTop = (cur + this.pageStart(n + 1) - tTop) + 'px';
+    }
+    const H = root.offsetHeight;
+    let pages = 1;
+    while (this.pageStart(pages + 1) < H - 4) pages++;
+    root.style.minHeight = (pages === 1 ? P.H - 1 : this.pageStart(pages + 1) - 2) + 'px';
+    // dashed "new page" markers (preview only, never printed)
+    const t = this.T();
+    for (let n = 2; n <= pages; n++) {
+      const m = document.createElement('div');
+      m.style.cssText = 'position:absolute;left:0;right:0;top:' + this.pageStart(n) + 'px;border-top:4px dashed #E0533D;pointer-events:none;';
+      m.innerHTML = '<span style="position:absolute;right:16px;top:-24px;background:#E0533D;color:#fff;font:700 24px/1 Arial,sans-serif;padding:10px 16px;border-radius:12px;">' + t.pageMark + ' ' + n + '</span>';
+      wrap.appendChild(m);
+    }
+    return pages;
+  }
+
+  // ---------- resume rendering (shared by preview + PDF) ----------
+  get RESUME_CSS() {
+    return `
+.rv{width:794px;min-height:1122px;background:#fff;color:#1d2026;font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:1.5;box-sizing:border-box;-webkit-print-color-adjust:exact;print-color-adjust:exact;text-align:left}
+.rv *{box-sizing:border-box;font-family:Arial,Helvetica,sans-serif}
+.rv h1,.rv p{margin:0}
+.rv a{color:inherit;text-decoration:none}
+.rv ul{margin:4px 0 0;padding-left:18px}
+.rv li{margin:2px 0}
+.rv .job{margin-bottom:14px}
+.rv .job:last-child{margin-bottom:0}
+.rv .job-top{display:flex;justify-content:space-between;gap:12px;align-items:baseline}
+.rv .job-role{font-weight:700;font-size:15px}
+.rv .job-co{color:#4a4f57;font-weight:700}
+.rv .job-date{font-size:12.5px;color:#5f646c;white-space:nowrap}
+.rv .job-note{font-size:12.5px;color:#5f646c;margin-top:1px}
+.rv-moden .m-head{background:var(--m-bg);color:var(--m-fg);padding:42px 48px;display:flex;align-items:center;justify-content:space-between;gap:28px}
+.rv-moden h1{font-size:34px;font-weight:700;line-height:1.1;letter-spacing:-.3px;color:var(--m-fg)}
+.rv-moden .m-title{font-size:17px;font-weight:700;margin-top:6px;color:var(--m-fg)}
+.rv-moden .m-contact{display:flex;flex-wrap:wrap;gap:4px 16px;margin-top:14px;font-size:12.5px;color:var(--m-fg);opacity:.85}
+.rv-moden .m-photo{width:124px;height:124px;border-radius:50%;object-fit:cover;border:4px solid #fff;flex:none}
+.rv-moden .m-body{display:grid;grid-template-columns:1fr 220px;gap:30px;padding:34px 48px 44px}
+.rv-moden .sec{margin-bottom:22px}
+.rv-moden .sec-h{font-size:13px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;color:#15171B;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.rv-moden .sec-h:before{content:'';width:14px;height:4px;border-radius:2px;background:var(--m-bar)}
+.rv-moden .side{border-left:1px solid #ECECE9;padding-left:22px}
+.rv-moden .chip{display:inline-block;background:var(--m-tint);border-radius:6px;padding:4px 9px;margin:0 5px 6px 0;font-size:12.5px;font-weight:700}
+.rv-moden .lang{margin-bottom:5px}
+.rv-klasik{display:grid;grid-template-columns:262px 1fr}
+.rv-klasik .k-side{background:var(--k-side);color:var(--k-fg);padding:44px 26px}
+.rv-klasik .k-photo{width:150px;height:150px;border-radius:18px;object-fit:cover;display:block;margin:0 auto 28px}
+.rv-klasik .k-side .sec{margin-bottom:26px}
+.rv-klasik .k-side .sec-h{color:var(--k-head);font-size:12.5px;font-weight:700;letter-spacing:1.4px;text-transform:uppercase;margin:0 0 10px}
+.rv-klasik .k-item{font-size:12.5px;margin-bottom:6px;word-break:break-word}
+.rv-klasik .k-main{padding:46px 40px}
+.rv-klasik h1{font-size:32px;font-weight:700;line-height:1.1;letter-spacing:-.3px}
+.rv-klasik .k-title{font-size:16px;font-weight:700;color:#4a4f57;margin-top:6px;padding-bottom:20px;border-bottom:2px solid var(--m-bar);margin-bottom:24px}
+.rv-klasik .k-main .sec{margin-bottom:22px}
+.rv-klasik .k-main .sec-h{color:var(--m-bar);font-size:14px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:10px}
+.rv-minimal{padding:56px 60px;color:#222}
+.rv-minimal .n-head{text-align:center;padding-bottom:22px;border-bottom:1px solid #222;margin-bottom:26px}
+.rv-minimal .n-photo{width:96px;height:96px;border-radius:50%;object-fit:cover;margin:0 auto 14px;display:block}
+.rv-minimal h1{font-size:30px;font-weight:400;letter-spacing:3px;text-transform:uppercase}
+.rv-minimal .n-title{font-style:italic;font-size:16px;margin-top:6px;color:#444}
+.rv-minimal .n-contact{font-size:12.5px;color:#555;margin-top:12px;display:flex;justify-content:center;flex-wrap:wrap;gap:4px 14px}
+.rv-minimal .sec{display:grid;grid-template-columns:130px 1fr;gap:20px;margin-bottom:22px}
+.rv-minimal .sec-h{font-size:11.5px;letter-spacing:2px;text-transform:uppercase;font-weight:700;padding-top:3px;align-self:start}
+.rv-ats{padding:56px 60px;color:#000}
+.rv-ats h1{font-size:24px;font-weight:700}
+.rv-ats .a-title{font-size:15px;margin-top:2px}
+.rv-ats .a-contact{margin-top:6px;font-size:13px}
+.rv-ats .sec{margin-top:18px}
+.rv-ats .sec-h{font-size:14px;font-weight:700;text-transform:uppercase;border-bottom:1px solid #000;padding-bottom:3px;margin-bottom:8px}
+.rv-ats .job-co,.rv-ats .job-date,.rv-ats .job-note{color:#000}
+`;
+  }
+  esc(s) { return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
+  // split on commas, but not commas inside brackets: "E-dagang (Shopee, Lazada)" stays one item
+  splitList(s) { return String(s || '').split(/,(?![^()]*\))/).map((x) => x.trim()).filter(Boolean); }
+
+  resumeHTML(tpl) {
+    const d = this.D();
+    const t = this.T();
+    const e = (s) => this.esc(s);
+    const accent = this.props.accentColor || '#B7F23A';
+    const photo = d.photo && String(d.photo).indexOf('data:image/') === 0 ? d.photo : '';
+    const name = e(d.name || t.yourName);
+    const title = e(d.title || t.yourTitle);
+    // contact details become clickable links in the PDF (phone → call, email → mail, LinkedIn/portfolio → website)
+    const link = (href, label) => '<a href="' + e(href) + '" target="_blank" rel="noopener">' + e(label) + '</a>';
+    const contacts = [];
+    const phone = String(d.phone || '').trim(), email = String(d.email || '').trim(), loc = String(d.location || '').trim(), web = String(d.linkedin || '').trim();
+    if (phone) contacts.push(link('tel:' + phone.replace(/[^\d+]/g, ''), phone));
+    if (email) contacts.push(/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) ? link('mailto:' + email, email) : e(email));
+    if (loc) contacts.push(e(loc));
+    if (web) contacts.push(/^[\w.-]+\.[a-z]{2,}(\/\S*)?$/i.test(web.replace(/^https?:\/\//i, '')) ? link(/^https?:\/\//i.test(web) ? web : 'https://' + web, web.replace(/^https?:\/\/(www\.)?/i, '')) : e(web));
+    const skills = this.splitList(d.skills).map(e);
+    const langs = this.splitList(d.languages).map(e);
+    const bullets = (txt) => {
+      const ls = String(txt || '').split('\n').map((x) => x.replace(/^[-•*]\s*/, '').trim()).filter(Boolean);
+      return ls.length ? '<ul>' + ls.map((l) => '<li class="blk">' + e(l) + '</li>').join('') + '</ul>' : '';
+    };
+    const dates = (a, b) => [a, b].filter((x) => x && String(x).trim()).map(e).join(' – ');
+    const exp = (d.exp || []).filter((x) => x.role || x.company).map((x) =>
+      '<div class="job"><div class="job-top blk"><div><span class="job-role">' + e(x.role) + '</span>' +
+      (x.company ? ' <span class="job-co">' + (tpl === 'ats' ? '| ' : '· ') + e(x.company) + '</span>' : '') +
+      '</div><div class="job-date">' + dates(x.start, x.end) + '</div></div>' + bullets(x.desc) + '</div>').join('');
+    const edu = (d.edu || []).filter((x) => x.school || x.qual).map((x) =>
+      '<div class="job"><div class="job-top blk"><div><span class="job-role">' + e(x.qual) + '</span></div><div class="job-date">' + e(x.year) + '</div></div>' +
+      '<div class="job-co blk">' + e(x.school) + '</div>' + (x.note ? '<div class="job-note blk">' + e(x.note) + '</div>' : '') + '</div>').join('');
+    // "blk" marks pieces that must not be cut between two PDF pages; sec(…, true) when the body already holds blk items
+    const sec = (h, body, itemsAreBlocks) => (body ? '<div class="sec"><div class="sec-h blk">' + h + '</div><div' + (itemsAreBlocks ? '' : ' class="blk"') + '>' + body + '</div></div>' : '');
+    const summary = d.summary ? '<p>' + e(d.summary) + '</p>' : '';
+    const mc = this.modenColor();
+    const root = (cls, inner) => '<div class="rv ' + cls + '" style="--rv-accent:' + e(accent) + ';--m-bg:' + mc.bg + ';--m-fg:' + mc.fg + ';--m-bar:' + mc.bar + ';--m-tint:' + mc.tint + ';--k-side:' + mc.side + ';--k-fg:' + mc.sideFg + ';--k-head:' + mc.sideHead + '">' + inner + '</div>';
+
+    if (tpl === 'klasik') {
+      const side =
+        (photo ? '<img class="k-photo" src="' + photo + '" alt="">' : '') +
+        sec(t.hContact, contacts.map((c) => '<div class="k-item blk">' + c + '</div>').join(''), true) +
+        sec(t.hSkills, skills.map((c) => '<div class="k-item blk">• ' + c + '</div>').join(''), true) +
+        sec(t.hLangs, langs.map((c) => '<div class="k-item blk">' + c + '</div>').join(''), true);
+      const main = '<h1>' + name + '</h1><div class="k-title">' + title + '</div>' +
+        sec(t.hProfile, summary) + sec(t.hExp, exp, true) + sec(t.hEdu, edu, true);
+      return root('rv-klasik', '<div class="k-side">' + side + '</div><div class="k-main">' + main + '</div>');
+    }
+    if (tpl === 'minimal') {
+      const head = '<div class="n-head">' + (photo ? '<img class="n-photo" src="' + photo + '" alt="">' : '') +
+        '<h1>' + name + '</h1><div class="n-title">' + title + '</div><div class="n-contact">' + contacts.map((c) => '<span>' + c + '</span>').join('') + '</div></div>';
+      return root('rv-minimal', head + sec(t.hProfile, summary) + sec(t.hExp, exp, true) + sec(t.hEdu, edu, true) +
+        sec(t.hSkills, skills.join(' · ')) + sec(t.hLangs, langs.join(' · ')));
+    }
+    if (tpl === 'ats') {
+      const head = '<h1>' + name + '</h1><div class="a-title">' + title + '</div><div class="a-contact">' + contacts.join(' | ') + '</div>';
+      return root('rv-ats', head + sec(t.hProfile, summary) + sec(t.hExp, exp, true) + sec(t.hEdu, edu, true) +
+        sec(t.hSkills, skills.join(', ')) + sec(t.hLangs, langs.join(', ')));
+    }
+    // moden (default)
+    const head = '<div class="m-head"><div><h1>' + name + '</h1><div class="m-title">' + title + '</div><div class="m-contact">' +
+      contacts.map((c) => '<span>' + c + '</span>').join('') + '</div></div>' + (photo ? '<img class="m-photo" src="' + photo + '" alt="">' : '') + '</div>';
+    const body = '<div class="m-body"><div>' + sec(t.hProfile, summary) + sec(t.hExp, exp, true) + sec(t.hEdu, edu, true) + '</div><div class="side">' +
+      sec(t.hSkills, skills.map((c) => '<span class="chip">' + c + '</span>').join('')) +
+      sec(t.hLangs, langs.map((c) => '<div class="lang blk">' + c + '</div>').join(''), true) + '</div></div>';
+    return root('rv-moden', head + body);
+  }
+
+  printDoc(autoPrint) {
+    const d = this.D();
+    const docTitle = this.esc((d.name || 'Resume') + ' - Resume');
+    const auto = autoPrint ? '<script>window.addEventListener("load",function(){setTimeout(function(){window.print()},400)})<\/script>' : '';
+    // use the paginated preview (same page breaks the user saw); fall back to a fresh render
+    const body = (this._printHTML && this._printTpl === this.state.tpl) ? this._printHTML : this.resumeHTML(this.state.tpl);
+    const P = this.PAGE;
+    return '<!doctype html><html><head><meta charset="utf-8"><title>' + docTitle + '</title>' +
+      '<style>@page{size:A4;margin:' + P.TOP + 'px 0 0}@page:first{margin:0}html,body{margin:0;background:#fff}' + this.RESUME_CSS + '</style>' + auto + '</head><body>' +
+      body + '</body></html>';
+  }
+  // Old method (browser print window) — kept as a backup if the direct download fails
+  printFallback() {
+    const t = this.T();
+    let w = null;
+    try { w = window.open('', '_blank'); } catch (err) { w = null; }
+    if (w && w.document) {
+      w.document.open();
+      w.document.write(this.printDoc(true));
+      w.document.close();
+    } else {
+      const f = document.createElement('iframe');
+      f.style.cssText = 'position:fixed;right:0;bottom:0;width:0;height:0;border:0;';
+      document.body.appendChild(f);
+      f.onload = () => { setTimeout(() => { try { f.contentWindow.focus(); f.contentWindow.print(); } catch (err) {} }, 500); setTimeout(() => f.remove(), 60000); };
+      f.srcdoc = this.printDoc(false);
+    }
+    this.showToast(t.printing + ' ' + t.printHint);
+  }
+
+  // ---------- Direct PDF download (one tap, real text, clickable links) ----------
+  async download(method) {
+    const t = this.T();
+    if (this.state.pdfBusy) return;
+    const hasColor = this.state.tpl === 'moden' || this.state.tpl === 'klasik';
+    const meta = { color: hasColor ? this.modenColor().id : 'none', pages: this.state.pages || 1 };
+    const count = () => { if (typeof this.state.genCount === 'number') this.setState({ genCount: this.state.genCount + 1 }); };
+    if (method === 'print') { this.printFallback(); this.track('pdf_download', Object.assign({ method: 'print' }, meta)); count(); return; }
+    this.setState({ pdfBusy: true });
+    try {
+      const blob = await this.buildPdf();
+      const base = String(this.D().name || 'Resume').replace(/[^A-Za-z0-9 _-]/g, '').trim().replace(/\s+/g, '_') || 'Resume';
+      const st = await this.saveBlob(blob, base + '_Resume.pdf');
+      if (st === 'saved') { this.showToast(t.pdfSaved); this.track('pdf_download', Object.assign({ method: 'direct' }, meta)); count(); }
+    } catch (e) {
+      // anything unexpected (no internet for the PDF library, unusual characters…) → old print method
+      this.printFallback();
+      this.track('pdf_download', Object.assign({ method: 'print_fallback' }, meta)); count();
+    } finally {
+      this.setState({ pdfBusy: false });
+    }
+  }
+  loadJsPDF() {
+    if (window.jspdf && window.jspdf.jsPDF) return Promise.resolve(window.jspdf.jsPDF);
+    if (this._jspdfP) return this._jspdfP;
+    this._jspdfP = new Promise((res, rej) => {
+      const s = document.createElement('script');
+      s.src = 'vendor/jspdf.umd.min.js';
+      s.onload = () => (window.jspdf && window.jspdf.jsPDF ? res(window.jspdf.jsPDF) : rej(new Error('jspdf missing')));
+      s.onerror = () => { this._jspdfP = null; rej(new Error('jspdf load failed')); };
+      document.head.appendChild(s);
+    });
+    return this._jspdfP;
+  }
+  parseColor(str) {
+    const m = String(str || '').match(/rgba?\(([^)]+)\)/);
+    if (!m) return null;
+    const p = m[1].split(/[\s,\/]+/).filter(Boolean).map(Number);
+    const a = p.length > 3 ? p[3] : 1;
+    if (!(a > 0)) return null;
+    const mix = (c) => Math.round(c * a + 255 * (1 - a));
+    return [mix(p[0]), mix(p[1]), mix(p[2])];
+  }
+  async saveBlob(blob, filename) {
+    // Inside the Claude viewer use its download prompt; on a normal website use a plain download link
+    const c = window.claude;
+    if (c && typeof c.use === 'function') {
+      try {
+        const dl = await Promise.race([c.use('downloads'), new Promise((r) => setTimeout(() => r(null), 1500))]);
+        if (dl) { await dl.save({ filename, data: blob }); return 'saved'; }
+      } catch (e) { if (e && e.code === 'declined') return 'declined'; }
+    }
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = filename; a.rel = 'noopener';
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 60000);
+    return 'saved';
+  }
+  // Draws the exact preview layout into a real PDF: text stays text (ATS-readable), links stay clickable.
+  async buildPdf() {
+    const JsPDF = await this.loadJsPDF();
+    const html = this._printHTML && this._printTpl === this.state.tpl ? this._printHTML : '';
+    if (!html) throw new Error('no preview');
+    this.ensureCSS();
+    const host = document.createElement('div');
+    host.style.cssText = 'position:fixed;left:-20000px;top:0;width:794px;pointer-events:none;';
+    host.innerHTML = html;
+    document.body.appendChild(host);
+    try {
+      const root = host.querySelector('.rv');
+      // standard PDF fonts only cover Latin characters; anything else → print method
+      if (/[^\u0000-ÿ–—‘’“”•…€]/.test(root.textContent)) throw new Error('charset');
+      const imgs = Array.prototype.slice.call(root.querySelectorAll('img'));
+      await Promise.all(imgs.map((im) => (im.complete ? Promise.resolve() : new Promise((r) => { im.onload = im.onerror = r; }))));
+      const R = root.getBoundingClientRect();
+      const P = this.PAGE;
+      const H = root.offsetHeight;
+      let pages = 1;
+      while (this.pageStart(pages + 1) < H - 4) pages++;
+      const doc = new JsPDF({ unit: 'pt', format: 'a4', compress: true });
+      const k = doc.internal.pageSize.getWidth() / 794;
+      for (let i = 1; i < pages; i++) doc.addPage();
+      const pageOf = (y) => { let n = 1; while (n < pages && y >= this.pageStart(n + 1)) n++; return n; };
+      const offY = (n) => (n === 1 ? 0 : P.TOP - this.pageStart(n));
+      const box = (el) => { const r = el.getBoundingClientRect(); return { x: r.left - R.left, y: r.top - R.top, w: r.width, h: r.height }; };
+      const fillRect = (x, y, w, h, rgb, radius) => {
+        for (let n = pageOf(y); n <= pages; n++) {
+          const top = Math.max(y, this.pageStart(n));
+          const bot = Math.min(y + h, n < pages ? this.pageStart(n + 1) : Infinity);
+          if (bot > top) {
+            doc.setPage(n); doc.setFillColor(rgb[0], rgb[1], rgb[2]);
+            const yy = (top + offY(n)) * k;
+            if (radius > 0 && top === y && bot === y + h) doc.roundedRect(x * k, yy, w * k, (bot - top) * k, radius * k, radius * k, 'F');
+            else doc.rect(x * k, yy, w * k, (bot - top) * k, 'F');
+          }
+          if (n < pages && y + h <= this.pageStart(n + 1)) break;
+        }
+      };
+      // 1) backgrounds, borders, little heading bars
+      const els = [root].concat(Array.prototype.slice.call(root.querySelectorAll('*')));
+      els.forEach((el) => {
+        if (el.tagName === 'IMG') return;
+        const cs = window.getComputedStyle(el);
+        const b = box(el);
+        if (!b.w || !b.h) return;
+        const bg = this.parseColor(cs.backgroundColor);
+        if (bg && !(el === root && bg[0] === 255 && bg[1] === 255 && bg[2] === 255)) {
+          fillRect(b.x, b.y, b.w, b.h, bg, Math.min(parseFloat(cs.borderTopLeftRadius) || 0, b.h / 2, b.w / 2));
+        }
+        const side = (s) => (cs['border' + s + 'Style'] !== 'none' ? { w: parseFloat(cs['border' + s + 'Width']) || 0, c: this.parseColor(cs['border' + s + 'Color']) } : { w: 0 });
+        const T = side('Top'), B = side('Bottom'), L = side('Left'), Rt = side('Right');
+        if (T.w && T.c) fillRect(b.x, b.y, b.w, T.w, T.c, 0);
+        if (B.w && B.c) fillRect(b.x, b.y + b.h - B.w, b.w, B.w, B.c, 0);
+        if (L.w && L.c) fillRect(b.x, b.y, L.w, b.h, L.c, 0);
+        if (Rt.w && Rt.c) fillRect(b.x + b.w - Rt.w, b.y, Rt.w, b.h, Rt.c, 0);
+        const bf = window.getComputedStyle(el, '::before');
+        if (bf && bf.content && bf.content !== 'none' && bf.content !== 'normal') {
+          const bw = parseFloat(bf.width) || 0, bh = parseFloat(bf.height) || 0, bc = this.parseColor(bf.backgroundColor);
+          const pt = parseFloat(cs.paddingTop) || 0, pb = parseFloat(cs.paddingBottom) || 0;
+          if (bw && bh && bc) fillRect(b.x, b.y + pt + (b.h - pt - pb - bh) / 2, bw, bh, bc, 0);
+        }
+      });
+      // 2) photo (rounded / circle crop, with its border)
+      imgs.forEach((im) => {
+        if (!im.naturalWidth) return;
+        const b = box(im);
+        const cs = window.getComputedStyle(im);
+        const S = 3, cw = Math.round(b.w * S), ch = Math.round(b.h * S);
+        const cv = document.createElement('canvas'); cv.width = cw; cv.height = ch;
+        const ctx = cv.getContext('2d');
+        const rs = String(cs.borderTopLeftRadius);
+        const rad = Math.min(rs.indexOf('%') > 0 ? b.w * parseFloat(rs) / 100 : parseFloat(rs) || 0, b.w / 2, b.h / 2) * S;
+        const path = () => {
+          ctx.beginPath(); ctx.moveTo(rad, 0); ctx.lineTo(cw - rad, 0); ctx.arcTo(cw, 0, cw, rad, rad); ctx.lineTo(cw, ch - rad); ctx.arcTo(cw, ch, cw - rad, ch, rad);
+          ctx.lineTo(rad, ch); ctx.arcTo(0, ch, 0, ch - rad, rad); ctx.lineTo(0, rad); ctx.arcTo(0, 0, rad, 0, rad); ctx.closePath();
+        };
+        ctx.save(); path(); ctx.clip();
+        const ir = im.naturalWidth / im.naturalHeight, br = cw / ch;
+        let sw = im.naturalWidth, sh = im.naturalHeight, sx = 0, sy = 0;
+        if (ir > br) { sw = sh * br; sx = (im.naturalWidth - sw) / 2; } else { sh = sw / br; sy = (im.naturalHeight - sh) / 2; }
+        ctx.drawImage(im, sx, sy, sw, sh, 0, 0, cw, ch);
+        const bw = parseFloat(cs.borderTopWidth) || 0, bc = this.parseColor(cs.borderTopColor);
+        if (bw && bc && cs.borderTopStyle !== 'none') { path(); ctx.lineWidth = bw * S * 2; ctx.strokeStyle = 'rgb(' + bc.join(',') + ')'; ctx.stroke(); }
+        ctx.restore();
+        const n = pageOf(b.y); doc.setPage(n);
+        doc.addImage(cv.toDataURL('image/png'), 'PNG', b.x * k, (b.y + offY(n)) * k, b.w * k, b.h * k);
+      });
+      // 3) bullet dots for duties
+      Array.prototype.forEach.call(root.querySelectorAll('li'), (li) => {
+        const b = box(li); const cs = window.getComputedStyle(li);
+        const fs = parseFloat(cs.fontSize) || 14; const lh = parseFloat(cs.lineHeight) || fs * 1.5;
+        const n = pageOf(b.y); const c = this.parseColor(cs.color) || [0, 0, 0];
+        doc.setPage(n); doc.setFillColor(c[0], c[1], c[2]);
+        const pt = parseFloat(cs.paddingTop) || 0;
+        doc.circle((b.x - 11) * k, (b.y + pt + lh / 2 + offY(n)) * k, 1.8 * k, 'F');
+      });
+      // 4) text, word by word at its exact position
+      const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+      const range = document.createRange();
+      let node;
+      while ((node = walker.nextNode())) {
+        const txt = node.nodeValue;
+        if (!txt || !txt.trim()) continue;
+        const pe = node.parentElement; const cs = window.getComputedStyle(pe);
+        const fs = parseFloat(cs.fontSize) || 14;
+        const bold = (parseInt(cs.fontWeight, 10) || 400) >= 600, ital = cs.fontStyle === 'italic';
+        let op = 1; for (let a = pe; a && a !== host; a = a.parentElement) op *= parseFloat(window.getComputedStyle(a).opacity) || 1;
+        let c = this.parseColor(cs.color) || [0, 0, 0];
+        if (op < 1) { const bgc = [255, 255, 255]; let p = pe; while (p && p !== host) { const pb = this.parseColor(window.getComputedStyle(p).backgroundColor); if (pb) { bgc[0] = pb[0]; bgc[1] = pb[1]; bgc[2] = pb[2]; break; } p = p.parentElement; } c = c.map((v, i) => Math.round(v * op + bgc[i] * (1 - op))); }
+        doc.setFont('helvetica', bold && ital ? 'bolditalic' : bold ? 'bold' : ital ? 'italic' : 'normal');
+        doc.setFontSize(fs * k);
+        doc.setTextColor(c[0], c[1], c[2]);
+        doc.setCharSpace((parseFloat(cs.letterSpacing) || 0) * k);
+        const up = cs.textTransform === 'uppercase';
+        const re = /\S+/g; let m;
+        while ((m = re.exec(txt))) {
+          range.setStart(node, m.index); range.setEnd(node, m.index + m[0].length);
+          const rects = range.getClientRects();
+          if (!rects.length) continue;
+          const rr = rects[0];
+          const top = rr.top - R.top;
+          const base = top + (rr.height - 1.117 * fs) / 2 + 0.905 * fs; // Arial/Helvetica ascent & descent
+          const n = pageOf(top); doc.setPage(n);
+          doc.text(up ? m[0].toUpperCase() : m[0], (rr.left - R.left) * k, (base + offY(n)) * k, { baseline: 'alphabetic' });
+        }
+      }
+      doc.setCharSpace(0);
+      // 5) clickable links (phone, email, LinkedIn)
+      Array.prototype.forEach.call(root.querySelectorAll('a[href]'), (a) => {
+        const b = box(a); const n = pageOf(b.y); doc.setPage(n);
+        doc.link(b.x * k, (b.y + offY(n)) * k, b.w * k, b.h * k, { url: a.getAttribute('href') });
+      });
+      doc.setProperties({ title: (this.D().name || 'Resume') + ' - Resume', creator: 'ArtelierIrfan Resume Builder' });
+      return doc.output('blob');
+    } finally {
+      host.remove();
+    }
+  }
+
+  onPhoto(ev) {
+    const t = this.T();
+    const file = ev && ev.target && ev.target.files && ev.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => {
+      const img = new Image();
+      img.onload = () => {
+        const max = 480;
+        const sc = Math.min(1, max / Math.max(img.width, img.height));
+        const c = document.createElement('canvas');
+        c.width = Math.round(img.width * sc); c.height = Math.round(img.height * sc);
+        c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+        this.setF('photo', c.toDataURL('image/jpeg', 0.86));
+      };
+      img.onerror = () => this.showToast(t.photoErr);
+      img.src = reader.result;
+    };
+    reader.onerror = () => this.showToast(t.photoErr);
+    reader.readAsDataURL(file);
+    ev.target.value = '';
+  }
+
+  field(label, value, onChange, opts) {
+    const o = opts || {};
+    return { label, value: value || '', placeholder: o.ph || '', onChange, multi: !!o.multi, single: !o.multi, span: o.half ? 'span 1' : 'span 2' };
+  }
+
+  // ---------- template values ----------
+  renderVals() {
+    const t = this.T();
+    const lang = this.state.lang;
+    const d = this.D();
+    const accent = this.props.accentColor || '#B7F23A';
+    const screen = this.state.screen;
+    const step = this.state.step;
+    const tpl = this.state.tpl;
+    const go = (s) => () => this.setState({ screen: s });
+
+    const templates = this.TEMPLATES.map((x) => {
+      const active = x.id === tpl;
+      return {
+        id: x.id, name: x[lang] || x.ms, price: this.price(x.tier),
+        tierLabel: x.tier === 'ats' ? 'ATS' : t.standard,
+        badgeBg: x.tier === 'ats' ? '#15171B' : accent, badgeFg: x.tier === 'ats' ? '#fff' : '#15171B',
+        border: active ? '2px solid #15171B' : '1px solid #ECECE9',
+        chipBg: active ? '#15171B' : '#fff', chipFg: active ? '#fff' : '#15171B',
+        pick: () => { this.setState({ tpl: x.id, screen: 'build', step: 0 }); this.track('template_pick', { template: x.id, from: 'home' }); this.track('start_build', { template: x.id }); },
+        choose: () => { this.setState({ tpl: x.id }); this.track('template_pick', { template: x.id, from: 'preview' }); },
+      };
+    });
+    const cur = this.TEMPLATES.find((x) => x.id === tpl) || this.TEMPLATES[0];
+
+    const stepTitles = [t.s0, t.s1, t.s2, t.s3];
+    const stepBars = stepTitles.map((_, i) => ({ bg: i <= step ? '#15171B' : '#DEDFDA', go: () => this.setState({ step: i }) }));
+
+    const personalFields = [
+      this.field(t.name, d.name, (ev) => this.setF('name', ev.target.value), { ph: 'Nur Aisyah binti Ahmad' }),
+      this.field(t.title, d.title, (ev) => this.setF('title', ev.target.value), { ph: lang === 'en' ? 'Admin Executive' : 'Eksekutif Pentadbiran' }),
+      this.field(t.phone, d.phone, (ev) => this.setF('phone', ev.target.value), { ph: '012-345 6789', half: true }),
+      this.field(t.location, d.location, (ev) => this.setF('location', ev.target.value), { ph: 'Kemaman, Terengganu', half: true }),
+      this.field(t.email, d.email, (ev) => this.setF('email', ev.target.value), { ph: 'nama@email.com' }),
+      this.field(t.linkedin, d.linkedin, (ev) => this.setF('linkedin', ev.target.value), { ph: 'linkedin.com/in/nama' }),
+      this.field(t.summary, d.summary, (ev) => this.setF('summary', ev.target.value), { ph: t.summaryPh, multi: true }),
+    ];
+
+    const listKey = step === 1 ? 'exp' : 'edu';
+    const listItems = (step === 1 || step === 2) ? (d[listKey] || []).map((x, i) => {
+      const sf = (k) => (ev) => this.setListField(listKey, i, k, ev.target.value);
+      const fields = listKey === 'exp' ? [
+        this.field(t.role, x.role, sf('role')),
+        this.field(t.company, x.company, sf('company')),
+        this.field(t.start, x.start, sf('start'), { ph: 'Jan 2023', half: true }),
+        this.field(t.end, x.end, sf('end'), { ph: lang === 'en' ? 'Present' : 'Kini', half: true }),
+      ] : [
+        this.field(t.qual, x.qual, sf('qual')),
+        this.field(t.school, x.school, sf('school')),
+        this.field(t.year, x.year, sf('year'), { ph: '2017 – 2021', half: true }),
+        this.field(t.note, x.note, sf('note'), { ph: 'CGPA 3.50', half: true }),
+      ];
+      const isExp = listKey === 'exp';
+      const lines = isExp ? String(x.desc || '').split('\n') : [];
+      const setLines = (arr) => this.setListField('exp', i, 'desc', arr.join('\n'));
+      const focusB = (key) => setTimeout(() => { const el = document.querySelector('[data-b="' + key + '"]'); if (el) el.focus(); }, 30);
+      const bullets = lines.map((v, j) => ({
+        n: String(j + 1), key: i + '-' + j, value: v,
+        placeholder: t.dutyPh[j % t.dutyPh.length],
+        onChange: (ev) => { const a = String(this.D().exp[i].desc || '').split('\n'); a[j] = ev.target.value.replace(/\n/g, ' '); setLines(a); },
+        onKeyDown: (ev) => {
+          if (ev.key !== 'Enter') return;
+          ev.preventDefault();
+          const a = String(this.D().exp[i].desc || '').split('\n'); a.splice(j + 1, 0, ''); setLines(a); focusB(i + '-' + (j + 1));
+        },
+        remove: () => { const a = String(this.D().exp[i].desc || '').split('\n'); a.splice(j, 1); setLines(a.length ? a : ['']); },
+      }));
+      return {
+        heading: (listKey === 'exp' ? t.expN : t.eduN) + ' ' + (i + 1),
+        fields, isExp, bullets,
+        openSamples: () => this.setState({ dutySheet: i, dutyQuery: '', aiErr: '', aiItems: (this.state.aiSheetFor === i ? this.state.aiItems : []), aiSheetFor: i, aiRole: this.state.aiSheetFor === i && this.state.aiRole ? this.state.aiRole : (x.role || '') }),
+        addBullet: () => { const a = String(this.D().exp[i].desc || '').split('\n'); a.push(''); setLines(a); focusB(i + '-' + (a.length - 1)); },
+        remove: () => this.setD({ [listKey]: (this.D()[listKey] || []).filter((_, j) => j !== i) }),
+      };
+    }) : [];
+
+    // sample-duties sheet
+    const sheetIdx = typeof this.state.dutySheet === 'number' ? this.state.dutySheet : -1;
+    const sheetOpen = screen === 'build' && step === 1 && sheetIdx >= 0 && !!(d.exp || [])[sheetIdx];
+    const bank = this.DUTY_BANK;
+    const catId = this.state.dutyCat || bank[0].id;
+    const cat = bank.find((c) => c.id === catId) || bank[0];
+    const curLines = sheetOpen ? String(d.exp[sheetIdx].desc || '').split('\n').map((x) => x.trim()) : [];
+    const sheetCats = bank.map((c) => ({
+      label: c[lang] || c.ms,
+      bg: c.id === cat.id ? '#15171B' : '#fff', fg: c.id === cat.id ? '#fff' : '#15171B',
+      pick: () => this.setState({ dutyCat: c.id }),
+    }));
+    const row = (text, catLabel) => {
+      const added = curLines.indexOf(text) >= 0;
+      return {
+        text, added, notAdded: !added, cat: catLabel || '', hasCat: !!catLabel,
+        bg: added ? '#F2F9E3' : '#F7F7F5', border: added ? '#15171B' : '#F7F7F5',
+        icon: added ? '✓' : '+', iconBg: added ? '#15171B' : accent, iconFg: added ? '#fff' : '#15171B',
+        toggle: () => this.toggleDuty(sheetIdx, text),
+      };
+    };
+    const q = String(this.state.dutyQuery || '').trim().toLowerCase();
+    const searching = sheetOpen && q.length > 0;
+    let sheetItems;
+    if (searching) {
+      sheetItems = [];
+      bank.forEach((c) => {
+        const catHit = (c.ms + ' ' + c.en).toLowerCase().indexOf(q) >= 0;
+        c.items.forEach((it) => {
+          if (catHit || (it.ms + ' ' + it.en).toLowerCase().indexOf(q) >= 0) sheetItems.push(row(it[lang] || it.ms, c[lang] || c.ms));
+        });
+      });
+      sheetItems = sheetItems.slice(0, 40);
+    } else {
+      sheetItems = cat.items.map((it) => row(it[lang] || it.ms));
+    }
+    const aiItems = (this.state.aiItems || []).map((s) => row(s));
+
+    const skillFields = [
+      { label: t.skills, value: d.skills || '', placeholder: t.skillsPh, onChange: (ev) => this.setF('skills', ev.target.value) },
+      { label: t.languages, value: d.languages || '', placeholder: t.langsPh, onChange: (ev) => this.setF('languages', ev.target.value) },
+    ];
+
+    const tabs = [
+      { key: 'home', label: t.tabHome, isHome: true },
+      { key: 'build', label: t.tabBuild, isBuild: true },
+      { key: 'preview', label: t.tabPreview, isPreview: true },
+    ].map((x) => Object.assign(x, { active: screen === x.key, inactive: screen !== x.key,
+      go: () => { if (x.key === 'preview' && screen !== 'preview') this.track('preview_open', { from: 'tab' }); this.setState({ screen: x.key }); } }));
+
+    const howSteps = [[t.how1, t.how1d], [t.how2, t.how2d], [t.how3, t.how3d]].map((h, i, a) => ({ n: String(i + 1), title: h[0], desc: h[1], divider: i < a.length - 1 ? '1px solid #F0F0ED' : '0' }));
+
+    return {
+      accent, t, tpl,
+      msBg: lang === 'ms' ? accent : 'transparent', enBg: lang === 'en' ? accent : 'transparent',
+      setMs: () => { if (lang !== 'ms') { this.setState({ lang: 'ms' }); this.track('lang_switch', { lang: 'ms' }); } },
+      setEn: () => { if (lang !== 'en') { this.setState({ lang: 'en' }); this.track('lang_switch', { lang: 'en' }); } },
+      isHome: screen === 'home', isBuild: screen === 'build', isPreview: screen === 'preview',
+      startBuild: () => { this.setState({ screen: 'build', step: 0 }); this.track('start_build', { from: 'hero' }); },
+      showCounter: typeof this.state.genCount === 'number' && this.state.genCount >= this.ANALYTICS.showCounterFrom,
+      counterLabel: (this.state.genCount || 0).toLocaleString('en-MY') + ' ' + t.generated,
+      goBuild: go('build'),
+      templates, howSteps, tabs,
+      stepLabel: t.step + ' ' + (step + 1) + ' ' + t.of + ' 4', stepTitle: stepTitles[step], stepBars,
+      isStep0: step === 0, isListStep: step === 1 || step === 2, isStep3: step === 3,
+      personalFields, listItems, skillFields, skillChips: this.splitList(d.skills),
+      addLabel: step === 1 ? t.addExp : t.addEdu,
+      addItem: () => { const k = this.state.step === 1 ? 'exp' : 'edu'; this.setD({ [k]: (this.D()[k] || []).concat([k === 'exp' ? this.blankExp() : this.blankEdu()]) }); },
+      hasPhoto: !!d.photo, noPhoto: !d.photo, photoBg: d.photo ? 'url(' + d.photo + ')' : 'none',
+      onPhoto: (ev) => this.onPhoto(ev), removePhoto: () => this.setF('photo', ''),
+      loadSample: () => { this.setState({ d: Object.assign(this.sample(lang), { photo: d.photo || '' }) }); this.showToast(t.sampleLoaded); this.track('sample_loaded'); },
+      clearAll: () => { this.setState({ d: this.blank(), step: 0 }); this.showToast(t.cleared); },
+      nextLabel: step === 3 ? t.toPreview : t.next,
+      nextStep: () => {
+        const cur = this.state.step;
+        this.track('builder_step', { step: cur + 1, done: true });
+        if (cur >= 3) { this.setState({ screen: 'preview' }); this.track('preview_open', { from: 'builder' }); }
+        else this.setState({ step: cur + 1 });
+      },
+      prevStep: () => (this.state.step <= 0 ? this.setState({ screen: 'home' }) : this.setState({ step: this.state.step - 1 })),
+      curTierName: (cur[lang] || cur.ms) + ' · ' + (cur.tier === 'ats' ? t.ats : t.standard),
+      curPrice: this.price(cur.tier),
+      atsNoPhoto: tpl === 'ats',
+      download: () => this.download(), printDownload: () => this.download('print'),
+      downloadLabel: this.state.pdfBusy ? t.pdfMaking : t.download,
+      toast: this.state.toast, hasToast: !!this.state.toast,
+      sheetOpen, sheetCats, sheetItems, closeSheet: () => this.setState({ dutySheet: -1 }),
+      isModen: tpl === 'moden' || tpl === 'klasik',
+      colorName: (this.modenColor()[lang] || this.modenColor().ms),
+      modenColors: this.MODEN_COLORS.map((c) => ({
+        bg: c.bg, name: c[lang] || c.ms,
+        ring: c.id === this.modenColor().id ? '0 0 0 3px #F4F4F2, 0 0 0 5px #15171B' : 'inset 0 0 0 1px rgba(21,23,27,.12)',
+        pick: () => { this.setState({ mColor: c.id }); this.track('color_pick', { color: c.id }); },
+      })),
+      pagesLabel: (this.state.pages || 1) > 1 ? this.state.pages + ' ' + t.pageMany : t.pageOne,
+      pagesBg: (this.state.pages || 1) > 1 ? '#FFD9C7' : accent,
+      multiPage: (this.state.pages || 1) > 1,
+      pageTip: t.pageTipA + ' ' + (this.state.pages || 1) + ' ' + t.pageTipB,
+      dutyQuery: this.state.dutyQuery || '', onDutyQuery: (ev) => this.setState({ dutyQuery: ev.target.value }),
+      searching, notSearching: !searching, noResults: searching && sheetItems.length === 0,
+      searchLabel: sheetItems.length + ' ' + t.results,
+      aiRole: this.state.aiRole || '', onAiRole: (ev) => this.setState({ aiRole: ev.target.value, aiErr: '' }),
+      onAiKey: (ev) => { if (ev.key === 'Enter') { ev.preventDefault(); this.runAI(); } },
+      runAI: () => this.runAI(), aiBtnLabel: this.state.aiLoading ? t.aiBusy : t.aiBtn,
+      aiErr: this.state.aiErr || '', aiHasErr: !!this.state.aiErr,
+      aiItems, hasAiItems: aiItems.length > 0,
+      aiListLabel: this.state.aiMatched === false ? t.aiNoMatch + ' “' + (this.state.aiForRole || '') + '” ' + t.aiNoMatchTail : t.aiFor + ' ' + (this.state.aiForRole || ''),
+    };
+  }
+}
+</script>
+</body>
+</html>
