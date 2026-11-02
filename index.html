@@ -1240,7 +1240,7 @@ class Component extends DCLogic {
     const head = '<div class="m-head"><div><h1>' + name + '</h1><div class="m-title">' + title + '</div><div class="m-contact">' +
       contacts.map((c) => '<span>' + c + '</span>').join('') + '</div></div>' + (photo ? '<img class="m-photo" src="' + photo + '" alt="">' : '') + '</div>';
     const body = '<div class="m-body"><div>' + mainFlow() + refsSec + '</div><div class="side">' +
-      sec(t.hSkills, skills.map((c) => '<span class="chip">' + c + '</span>').join('')) +
+      sec(t.hSkills, skills.map((c) => '<div class="lang blk">' + c + '</div>').join(''), true) +
       sec(t.hLangs, langs.map((c) => '<div class="lang blk">' + c + '</div>').join(''), true) +
       sec(t.hLicence, licence ? '<div class="lang blk">' + licence + '</div>' : '', true) + '</div></div>';
     return root('rv-moden', head + body);
