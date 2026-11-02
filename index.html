@@ -170,14 +170,24 @@
         <div onClick="{{ clearAll }}" style="font-size:12px; font-weight:700; padding:8px 10px; border-radius:11px; background:#fff; border:1px solid #ECECE9; cursor:pointer; color:#B4412E;">{{ t.clear }}</div>
       </div>
     </div>
-    <div style="display:grid; grid-template-columns:repeat(4, minmax(0, 1fr)); gap:6px; margin:14px 0 18px;">
-      <sc-for list="{{ stepBars }}" as="sb" hint-placeholder-count="4">
+    <div style="display:grid; grid-template-columns:repeat(5, minmax(0, 1fr)); gap:6px; margin:14px 0 18px;">
+      <sc-for list="{{ stepBars }}" as="sb" hint-placeholder-count="5">
         <div onClick="{{ sb.go }}" style="height:6px; border-radius:3px; background:{{ sb.bg }}; cursor:pointer;"></div>
       </sc-for>
     </div>
 
     <!-- step 1: personal -->
     <sc-if value="{{ isStep0 }}" hint-placeholder-val="{{ true }}">
+      <!-- fresh graduate mode switch -->
+      <div onClick="{{ toggleFresh }}" style="display:flex; align-items:center; gap:12px; background:{{ freshBg }}; border:1px solid {{ freshBorder }}; border-radius:18px; padding:13px 14px; margin-bottom:12px; cursor:pointer;">
+        <div style="flex:1; min-width:0;">
+          <div style="font-size:13.5px; font-weight:800;">{{ t.freshTitle }}</div>
+          <div style="font-size:11.5px; color:#6B7079; margin-top:2px; line-height:1.4;">{{ t.freshDesc }}</div>
+        </div>
+        <div style="width:46px; height:28px; border-radius:14px; background:{{ switchBg }}; position:relative; flex:none;">
+          <div style="position:absolute; top:3px; left:{{ knobLeft }}; width:22px; height:22px; border-radius:50%; background:#fff; box-shadow:0 1px 3px rgba(21,23,27,.25);"></div>
+        </div>
+      </div>
       <div style="display:flex; align-items:center; gap:14px; background:#fff; border:1px solid #ECECE9; border-radius:20px; padding:14px; margin-bottom:14px;">
         <div style="width:68px; height:68px; flex:none; border-radius:50%; background:#EDEDEA; background-image:{{ photoBg }}; background-size:cover; background-position:center; display:flex; align-items:center; justify-content:center;">
           <sc-if value="{{ noPhoto }}" hint-placeholder-val="{{ true }}">
@@ -212,6 +222,9 @@
 
     <!-- step 2 & 3: experience / education (repeatable lists) -->
     <sc-if value="{{ isListStep }}" hint-placeholder-val="{{ false }}">
+      <sc-if value="{{ freshExpHint }}" hint-placeholder-val="{{ false }}">
+        <div style="background:#F2F9E3; border:1px solid #DDEFC0; border-radius:16px; padding:12px 14px; margin-bottom:12px; font-size:12.5px; line-height:1.5; color:#3D4A2A;">{{ t.freshExpNote }}</div>
+      </sc-if>
       <sc-for list="{{ listItems }}" as="it" hint-placeholder-count="2">
         <div style="background:#fff; border:1px solid #ECECE9; border-radius:20px; padding:14px; margin-bottom:12px;">
           <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:10px;">
@@ -277,7 +290,46 @@
             <span style="background:#fff; border:1px solid #ECECE9; border-radius:9px; padding:6px 10px; font-size:12px; font-weight:700;">{{ c }}</span>
           </sc-for>
         </div>
+        <div style="display:flex; flex-direction:column; gap:6px;">
+          <span style="font-size:12px; font-weight:700; color:#6B7079;">{{ t.licence }}</span>
+          <input class="fld" type="text" value="{{ licenceVal }}" placeholder="{{ t.licencePh }}" onChange="{{ onLicence }}">
+        </div>
       </div>
+    </sc-if>
+
+    <!-- step 5: extra sections (all optional) -->
+    <sc-if value="{{ isStep4 }}" hint-placeholder-val="{{ false }}">
+      <div style="font-size:12.5px; color:#6B7079; line-height:1.5; margin:-4px 0 14px;">{{ t.extrasIntro }}</div>
+      <sc-for list="{{ extraSections }}" as="xs" hint-placeholder-count="4">
+        <div style="margin-bottom:20px;">
+          <div style="display:flex; align-items:baseline; justify-content:space-between; gap:10px;">
+            <span style="font-size:15.5px; font-weight:800;">{{ xs.title }}</span>
+            <span style="font-size:11.5px; color:#90949B; font-weight:700;">{{ xs.countLabel }}</span>
+          </div>
+          <div style="font-size:12px; color:#90949B; margin:2px 0 10px; line-height:1.4;">{{ xs.hint }}</div>
+          <sc-for list="{{ xs.items }}" as="it" hint-placeholder-count="1">
+            <div style="background:#fff; border:1px solid #ECECE9; border-radius:20px; padding:14px; margin-bottom:10px;">
+              <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:10px;">
+                <span style="font-size:12px; font-weight:800; letter-spacing:.6px; text-transform:uppercase; color:#90949B;">{{ it.heading }}</span>
+                <div onClick="{{ it.remove }}" style="width:30px; height:30px; border-radius:10px; background:#F4F4F2; display:flex; align-items:center; justify-content:center; cursor:pointer;">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M5 7h14M10 11v6M14 11v6M6 7l1 12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-12M9 7V5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2" stroke="#6B7079" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                </div>
+              </div>
+              <div style="display:grid; grid-template-columns:repeat(2, minmax(0, 1fr)); gap:10px;">
+                <sc-for list="{{ it.fields }}" as="f" hint-placeholder-count="3">
+                  <div style="grid-column:{{ f.span }}; display:flex; flex-direction:column; gap:6px;">
+                    <span style="font-size:12px; font-weight:700; color:#6B7079;">{{ f.label }}</span>
+                    <input class="fld" type="text" value="{{ f.value }}" placeholder="{{ f.placeholder }}" onChange="{{ f.onChange }}">
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </sc-for>
+          <sc-if value="{{ xs.canAdd }}" hint-placeholder-val="{{ true }}">
+            <div onClick="{{ xs.add }}" style="border:1.5px dashed #C9CBC4; border-radius:16px; padding:12px; text-align:center; font-size:13px; font-weight:800; cursor:pointer;">{{ xs.addLabel }}</div>
+          </sc-if>
+        </div>
+      </sc-for>
     </sc-if>
 
     <!-- nav buttons -->
@@ -487,6 +539,20 @@ class Component extends DCLogic {
         atsNote: 'Templat ATS Pro direka supaya mudah dibaca oleh sistem saringan resume (ATS) yang digunakan oleh banyak syarikat besar.',
         step: 'Langkah', of: 'daripada',
         s0: 'Maklumat peribadi', s1: 'Pengalaman kerja', s2: 'Pendidikan', s3: 'Kemahiran & bahasa',
+        s4: 'Maklumat tambahan', s1Fresh: 'Latihan industri & pengalaman',
+        freshTitle: 'Saya fresh graduate / lepasan sekolah', freshDesc: 'Pendidikan & projek dipaparkan dahulu. Pengalaman kerja menjadi pilihan.',
+        freshExpNote: 'Tiada pengalaman kerja? Tidak mengapa. Masukkan latihan industri (praktikal), kerja sambilan atau sukarelawan jika ada, atau terus tekan Seterusnya.',
+        licence: 'Lesen memandu (pilihan)', licencePh: 'cth. D, B2',
+        extrasIntro: 'Semua bahagian di sini pilihan. Hanya bahagian yang diisi akan dipaparkan dalam resume.',
+        xCerts: 'Sijil & kursus', xCertsHint: 'Kursus, latihan atau sijil profesional yang berkaitan.', xCertsAdd: '+ Tambah sijil / kursus',
+        xProjects: 'Projek', xProjectsHint: 'Projek tahun akhir, projek kerja atau projek peribadi.', xProjectsAdd: '+ Tambah projek',
+        xCocu: 'Kokurikulum & aktiviti', xCocuHint: 'Kelab, persatuan, sukan atau kerja sukarela.', xCocuAdd: '+ Tambah aktiviti',
+        xRefs: 'Rujukan', xRefsHint: 'Pensyarah, majikan atau penyelia (maksimum 3). Minta izin mereka dahulu.', xRefsAdd: '+ Tambah rujukan',
+        fCertName: 'Nama sijil / kursus', fIssuer: 'Dikeluarkan oleh', fYear: 'Tahun', fProjTitle: 'Tajuk projek', fProjOrg: 'Kursus / organisasi',
+        fDesc: 'Keterangan ringkas (satu ayat)', fRole: 'Jawatan / peranan', fClub: 'Kelab / persatuan', fAchieve: 'Pencapaian (pilihan)',
+        fRefName: 'Nama penuh', fRefPos: 'Jawatan & organisasi', fPhone: 'Telefon', fEmail: 'E-mel',
+        added: 'ditambah', optional: 'Pilihan',
+        hProjects: 'Projek', hCocu: 'Kokurikulum & Aktiviti', hCerts: 'Sijil & Kursus', hRefs: 'Rujukan', hLicence: 'Lesen Memandu', hExpFresh: 'Latihan Industri & Pengalaman',
         photo: 'Gambar profil', photoHint: 'Gambar berukuran pasport, latar belakang kemas.', uploadPhoto: 'Muat naik', removePhoto: 'Buang',
         name: 'Nama penuh', title: 'Jawatan / bidang', phone: 'Telefon', email: 'E-mel', location: 'Lokasi', linkedin: 'LinkedIn / portfolio', summary: 'Ringkasan diri',
         summaryPh: '2–3 ayat tentang pengalaman dan kekuatan anda',
@@ -527,6 +593,20 @@ class Component extends DCLogic {
         atsNote: 'The ATS Pro template is built to be read cleanly by the resume screening systems (ATS) many large companies use.',
         step: 'Step', of: 'of',
         s0: 'Personal details', s1: 'Work experience', s2: 'Education', s3: 'Skills & languages',
+        s4: 'Additional details', s1Fresh: 'Internship & experience',
+        freshTitle: "I'm a fresh graduate / school leaver", freshDesc: 'Education & projects come first. Work experience becomes optional.',
+        freshExpNote: 'No work experience? That is fine. Add an internship, part-time job or volunteering if you have one, or just tap Next.',
+        licence: 'Driving licence (optional)', licencePh: 'e.g. D, B2',
+        extrasIntro: 'Everything here is optional. Only the sections you fill in appear on your resume.',
+        xCerts: 'Certificates & courses', xCertsHint: 'Relevant courses, training or professional certificates.', xCertsAdd: '+ Add certificate / course',
+        xProjects: 'Projects', xProjectsHint: 'Final year project, work projects or personal projects.', xProjectsAdd: '+ Add project',
+        xCocu: 'Co-curricular & activities', xCocuHint: 'Clubs, societies, sports or volunteering.', xCocuAdd: '+ Add activity',
+        xRefs: 'References', xRefsHint: 'A lecturer, employer or supervisor (maximum 3). Ask their permission first.', xRefsAdd: '+ Add reference',
+        fCertName: 'Certificate / course name', fIssuer: 'Issued by', fYear: 'Year', fProjTitle: 'Project title', fProjOrg: 'Course / organisation',
+        fDesc: 'Short description (one sentence)', fRole: 'Position / role', fClub: 'Club / society', fAchieve: 'Achievement (optional)',
+        fRefName: 'Full name', fRefPos: 'Position & organisation', fPhone: 'Phone', fEmail: 'Email',
+        added: 'added', optional: 'Optional',
+        hProjects: 'Projects', hCocu: 'Co-curricular & Activities', hCerts: 'Certificates & Courses', hRefs: 'References', hLicence: 'Driving Licence', hExpFresh: 'Internship & Experience',
         photo: 'Profile photo', photoHint: 'Passport-style photo, clean background.', uploadPhoto: 'Upload', removePhoto: 'Remove',
         name: 'Full name', title: 'Job title / field', phone: 'Phone', email: 'Email', location: 'Location', linkedin: 'LinkedIn / portfolio', summary: 'Professional summary',
         summaryPh: '2–3 sentences about your experience and strengths',
@@ -835,7 +915,30 @@ class Component extends DCLogic {
   }
 
   // ---------- data ----------
-  blank() { return { name: '', title: '', phone: '', email: '', location: '', linkedin: '', summary: '', photo: '', exp: [this.blankExp()], edu: [this.blankEdu()], skills: '', languages: '' }; }
+  blank() { return { name: '', title: '', phone: '', email: '', location: '', linkedin: '', summary: '', photo: '', exp: [this.blankExp()], edu: [this.blankEdu()], skills: '', languages: '', licence: '', fresh: false, certs: [], projects: [], cocu: [], refs: [] }; }
+  // sample for "Isi contoh" when fresh graduate mode is on
+  sampleFresh(lang) {
+    const en = lang === 'en';
+    return {
+      fresh: true, photo: '', name: 'Ahmad Danial bin Yusof', title: en ? 'Diploma in Accounting Graduate' : 'Graduan Diploma Akauntansi',
+      phone: '017-222 3344', email: 'danial.yusof@email.com', location: 'Kemaman, Terengganu', linkedin: '',
+      summary: en ? 'Accounting graduate with hands-on internship experience in bookkeeping and payroll. Detail-oriented, quick to learn new systems, and ready to support a finance team.'
+        : 'Graduan akauntansi dengan pengalaman latihan industri dalam simpan kira dan penggajian. Teliti, cepat mempelajari sistem baharu dan bersedia menyokong pasukan kewangan.',
+      exp: [{ role: en ? 'Accounts Intern' : 'Pelatih Akaun', company: 'Koperasi Maju Bhd.', start: 'Mar 2025', end: en ? 'Aug 2025' : 'Ogo 2025',
+        desc: en ? 'Recorded daily transactions in SQL Accounting\nPrepared monthly bank reconciliations\nAssisted with payroll for 35 staff' : 'Merekod transaksi harian dalam SQL Accounting\nMenyediakan penyata penyesuaian bank bulanan\nMembantu penggajian untuk 35 orang pekerja' }],
+      edu: [
+        { school: 'Politeknik Sultan Mizan Zainal Abidin', qual: en ? 'Diploma in Accounting' : 'Diploma Akauntansi', year: '2022 – 2025', note: en ? 'CGPA 3.61 · Dean’s List (4 semesters)' : 'CGPA 3.61 · Anugerah Dekan (4 semester)' },
+        { school: 'SMK Seri Kemaman', qual: 'Sijil Pelajaran Malaysia (SPM)', year: '2021', note: '6A 2B' },
+      ],
+      projects: [{ title: en ? 'Inventory Costing for a Small Grocery Shop' : 'Pengiraan Kos Inventori untuk Kedai Runcit Kecil', org: en ? 'Final year project' : 'Projek tahun akhir', year: '2025',
+        desc: en ? 'Built an Excel costing sheet that cut monthly stock-taking time by half.' : 'Membina helaian kos Excel yang memendekkan masa kiraan stok bulanan sebanyak separuh.' }],
+      cocu: [{ role: en ? 'Treasurer' : 'Bendahari', org: en ? 'Accounting Students Society' : 'Persatuan Pelajar Akauntansi', year: '2023 – 2024', desc: en ? 'Managed a RM8,000 annual budget for 6 events' : 'Mengurus bajet tahunan RM8,000 untuk 6 program' }],
+      certs: [{ name: en ? 'SQL Accounting Basic Certificate' : 'Sijil Asas SQL Accounting', issuer: 'eStream Software', year: '2024' }],
+      refs: [{ name: 'Puan Rohana binti Ismail', position: en ? 'Lecturer, Department of Commerce' : 'Pensyarah, Jabatan Perdagangan', phone: '09-123 4567', email: '' }],
+      skills: en ? 'SQL Accounting, Microsoft Excel, Bookkeeping, Payroll (EPF, SOCSO), Teamwork' : 'SQL Accounting, Microsoft Excel, Simpan kira, Penggajian (KWSP, PERKESO), Kerja berpasukan',
+      languages: en ? 'Malay (Native), English (Good)' : 'Bahasa Melayu (Natif), Bahasa Inggeris (Baik)', licence: 'D',
+    };
+  }
   blankExp() { return { role: '', company: '', start: '', end: '', desc: '' }; }
   blankEdu() { return { school: '', qual: '', year: '', note: '' }; }
   sample(lang) {
@@ -851,7 +954,8 @@ class Component extends DCLogic {
         { school: 'SMK Sultan Ismail, Kemaman', qual: 'Sijil Pelajaran Malaysia (SPM)', year: '2016', note: '8A' },
       ],
       skills: 'Meta & TikTok Ads, Canva & Photoshop, Google Analytics, Copywriting, E-commerce (Shopee, Lazada)',
-      languages: 'Malay (Native), English (Fluent), Arabic (Basic)',
+      languages: 'Malay (Native), English (Fluent), Arabic (Basic)', licence: 'D, B2',
+      certs: [{ name: 'Meta Certified Digital Marketing Associate', issuer: 'Meta', year: '2023' }], projects: [], cocu: [], refs: [],
     };
     return {
       name: 'Nur Aisyah binti Ahmad', title: 'Eksekutif Pemasaran Digital', phone: '012-345 6789', email: 'aisyah.ahmad@email.com', location: 'Kemaman, Terengganu', linkedin: 'linkedin.com/in/nuraisyah', photo: '',
@@ -865,7 +969,8 @@ class Component extends DCLogic {
         { school: 'SMK Sultan Ismail, Kemaman', qual: 'Sijil Pelajaran Malaysia (SPM)', year: '2016', note: '8A' },
       ],
       skills: 'Pengiklanan Meta & TikTok, Canva & Photoshop, Google Analytics, Penulisan kandungan, E-dagang (Shopee, Lazada)',
-      languages: 'Bahasa Melayu (Natif), Bahasa Inggeris (Fasih), Bahasa Arab (Asas)',
+      languages: 'Bahasa Melayu (Natif), Bahasa Inggeris (Fasih), Bahasa Arab (Asas)', licence: 'D, B2',
+      certs: [{ name: 'Meta Certified Digital Marketing Associate', issuer: 'Meta', year: '2023' }], projects: [], cocu: [], refs: [],
     };
   }
   D() { return this.state.d || this.sample(this.state.lang); }
@@ -1082,6 +1187,31 @@ class Component extends DCLogic {
     // "blk" marks pieces that must not be cut between two PDF pages; sec(…, true) when the body already holds blk items
     const sec = (h, body, itemsAreBlocks) => (body ? '<div class="sec"><div class="sec-h blk">' + h + '</div><div' + (itemsAreBlocks ? '' : ' class="blk"') + '>' + body + '</div></div>' : '');
     const summary = d.summary ? '<p>' + e(d.summary) + '</p>' : '';
+    // extra sections (shown only when filled)
+    const item = (top, date, sub, note) => '<div class="job"><div class="job-top blk"><div><span class="job-role">' + top + '</span></div><div class="job-date">' + date + '</div></div>' +
+      (sub ? '<div class="job-co blk">' + sub + '</div>' : '') + (note ? '<div class="job-note blk">' + note + '</div>' : '') + '</div>';
+    const certs = (d.certs || []).filter((x) => x.name).map((x) => item(e(x.name), e(x.year), e(x.issuer), '')).join('');
+    const projects = (d.projects || []).filter((x) => x.title).map((x) => item(e(x.title), e(x.year), e(x.org), e(x.desc))).join('');
+    const cocu = (d.cocu || []).filter((x) => x.role || x.org).map((x) => item(e(x.role), e(x.year), e(x.org), e(x.desc))).join('');
+    const refs = (d.refs || []).filter((x) => x.name).map((x) => {
+      const ct = [];
+      if (x.phone) ct.push(link('tel:' + String(x.phone).replace(/[^\d+]/g, ''), x.phone));
+      if (x.email) ct.push(/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(x.email) ? link('mailto:' + x.email, x.email) : e(x.email));
+      return item(e(x.name), '', e(x.position), ct.join(' · '));
+    }).join('');
+    const licence = String(d.licence || '').trim() ? e(String(d.licence).trim()) : '';
+    const fresh = !!d.fresh;
+    const hExp = fresh ? t.hExpFresh : t.hExp;
+    // main column order: fresh graduates lead with education & projects
+    const mainFlow = () => {
+      const S = {
+        profile: sec(t.hProfile, summary), exp: sec(hExp, exp, true), edu: sec(t.hEdu, edu, true),
+        projects: sec(t.hProjects, projects, true), cocu: sec(t.hCocu, cocu, true), certs: sec(t.hCerts, certs, true),
+      };
+      const order = fresh ? ['profile', 'edu', 'projects', 'exp', 'cocu', 'certs'] : ['profile', 'exp', 'edu', 'certs', 'projects', 'cocu'];
+      return order.map((k) => S[k]).join('');
+    };
+    const refsSec = sec(t.hRefs, refs, true);
     const mc = this.modenColor();
     const root = (cls, inner) => '<div class="rv ' + cls + '" style="--rv-accent:' + e(accent) + ';--m-bg:' + mc.bg + ';--m-fg:' + mc.fg + ';--m-bar:' + mc.bar + ';--m-tint:' + mc.tint + ';--k-side:' + mc.side + ';--k-fg:' + mc.sideFg + ';--k-head:' + mc.sideHead + '">' + inner + '</div>';
 
@@ -1090,28 +1220,29 @@ class Component extends DCLogic {
         (photo ? '<img class="k-photo" src="' + photo + '" alt="">' : '') +
         sec(t.hContact, contacts.map((c) => '<div class="k-item blk">' + c + '</div>').join(''), true) +
         sec(t.hSkills, skills.map((c) => '<div class="k-item blk">• ' + c + '</div>').join(''), true) +
-        sec(t.hLangs, langs.map((c) => '<div class="k-item blk">' + c + '</div>').join(''), true);
-      const main = '<h1>' + name + '</h1><div class="k-title">' + title + '</div>' +
-        sec(t.hProfile, summary) + sec(t.hExp, exp, true) + sec(t.hEdu, edu, true);
+        sec(t.hLangs, langs.map((c) => '<div class="k-item blk">' + c + '</div>').join(''), true) +
+        sec(t.hLicence, licence ? '<div class="k-item blk">' + licence + '</div>' : '', true);
+      const main = '<h1>' + name + '</h1><div class="k-title">' + title + '</div>' + mainFlow() + refsSec;
       return root('rv-klasik', '<div class="k-side">' + side + '</div><div class="k-main">' + main + '</div>');
     }
     if (tpl === 'minimal') {
       const head = '<div class="n-head">' + (photo ? '<img class="n-photo" src="' + photo + '" alt="">' : '') +
         '<h1>' + name + '</h1><div class="n-title">' + title + '</div><div class="n-contact">' + contacts.map((c) => '<span>' + c + '</span>').join('') + '</div></div>';
-      return root('rv-minimal', head + sec(t.hProfile, summary) + sec(t.hExp, exp, true) + sec(t.hEdu, edu, true) +
-        sec(t.hSkills, skills.join(' · ')) + sec(t.hLangs, langs.join(' · ')));
+      return root('rv-minimal', head + mainFlow() +
+        sec(t.hSkills, skills.join(' · ')) + sec(t.hLangs, langs.join(' · ')) + sec(t.hLicence, licence) + refsSec);
     }
     if (tpl === 'ats') {
       const head = '<h1>' + name + '</h1><div class="a-title">' + title + '</div><div class="a-contact">' + contacts.join(' | ') + '</div>';
-      return root('rv-ats', head + sec(t.hProfile, summary) + sec(t.hExp, exp, true) + sec(t.hEdu, edu, true) +
-        sec(t.hSkills, skills.join(', ')) + sec(t.hLangs, langs.join(', ')));
+      return root('rv-ats', head + mainFlow() +
+        sec(t.hSkills, skills.join(', ')) + sec(t.hLangs, langs.join(', ')) + sec(t.hLicence, licence) + refsSec);
     }
     // moden (default)
     const head = '<div class="m-head"><div><h1>' + name + '</h1><div class="m-title">' + title + '</div><div class="m-contact">' +
       contacts.map((c) => '<span>' + c + '</span>').join('') + '</div></div>' + (photo ? '<img class="m-photo" src="' + photo + '" alt="">' : '') + '</div>';
-    const body = '<div class="m-body"><div>' + sec(t.hProfile, summary) + sec(t.hExp, exp, true) + sec(t.hEdu, edu, true) + '</div><div class="side">' +
+    const body = '<div class="m-body"><div>' + mainFlow() + refsSec + '</div><div class="side">' +
       sec(t.hSkills, skills.map((c) => '<span class="chip">' + c + '</span>').join('')) +
-      sec(t.hLangs, langs.map((c) => '<div class="lang blk">' + c + '</div>').join(''), true) + '</div></div>';
+      sec(t.hLangs, langs.map((c) => '<div class="lang blk">' + c + '</div>').join(''), true) +
+      sec(t.hLicence, licence ? '<div class="lang blk">' + licence + '</div>' : '', true) + '</div></div>';
     return root('rv-moden', head + body);
   }
 
@@ -1398,7 +1529,9 @@ class Component extends DCLogic {
     });
     const cur = this.TEMPLATES.find((x) => x.id === tpl) || this.TEMPLATES[0];
 
-    const stepTitles = [t.s0, t.s1, t.s2, t.s3];
+    const fresh = !!d.fresh;
+    const stepTitles = [t.s0, fresh ? t.s1Fresh : t.s1, t.s2, t.s3, t.s4];
+    const LAST = stepTitles.length - 1;
     const stepBars = stepTitles.map((_, i) => ({ bg: i <= step ? '#15171B' : '#DEDFDA', go: () => this.setState({ step: i }) }));
 
     const personalFields = [
@@ -1487,6 +1620,34 @@ class Component extends DCLogic {
     }
     const aiItems = (this.state.aiItems || []).map((s) => row(s));
 
+    // step 5: optional extra sections — [field key, label, placeholder, half width]
+    const XS = [
+      { key: 'certs', title: t.xCerts, hint: t.xCertsHint, add: t.xCertsAdd, max: 10, fields: [
+        ['name', t.fCertName, lang === 'en' ? 'e.g. Food Handling Certificate' : 'cth. Sijil Pengendalian Makanan', false],
+        ['issuer', t.fIssuer, lang === 'en' ? 'e.g. Ministry of Health' : 'cth. KKM / HRD Corp', true], ['year', t.fYear, '2024', true]] },
+      { key: 'projects', title: t.xProjects, hint: t.xProjectsHint, add: t.xProjectsAdd, max: 6, fields: [
+        ['title', t.fProjTitle, '', false], ['org', t.fProjOrg, lang === 'en' ? 'e.g. Final year project' : 'cth. Projek tahun akhir', true], ['year', t.fYear, '2025', true],
+        ['desc', t.fDesc, '', false]] },
+      { key: 'cocu', title: t.xCocu, hint: t.xCocuHint, add: t.xCocuAdd, max: 6, fields: [
+        ['role', t.fRole, lang === 'en' ? 'e.g. Treasurer' : 'cth. Bendahari', false], ['org', t.fClub, '', true], ['year', t.fYear, '2024', true],
+        ['desc', t.fAchieve, '', false]] },
+      { key: 'refs', title: t.xRefs, hint: t.xRefsHint, add: t.xRefsAdd, max: 3, fields: [
+        ['name', t.fRefName, '', false], ['position', t.fRefPos, '', false], ['phone', t.fPhone, '', true], ['email', t.fEmail, '', true]] },
+    ];
+    const extraSections = step === 4 ? XS.map((s) => {
+      const list = d[s.key] || [];
+      return {
+        title: s.title, hint: s.hint, addLabel: s.add, canAdd: list.length < s.max,
+        countLabel: list.length ? list.length + ' ' + t.added : t.optional,
+        add: () => { const cur = this.D()[s.key] || []; const blankItem = {}; s.fields.forEach((f) => { blankItem[f[0]] = ''; }); this.setD({ [s.key]: cur.concat([blankItem]) }); },
+        items: list.map((x, i) => ({
+          heading: s.title + ' ' + (i + 1),
+          remove: () => this.setD({ [s.key]: (this.D()[s.key] || []).filter((_, j) => j !== i) }),
+          fields: s.fields.map((f) => this.field(f[1], x[f[0]], (ev) => this.setListField(s.key, i, f[0], ev.target.value), { ph: f[2], half: f[3] })),
+        })),
+      };
+    }) : [];
+
     const skillFields = [
       { label: t.skills, value: d.skills || '', placeholder: t.skillsPh, onChange: (ev) => this.setF('skills', ev.target.value) },
       { label: t.languages, value: d.languages || '', placeholder: t.langsPh, onChange: (ev) => this.setF('languages', ev.target.value) },
@@ -1512,20 +1673,25 @@ class Component extends DCLogic {
       counterLabel: (this.state.genCount || 0).toLocaleString('en-MY') + ' ' + t.generated,
       goBuild: go('build'),
       templates, howSteps, tabs,
-      stepLabel: t.step + ' ' + (step + 1) + ' ' + t.of + ' 4', stepTitle: stepTitles[step], stepBars,
-      isStep0: step === 0, isListStep: step === 1 || step === 2, isStep3: step === 3,
+      stepLabel: t.step + ' ' + (step + 1) + ' ' + t.of + ' ' + stepTitles.length, stepTitle: stepTitles[step], stepBars,
+      isStep0: step === 0, isListStep: step === 1 || step === 2, isStep3: step === 3, isStep4: step === 4,
+      extraSections, freshExpHint: fresh && step === 1,
+      licenceVal: d.licence || '', onLicence: (ev) => this.setF('licence', ev.target.value),
+      toggleFresh: () => { const on = !this.D().fresh; this.setD({ fresh: on }); this.track('fresh_mode', { on }); },
+      freshBg: fresh ? '#F2F9E3' : '#fff', freshBorder: fresh ? '#C6E59A' : '#ECECE9',
+      switchBg: fresh ? '#15171B' : '#DEDFDA', knobLeft: fresh ? '21px' : '3px',
       personalFields, listItems, skillFields, skillChips: this.splitList(d.skills),
       addLabel: step === 1 ? t.addExp : t.addEdu,
       addItem: () => { const k = this.state.step === 1 ? 'exp' : 'edu'; this.setD({ [k]: (this.D()[k] || []).concat([k === 'exp' ? this.blankExp() : this.blankEdu()]) }); },
       hasPhoto: !!d.photo, noPhoto: !d.photo, photoBg: d.photo ? 'url(' + d.photo + ')' : 'none',
       onPhoto: (ev) => this.onPhoto(ev), removePhoto: () => this.setF('photo', ''),
-      loadSample: () => { this.setState({ d: Object.assign(this.sample(lang), { photo: d.photo || '' }) }); this.showToast(t.sampleLoaded); this.track('sample_loaded'); },
+      loadSample: () => { this.setState({ d: Object.assign(fresh ? this.sampleFresh(lang) : this.sample(lang), { photo: d.photo || '', fresh }) }); this.showToast(t.sampleLoaded); this.track('sample_loaded', { fresh }); },
       clearAll: () => { this.setState({ d: this.blank(), step: 0 }); this.showToast(t.cleared); },
-      nextLabel: step === 3 ? t.toPreview : t.next,
+      nextLabel: step === LAST ? t.toPreview : t.next,
       nextStep: () => {
         const cur = this.state.step;
         this.track('builder_step', { step: cur + 1, done: true });
-        if (cur >= 3) { this.setState({ screen: 'preview' }); this.track('preview_open', { from: 'builder' }); }
+        if (cur >= LAST) { this.setState({ screen: 'preview' }); this.track('preview_open', { from: 'builder' }); }
         else this.setState({ step: cur + 1 });
       },
       prevStep: () => (this.state.step <= 0 ? this.setState({ screen: 'home' }) : this.setState({ step: this.state.step - 1 })),
