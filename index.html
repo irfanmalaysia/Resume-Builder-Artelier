@@ -385,6 +385,36 @@
         <div style="margin-top:10px; background:#FFF1E8; border:1px solid #F6D2BF; border-radius:15px; padding:12px 14px; font-size:12.5px; line-height:1.45; color:#5B3A2A;">{{ pageTip }}</div>
       </sc-if>
     </div>
+    <!-- resume score & tips -->
+    <div style="padding:16px 20px 0;">
+      <div style="background:#fff; border:1px solid #ECECE9; border-radius:20px; padding:16px;">
+        <div style="display:flex; align-items:center; justify-content:space-between; gap:12px;">
+          <div>
+            <div style="font-size:12px; color:#90949B; font-weight:700;">{{ t.scoreTitle }}</div>
+            <div style="display:flex; align-items:baseline; gap:6px; margin-top:2px;">
+              <span style="font-size:30px; font-weight:800; line-height:1;">{{ scoreNum }}</span>
+              <span style="font-size:14px; font-weight:700; color:#90949B;">/100</span>
+            </div>
+          </div>
+          <span style="font-size:12.5px; font-weight:800; padding:6px 11px; border-radius:10px; background:{{ scoreBg }}; color:{{ scoreFg }};">{{ scoreLabel }}</span>
+        </div>
+        <div style="height:8px; border-radius:4px; background:#EFEFEC; margin-top:12px; overflow:hidden;">
+          <div style="height:100%; width:{{ scoreWidth }}; border-radius:4px; background:{{ scoreBar }};"></div>
+        </div>
+        <div style="font-size:12px; color:#6B7079; margin-top:10px; line-height:1.45;">{{ scoreSub }}</div>
+        <div style="display:flex; flex-direction:column; gap:8px; margin-top:10px;">
+          <sc-for list="{{ scoreTips }}" as="tip" hint-placeholder-count="3">
+            <div style="display:flex; align-items:center; gap:10px; background:#F7F7F5; border-radius:14px; padding:10px 12px;">
+              <span style="flex:none; font-size:11px; font-weight:800; color:#15171B; background:var(--accent,#B7F23A); padding:3px 7px; border-radius:7px;">{{ tip.gain }}</span>
+              <span style="flex:1; font-size:12.5px; line-height:1.4; font-weight:600;">{{ tip.text }}</span>
+              <sc-if value="{{ tip.canFix }}" hint-placeholder-val="{{ true }}">
+                <div onClick="{{ tip.fix }}" style="flex:none; font-size:12px; font-weight:800; padding:7px 10px; border-radius:10px; background:#15171B; color:#fff; cursor:pointer;">{{ t.fixBtn }}</div>
+              </sc-if>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </div>
     <div style="padding:16px 20px 0;">
       <div style="background:#fff; border:1px solid #ECECE9; border-radius:20px; padding:14px 16px; display:flex; align-items:center; justify-content:space-between; gap:10px;">
         <div>
@@ -601,6 +631,17 @@ class Component extends DCLogic {
         privacyTitle: 'Privasi anda terjaga', privacyText: 'Maklumat resume anda disimpan dalam peranti anda sahaja dan tidak dihantar kepada kami. Kami hanya mengira penggunaan tanpa nama, seperti bilangan resume yang dijana.',
         editInfo: 'Sunting maklumat', launchPromo: 'Promosi\npelancaran',
         atsPhotoNote: 'Templat ATS Pro tidak memaparkan gambar dan warna — ini lebih selamat untuk sistem ATS.',
+        scoreTitle: 'Skor resume', scoreSub: 'Ikut tip di bawah untuk naikkan skor anda.', scorePerfect: 'Hebat! Resume anda lengkap dan kemas.', fixBtn: 'Baiki',
+        lvl0: 'Perlu dibaiki', lvl1: 'Sederhana', lvl2: 'Baik', lvl3: 'Cemerlang',
+        tName: 'Isi nama penuh anda.', tTitle: 'Isi jawatan atau bidang yang anda pohon.', tPhone: 'Tambah nombor telefon.', tEmail: 'Tambah e-mel yang sah (cth. nama@gmail.com).', tLoc: 'Tambah lokasi (bandar, negeri).',
+        tSumNone: 'Tambah ringkasan diri 2–4 ayat tentang kekuatan anda.', tSumShort: 'Ringkasan terlalu pendek. Tulis 30–80 perkataan.', tSumLong: 'Ringkasan terlalu panjang. Ringkaskan kepada 30–80 perkataan.',
+        tExpNone: 'Tambah sekurang-kurangnya satu pengalaman kerja dengan jawatan, syarikat dan tarikh.', tExpFreshNone: 'Ada latihan industri, kerja sambilan atau sukarela? Tambahkannya.',
+        tDuties: 'Tambah sekurang-kurangnya 3 tugas untuk setiap pengalaman.', tNumbers: 'Letak angka dalam pencapaian (cth. 20%, RM5,000, 15 pelanggan). Majikan suka hasil yang boleh diukur.',
+        tVerbs: 'Mulakan tugas dengan kata kerja (Mengurus, Menyediakan…), bukan “Bertanggungjawab…”.',
+        tEdu: 'Tambah pendidikan anda (kelayakan dan institusi).', tEduYear: 'Tambah tahun untuk setiap pendidikan.',
+        tSkills: 'Tambah sekurang-kurangnya 5 kemahiran.', tLangs: 'Tambah bahasa yang anda kuasai.',
+        tPhoto: 'Tambah gambar berukuran pasport untuk templat ini.', tLinked: 'Tambah pautan LinkedIn atau portfolio.', tExtras: 'Tambah sijil, kursus atau projek supaya anda lebih menonjol.',
+        tProjects: 'Tambah projek tahun akhir atau projek lain.', tCocu: 'Tambah kokurikulum atau aktiviti (kelab, sukan, sukarela).', tPages: 'Ringkaskan resume kepada 1 halaman.',
         confirmTitle: 'Padam semua maklumat?', confirmText: 'Semua maklumat yang anda isi akan dipadam dan tidak boleh dikembalikan.', confirmBackup: 'Simpan salinan dahulu', confirmNo: 'Batal', confirmYes: 'Ya, padam',
         backupTitle: 'Salinan maklumat', backupText: 'Simpan fail salinan supaya anda boleh sambung semula di telefon lain atau selepas data pelayar dipadam.', backupSave: 'Simpan salinan', backupOpen: 'Buka salinan',
         backupSaved: 'Salinan disimpan. Semak folder Muat Turun / Fail anda.', backupLoaded: 'Salinan dibuka. Maklumat anda telah dipulihkan.', backupBad: 'Fail ini bukan salinan resume yang sah.',
@@ -658,6 +699,17 @@ class Component extends DCLogic {
         privacyTitle: 'Your privacy is protected', privacyText: 'Your resume details stay on your device and are never sent to us. We only count anonymous usage, such as how many resumes are created.',
         editInfo: 'Edit details', launchPromo: 'Launch\npromo',
         atsPhotoNote: 'ATS Pro hides the photo and colours — safer for ATS screening systems.',
+        scoreTitle: 'Resume score', scoreSub: 'Follow the tips below to raise your score.', scorePerfect: 'Great! Your resume is complete and polished.', fixBtn: 'Fix',
+        lvl0: 'Needs work', lvl1: 'Fair', lvl2: 'Good', lvl3: 'Excellent',
+        tName: 'Add your full name.', tTitle: 'Add the job title or field you are applying for.', tPhone: 'Add a phone number.', tEmail: 'Add a valid email (e.g. name@gmail.com).', tLoc: 'Add your location (city, state).',
+        tSumNone: 'Add a 2–4 sentence summary of your strengths.', tSumShort: 'Your summary is too short. Aim for 30–80 words.', tSumLong: 'Your summary is too long. Cut it to 30–80 words.',
+        tExpNone: 'Add at least one job with position, company and dates.', tExpFreshNone: 'Any internship, part-time job or volunteering? Add it.',
+        tDuties: 'Add at least 3 duties for each job.', tNumbers: 'Put numbers in your achievements (e.g. 20%, RM5,000, 15 customers). Employers like measurable results.',
+        tVerbs: 'Start duties with an action verb (Managed, Prepared…), not “Responsible for…”.',
+        tEdu: 'Add your education (qualification and institution).', tEduYear: 'Add a year for each education entry.',
+        tSkills: 'Add at least 5 skills.', tLangs: 'Add the languages you speak.',
+        tPhoto: 'Add a passport-style photo for this template.', tLinked: 'Add a LinkedIn or portfolio link.', tExtras: 'Add certificates, courses or projects to stand out.',
+        tProjects: 'Add a final year project or other project.', tCocu: 'Add co-curricular activities (clubs, sports, volunteering).', tPages: 'Shorten your resume to 1 page.',
         confirmTitle: 'Delete all details?', confirmText: 'Everything you have filled in will be deleted and cannot be brought back.', confirmBackup: 'Save a copy first', confirmNo: 'Cancel', confirmYes: 'Yes, delete',
         backupTitle: 'Backup copy', backupText: 'Save a backup file so you can continue on another phone or after your browser data is cleared.', backupSave: 'Save copy', backupOpen: 'Open copy',
         backupSaved: 'Copy saved. Check your Downloads / Files folder.', backupLoaded: 'Copy opened. Your details have been restored.', backupBad: 'This file is not a valid resume backup.',
@@ -1289,6 +1341,68 @@ class Component extends DCLogic {
       '<style>@page{size:A4;margin:' + P.TOP + 'px 0 0}@page:first{margin:0}html,body{margin:0;background:#fff}' + this.RESUME_CSS + '</style>' + auto + '</head><body>' +
       body + '</body></html>';
   }
+  // ---------- Resume score (0–100) & tips — all checks run on the device, nothing is sent ----------
+  // Each tip: [points it is worth, text, builder step to fix it (null = no button)]. Edit the points freely; they add up to 100.
+  computeScore() {
+    const d = this.D();
+    const t = this.T();
+    const tips = [];
+    let score = 0;
+    const add = (ok, pts, tip, step) => { if (ok) score += pts; else if (tip) tips.push({ pts, text: tip, step }); };
+    const s = (v) => String(v || '').trim();
+    const words = (v) => s(v).split(/\s+/).filter(Boolean).length;
+    // 1) Contact — 15
+    add(!!s(d.name), 3, t.tName, 0);
+    add(!!s(d.title), 3, t.tTitle, 0);
+    add(s(d.phone).replace(/\D/g, '').length >= 9, 3, t.tPhone, 0);
+    add(/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(s(d.email)), 3, t.tEmail, 0);
+    add(!!s(d.location), 3, t.tLoc, 0);
+    // 2) Summary — 15
+    const sw = words(d.summary);
+    add(sw > 0, 5, t.tSumNone, 0);
+    if (sw > 0) {
+      if (sw >= 30 && sw <= 80) score += 10;
+      else if (sw >= 15 && sw <= 120) { score += 5; tips.push({ pts: 5, text: sw < 30 ? t.tSumShort : t.tSumLong, step: 0 }); }
+      else tips.push({ pts: 10, text: sw < 30 ? t.tSumShort : t.tSumLong, step: 0 });
+    }
+    // 3) Experience — 25 (fresh graduates: 10 for experience + 8 projects + 7 co-curricular)
+    const jobs = (d.exp || []).filter((x) => s(x.role) || s(x.company));
+    const lines = (x) => String(x.desc || '').split('\n').map((l) => l.trim()).filter(Boolean);
+    if (d.fresh) {
+      add(jobs.length > 0, 10, t.tExpFreshNone, 1);
+      add((d.projects || []).some((x) => s(x.title)), 8, t.tProjects, 4);
+      add((d.cocu || []).some((x) => s(x.role) || s(x.org)), 7, t.tCocu, 4);
+    } else {
+      const fullJob = jobs.some((x) => s(x.role) && s(x.company) && (s(x.start) || s(x.end)));
+      add(fullJob, 10, t.tExpNone, 1);
+      if (jobs.length) {
+        const avg = jobs.reduce((n, x) => n + lines(x).length, 0) / jobs.length;
+        if (avg >= 3) score += 7; else if (avg >= 2) { score += 4; tips.push({ pts: 3, text: t.tDuties, step: 1 }); } else tips.push({ pts: 7, text: t.tDuties, step: 1 });
+        const all = [].concat.apply([], jobs.map(lines));
+        const withNum = all.filter((l) => /\d/.test(l)).length;
+        if (withNum >= jobs.length) score += 5; else if (withNum > 0) { score += 3; tips.push({ pts: 2, text: t.tNumbers, step: 1 }); } else tips.push({ pts: 5, text: t.tNumbers, step: 1 });
+        add(!all.some((l) => /^(bertanggungjawab|responsible for|tugas saya|my duties)/i.test(l)), 3, t.tVerbs, 1);
+      } else { tips.push({ pts: 15, text: t.tDuties, step: 1 }); }
+    }
+    // 4) Education — 15
+    const edu = (d.edu || []).filter((x) => s(x.qual) && s(x.school));
+    add(edu.length > 0, 10, t.tEdu, 2);
+    add(edu.length > 0 && edu.every((x) => s(x.year)), 5, edu.length ? t.tEduYear : null, 2);
+    // 5) Skills & languages — 15
+    const sk = this.splitList(d.skills).length;
+    if (sk >= 5) score += 10; else if (sk >= 3) { score += 6; tips.push({ pts: 4, text: t.tSkills, step: 3 }); } else if (sk >= 1) { score += 3; tips.push({ pts: 7, text: t.tSkills, step: 3 }); } else tips.push({ pts: 10, text: t.tSkills, step: 3 });
+    add(this.splitList(d.languages).length > 0, 5, t.tLangs, 3);
+    // 6) Extras & polish — 15
+    add(this.state.tpl === 'ats' || !!d.photo, 3, t.tPhoto, 0);
+    add(!!s(d.linkedin), 3, t.tLinked, 0);
+    add((d.certs || []).some((x) => s(x.name)) || (d.projects || []).some((x) => s(x.title)) || (d.cocu || []).some((x) => s(x.role) || s(x.org)), 5, t.tExtras, 4);
+    const pg = this.state.pages || 1;
+    if (pg === 1) score += 4; else if (pg === 2) { score += 2; tips.push({ pts: 2, text: t.tPages, step: null }); } else tips.push({ pts: 4, text: t.tPages, step: null });
+    score = Math.max(0, Math.min(100, Math.round(score)));
+    tips.sort((a, b) => b.pts - a.pts);
+    return { score, tips: tips.slice(0, 5) };
+  }
+
   // ---------- Backup file: save / open a copy of everything the user typed ----------
   async saveBackup() {
     const t = this.T();
@@ -1345,7 +1459,7 @@ class Component extends DCLogic {
     const t = this.T();
     if (this.state.pdfBusy) return;
     const hasColor = this.state.tpl === 'moden' || this.state.tpl === 'klasik';
-    const meta = { color: hasColor ? this.modenColor().id : 'none', pages: this.state.pages || 1 };
+    const meta = { color: hasColor ? this.modenColor().id : 'none', pages: this.state.pages || 1, score: this.computeScore().score };
     const count = () => { if (typeof this.state.genCount === 'number') this.setState({ genCount: this.state.genCount + 1 }); };
     if (method === 'print') { this.printFallback(); this.track('pdf_download', Object.assign({ method: 'print' }, meta)); count(); return; }
     this.setState({ pdfBusy: true });
@@ -1763,6 +1877,18 @@ class Component extends DCLogic {
       },
       prevStep: () => (this.state.step <= 0 ? this.setState({ screen: 'home' }) : this.setState({ step: this.state.step - 1 })),
       curTierName: (cur[lang] || cur.ms) + ' · ' + (cur.tier === 'ats' ? t.ats : t.standard),
+      ...(() => {
+        if (screen !== 'preview') return { scoreNum: '0', scoreTips: [] };
+        const sc = this.computeScore();
+        const lv = sc.score >= 85 ? 3 : sc.score >= 70 ? 2 : sc.score >= 50 ? 1 : 0;
+        const colors = [['#FDE2DC', '#9A2F1C', '#E0533D'], ['#FFEFC7', '#7A5600', '#F2B320'], ['#E3F1FF', '#1F4E85', '#3A82D6'], [accent, '#15171B', '#5FA80F']];
+        return {
+          scoreNum: String(sc.score), scoreLabel: t['lvl' + lv], scoreWidth: sc.score + '%',
+          scoreBg: colors[lv][0], scoreFg: colors[lv][1], scoreBar: colors[lv][2],
+          scoreSub: sc.tips.length ? t.scoreSub : t.scorePerfect,
+          scoreTips: sc.tips.map((tp) => ({ gain: '+' + tp.pts, text: tp.text, canFix: tp.step !== null && tp.step !== undefined, fix: () => this.setState({ screen: 'build', step: tp.step }) })),
+        };
+      })(),
       curPrice: this.price(cur.tier),
       atsNoPhoto: tpl === 'ats',
       download: () => this.download(), printDownload: () => this.download('print'),
