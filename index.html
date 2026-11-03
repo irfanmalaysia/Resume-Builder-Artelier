@@ -353,15 +353,53 @@
   <sc-if value="{{ isPreview }}" hint-placeholder-val="{{ false }}">
   <div data-screen-label="Preview" class="scroll" style="height:100%; overflow-y:auto; padding:calc(76px + env(safe-area-inset-top)) 0 calc(108px + env(safe-area-inset-bottom));">
     <div style="padding:2px 20px 0;">
-      <div style="font-size:21px; font-weight:800;">{{ t.preview }}</div>
+      <div style="font-size:21px; font-weight:800;">{{ previewTitle }}</div>
     </div>
+    <!-- resume / cover letter switch -->
+    <div style="padding:12px 20px 0;">
+      <div style="display:flex; background:#fff; border:1px solid #ECECE9; border-radius:14px; padding:4px; gap:4px;">
+        <sc-for list="{{ docTabs }}" as="dt" hint-placeholder-count="2">
+          <div onClick="{{ dt.go }}" style="flex:1; text-align:center; padding:10px 8px; border-radius:11px; font-size:13px; font-weight:800; cursor:pointer; background:{{ dt.bg }}; color:{{ dt.fg }};">{{ dt.label }}</div>
+        </sc-for>
+      </div>
+    </div>
+    <sc-if value="{{ isResumeDoc }}" hint-placeholder-val="{{ true }}">
     <div class="chips" style="display:flex; gap:8px; overflow-x:auto; padding:12px 20px 4px;">
       <sc-for list="{{ templates }}" as="tp" hint-placeholder-count="4">
         <div onClick="{{ tp.choose }}" style="flex:none; padding:9px 14px; border-radius:12px; font-size:13px; font-weight:800; cursor:pointer; background:{{ tp.chipBg }}; color:{{ tp.chipFg }}; border:1px solid #ECECE9;">{{ tp.name }}</div>
       </sc-for>
     </div>
+    </sc-if>
+    <!-- cover letter details -->
+    <sc-if value="{{ isLetter }}" hint-placeholder-val="{{ false }}">
+      <div style="padding:12px 20px 0;">
+        <div style="background:#fff; border:1px solid #ECECE9; border-radius:20px; padding:14px;">
+          <div style="font-size:13.5px; font-weight:800;">{{ t.clTitle }}</div>
+          <div style="font-size:12px; color:#6B7079; margin-top:3px; line-height:1.45;">{{ t.clIntro }}</div>
+          <div style="display:grid; grid-template-columns:repeat(2, minmax(0, 1fr)); gap:10px; margin-top:12px;">
+            <sc-for list="{{ letterFields }}" as="f" hint-placeholder-count="5">
+              <div style="grid-column:{{ f.span }}; display:flex; flex-direction:column; gap:6px;">
+                <span style="font-size:12px; font-weight:700; color:#6B7079;">{{ f.label }}</span>
+                <sc-if value="{{ f.multi }}" hint-placeholder-val="{{ false }}">
+                  <textarea class="fld" rows="3" value="{{ f.value }}" placeholder="{{ f.placeholder }}" onChange="{{ f.onChange }}" style="min-height:70px;"></textarea>
+                </sc-if>
+                <sc-if value="{{ f.single }}" hint-placeholder-val="{{ true }}">
+                  <input class="fld" type="text" value="{{ f.value }}" placeholder="{{ f.placeholder }}" onChange="{{ f.onChange }}">
+                </sc-if>
+              </div>
+            </sc-for>
+          </div>
+          <div style="display:flex; align-items:center; justify-content:space-between; margin-top:14px;">
+            <span style="font-size:12px; font-weight:700; color:#6B7079;">{{ t.clBody }}</span>
+            <div onClick="{{ regenLetter }}" style="font-size:12px; font-weight:800; padding:7px 10px; border-radius:10px; background:#F4F4F2; cursor:pointer;">{{ t.clRegen }}</div>
+          </div>
+          <textarea class="fld" rows="12" value="{{ letterBody }}" onChange="{{ onLetterBody }}" style="margin-top:6px; min-height:240px; font-size:13.5px;"></textarea>
+          <div style="font-size:11.5px; color:#90949B; margin-top:6px; line-height:1.4;">{{ letterHint }}</div>
+        </div>
+      </div>
+    </sc-if>
     <!-- Moden colour picker -->
-    <sc-if value="{{ isModen }}" hint-placeholder-val="{{ true }}">
+    <sc-if value="{{ showColors }}" hint-placeholder-val="{{ true }}">
       <div style="padding:10px 20px 0;">
         <div style="display:flex; align-items:center; justify-content:space-between;">
           <span style="font-size:13px; font-weight:800;">{{ t.colorLabel }}</span>
@@ -375,7 +413,7 @@
       </div>
     </sc-if>
     <div style="padding:10px 20px 0;">
-      <div data-rv="{{ tpl }}" style="width:100%; min-height:200px; border-radius:6px; overflow:hidden; background:#fff; box-shadow:0 10px 30px rgba(21,23,27,.14);"></div>
+      <div data-rv="{{ previewTpl }}" style="width:100%; min-height:200px; border-radius:6px; overflow:hidden; background:#fff; box-shadow:0 10px 30px rgba(21,23,27,.14);"></div>
       <!-- page counter -->
       <div style="display:flex; align-items:center; justify-content:space-between; gap:10px; margin-top:12px;">
         <span style="font-size:12px; color:#6B7079; font-weight:600;"><sc-if value="{{ multiPage }}" hint-placeholder-val="{{ false }}">{{ t.pageLegend }}</sc-if></span>
@@ -386,6 +424,7 @@
       </sc-if>
     </div>
     <!-- resume score & tips -->
+    <sc-if value="{{ isResumeDoc }}" hint-placeholder-val="{{ true }}">
     <div style="padding:16px 20px 0;">
       <div style="background:#fff; border:1px solid #ECECE9; border-radius:20px; padding:16px;">
         <div style="display:flex; align-items:center; justify-content:space-between; gap:12px;">
@@ -415,13 +454,14 @@
         </div>
       </div>
     </div>
+    </sc-if>
     <div style="padding:16px 20px 0;">
       <div style="background:#fff; border:1px solid #ECECE9; border-radius:20px; padding:14px 16px; display:flex; align-items:center; justify-content:space-between; gap:10px;">
         <div>
           <div style="font-size:12px; color:#90949B; font-weight:700;">{{ curTierName }}</div>
           <div style="display:flex; align-items:baseline; gap:8px; margin-top:2px;">
             <span style="font-size:20px; font-weight:800;">{{ t.free }}</span>
-            <span style="font-size:13px; color:#A8ACB2; text-decoration:line-through; font-weight:700;">{{ curPrice }}</span>
+            <sc-if value="{{ isResumeDoc }}" hint-placeholder-val="{{ true }}"><span style="font-size:13px; color:#A8ACB2; text-decoration:line-through; font-weight:700;">{{ curPrice }}</span></sc-if>
           </div>
         </div>
         <span style="font-size:11px; font-weight:800; background:var(--accent,#B7F23A); padding:5px 9px; border-radius:8px; text-align:center; white-space:pre-line; line-height:1.25;">{{ t.launchPromo }}</span>
@@ -625,6 +665,12 @@ class Component extends DCLogic {
         skillsPh: 'cth. Microsoft Excel, Canva, Pengurusan projek', langsPh: 'cth. Bahasa Melayu (Natif), Bahasa Inggeris (Fasih)',
         next: 'Seterusnya', back: 'Kembali', toPreview: 'Lihat pratonton', clear: 'Kosongkan', sample: 'Isi contoh',
         autosave: 'Disimpan secara automatik dalam peranti ini sahaja — tidak dihantar ke mana-mana.',
+        docResume: 'Resume', docLetter: 'Surat permohonan', previewLetter: 'Surat permohonan kerja', letterTier: 'Surat permohonan kerja',
+        clTitle: 'Maklumat jawatan', clIntro: 'Surat dijana daripada maklumat resume anda. Isi butiran jawatan di bawah dan sunting teks jika perlu.',
+        clCompany: 'Nama syarikat / jabatan', clPosition: 'Jawatan yang dipohon', clRecipient: 'Kepada (pilihan)', clRecipientPh: 'Pengurus Sumber Manusia', clSource: 'Iklan dari (pilihan)', clSourcePh: 'cth. JobStreet, Facebook',
+        clAddress: 'Alamat syarikat (pilihan)', clAddressPh: 'No. 1, Jalan Contoh\n24000 Kemaman, Terengganu', clBody: 'Kandungan surat', clRegen: 'Jana semula',
+        clAuto: 'Teks dijana automatik dan dikemas kini apabila anda menukar maklumat.', clEdited: 'Anda telah menyunting teks ini. Tekan “Jana semula” untuk kembali kepada teks automatik.',
+        letterSaved: 'Surat permohonan dimuat turun. Semak folder Muat Turun / Fail anda.',
         preview: 'Pratonton resume', download: 'Muat turun PDF', downloadHint: 'Fail PDF akan dimuat turun terus ke peranti anda.',
         pdfMaking: 'Menyediakan PDF…', pdfSaved: 'PDF berjaya dimuat turun. Semak folder Muat Turun / Fail anda.',
         printAlt: 'Ada masalah? Guna cara cetak', printHint: 'Pilih “Simpan sebagai PDF” di tetingkap cetak.',
@@ -693,6 +739,12 @@ class Component extends DCLogic {
         skillsPh: 'e.g. Microsoft Excel, Canva, Project management', langsPh: 'e.g. Malay (Native), English (Fluent)',
         next: 'Next', back: 'Back', toPreview: 'See preview', clear: 'Clear', sample: 'Sample',
         autosave: 'Saved automatically on this device only — never sent anywhere.',
+        docResume: 'Resume', docLetter: 'Cover letter', previewLetter: 'Cover letter', letterTier: 'Cover letter',
+        clTitle: 'Job details', clIntro: 'Your letter is built from your resume details. Fill in the job details below and edit the text if needed.',
+        clCompany: 'Company / department name', clPosition: 'Position applied for', clRecipient: 'To (optional)', clRecipientPh: 'Hiring Manager', clSource: 'Advertised on (optional)', clSourcePh: 'e.g. JobStreet, LinkedIn',
+        clAddress: 'Company address (optional)', clAddressPh: 'No. 1, Jalan Contoh\n24000 Kemaman, Terengganu', clBody: 'Letter text', clRegen: 'Regenerate',
+        clAuto: 'The text is written automatically and updates when you change your details.', clEdited: 'You have edited this text. Tap “Regenerate” to go back to the automatic text.',
+        letterSaved: 'Cover letter downloaded. Check your Downloads / Files folder.',
         preview: 'Resume preview', download: 'Download PDF', downloadHint: 'The PDF file downloads straight to your device.',
         pdfMaking: 'Preparing PDF…', pdfSaved: 'PDF downloaded. Check your Downloads / Files folder.',
         printAlt: 'Having trouble? Use the print method', printHint: 'Choose “Save as PDF” in the print window.',
@@ -1232,13 +1284,85 @@ class Component extends DCLogic {
 .rv-ats .sec{margin-top:18px}
 .rv-ats .sec-h{font-size:14px;font-weight:700;text-transform:uppercase;border-bottom:1px solid #000;padding-bottom:3px;margin-bottom:8px}
 .rv-ats .job-co,.rv-ats .job-date,.rv-ats .job-note{color:#000}
+.rv-letter{padding:64px 76px;color:#1d2026}
+.rv-letter .l-name{font-size:24px;font-weight:700;line-height:1.2}
+.rv-letter .l-contact{font-size:12.5px;color:#4a4f57;margin-top:6px;display:flex;flex-wrap:wrap;gap:4px 14px}
+.rv-letter .l-rule{height:3px;background:var(--m-bar);margin:18px 0 28px}
+.rv-letter .l-block{margin-bottom:20px}
+.rv-letter .l-subject{font-weight:700;text-transform:uppercase;margin:4px 0 18px}
+.rv-letter p{margin:0 0 14px;text-align:justify}
+.rv-letter .l-sign{margin-top:26px}
+.rv-letter .l-space{height:56px}
 `;
   }
   esc(s) { return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
   // split on commas, but not commas inside brackets: "E-dagang (Shopee, Lazada)" stays one item
   splitList(s) { return String(s || '').split(/,(?![^()]*\))/).map((x) => x.trim()).filter(Boolean); }
 
+  // which document the preview / PDF shows: the resume template, or the cover letter
+  docTpl() { return this.state.docMode === 'letter' ? 'letter' : this.state.tpl; }
+  CL() { return Object.assign({ company: '', position: '', recipient: '', source: '', address: '', body: '' }, this.D().cl || {}); }
+  setCl(k, v) { this.setD({ cl: Object.assign({}, this.CL(), { [k]: v }) }); }
+  letterDate() {
+    const now = new Date();
+    const ms = ['Januari', 'Februari', 'Mac', 'April', 'Mei', 'Jun', 'Julai', 'Ogos', 'September', 'Oktober', 'November', 'Disember'];
+    const en = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    return now.getDate() + ' ' + (this.state.lang === 'en' ? en : ms)[now.getMonth()] + ' ' + now.getFullYear();
+  }
+  // Automatic letter text (edit the wording freely). Paragraphs are separated by a blank line.
+  autoLetter() {
+    const d = this.D(), cl = this.CL(), en = this.state.lang === 'en';
+    const s = (v) => String(v || '').trim();
+    const pos = s(cl.position) || s(d.title) || (en ? 'the advertised position' : 'yang diiklankan');
+    const co = s(cl.company) || (en ? 'your company' : 'syarikat tuan/puan');
+    const src = s(cl.source);
+    const job = (d.exp || []).find((x) => s(x.role) && s(x.company));
+    const duties = job ? String(job.desc || '').split('\n').map((l) => l.trim().replace(/[.]$/, '')).filter(Boolean).slice(0, 2) : [];
+    const edu = (d.edu || []).find((x) => s(x.qual));
+    const skills = this.splitList(d.skills).slice(0, 4);
+    const langs = this.splitList(d.languages).map((l) => l.replace(/\s*\(.*\)$/, ''));
+    const lower = (x) => x.charAt(0).toLowerCase() + x.slice(1);
+    const dot = (x) => (/[.!?]$/.test(x) ? x : x + '.'); // avoid "Sdn. Bhd.."
+    const list = (a) => (a.length <= 1 ? a.join('') : a.slice(0, -1).join(', ') + (en ? ' and ' : ' dan ') + a[a.length - 1]);
+    const P = [];
+    if (en) {
+      P.push(dot('I am writing to apply for the position of ' + pos + ' at ' + co + (src ? ', as advertised on ' + src : '')));
+      if (job && !d.fresh) P.push(dot('I am currently working as ' + s(job.role) + ' at ' + s(job.company)) + (duties.length ? ' My responsibilities include ' + dot(list(duties.map(lower))) : '') + (edu ? ' ' + dot('I hold a ' + s(edu.qual) + (s(edu.school) ? ' from ' + s(edu.school) : '')) : ''));
+      else if (edu) P.push(dot('I am a graduate of ' + s(edu.qual) + (s(edu.school) ? ' from ' + s(edu.school) : '')) + (job ? ' During my ' + lower(s(job.role)) + ' role at ' + s(job.company) + ', I gained hands-on experience' + (duties.length ? ' in ' + dot(list(duties.map(lower))) : '.') : ''));
+      if (skills.length || langs.length) P.push((skills.length ? dot('I am skilled in ' + list(skills)) + ' ' : '') + (langs.length ? dot('I am able to communicate in ' + list(langs)) + ' ' : '') + dot('I am confident that my skills and attitude will contribute to ' + co));
+      P.push('I have enclosed my resume for your consideration. I can be reached at ' + (s(d.phone) || '[phone]') + (s(d.email) ? ' or ' + s(d.email) : '') + '. Thank you for your time and consideration.');
+    } else {
+      P.push(dot('Dengan segala hormatnya, saya ingin memohon jawatan ' + pos + ' di ' + co + (src ? ' seperti yang diiklankan di ' + src : '')));
+      if (job && !d.fresh) P.push(dot('Pada masa ini, saya bertugas sebagai ' + s(job.role) + ' di ' + s(job.company)) + (duties.length ? ' Antara tugas saya ialah ' + dot(list(duties.map(lower))) : '') + (edu ? ' ' + dot('Saya memiliki ' + s(edu.qual) + (s(edu.school) ? ' dari ' + s(edu.school) : '')) : ''));
+      else if (edu) P.push(dot('Saya merupakan graduan ' + s(edu.qual) + (s(edu.school) ? ' dari ' + s(edu.school) : '')) + (job ? ' ' + dot('Semasa berkhidmat sebagai ' + s(job.role) + ' di ' + s(job.company) + ', saya memperoleh pengalaman' + (duties.length ? ' dalam ' + list(duties.map(lower)) : ' secara langsung')) : ''));
+      if (skills.length || langs.length) P.push((skills.length ? dot('Saya mahir dalam ' + list(skills)) + ' ' : '') + (langs.length ? dot('Saya juga boleh berkomunikasi dalam ' + list(langs)) + ' ' : '') + dot('Saya yakin kemahiran dan sikap saya dapat menyumbang kepada ' + co));
+      P.push('Bersama-sama ini saya sertakan resume untuk pertimbangan pihak tuan/puan. Saya boleh dihubungi di ' + (s(d.phone) || '[telefon]') + (s(d.email) ? ' atau ' + s(d.email) : '') + '. Kerjasama dan pertimbangan pihak tuan/puan amatlah saya hargai.');
+    }
+    return P.join('\n\n');
+  }
+  letterHTML() {
+    const d = this.D(), cl = this.CL(), t = this.T(), en = this.state.lang === 'en';
+    const e = (v) => this.esc(v);
+    const s = (v) => String(v || '').trim();
+    const contact = [s(d.phone), s(d.email), s(d.location)].filter(Boolean).map((c) => '<span>' + e(c) + '</span>').join('');
+    const recipient = [s(cl.recipient) || (en ? 'The Hiring Manager' : 'Pengurus Sumber Manusia'), s(cl.company)].concat(s(cl.address).split('\n').map((l) => l.trim())).filter(Boolean).map(e).join('<br>');
+    const pos = s(cl.position) || s(d.title);
+    const subject = en ? 'Re: Application for the position of ' + (pos || '…') : 'Permohonan jawatan ' + (pos || '…');
+    const text = s(cl.body) ? String(cl.body) : this.autoLetter();
+    const paras = text.split(/\n\s*\n/).map((p) => p.trim()).filter(Boolean).map((p) => '<p class="blk">' + e(p).replace(/\n/g, '<br>') + '</p>').join('');
+    const mc = this.modenColor();
+    return '<div class="rv rv-letter" style="--m-bar:' + mc.bar + '">' +
+      '<div class="l-name blk">' + e(s(d.name) || t.yourName) + '</div>' + (contact ? '<div class="l-contact blk">' + contact + '</div>' : '') + '<div class="l-rule"></div>' +
+      '<div class="l-block blk">' + e(this.letterDate()) + '</div>' +
+      '<div class="l-block blk">' + recipient + '</div>' +
+      '<div class="l-block blk">' + (en ? 'Dear Sir/Madam,' : 'Tuan/Puan,') + '</div>' +
+      '<div class="l-subject blk">' + e(subject) + '</div>' + paras +
+      '<div class="l-sign blk">' + (en ? 'Yours faithfully,' : 'Sekian, terima kasih.<br><br>Yang benar,') + '<div class="l-space"></div><b>' + e(s(d.name) || t.yourName) + '</b></div>' +
+      '</div>';
+  }
+
   resumeHTML(tpl, src) {
+    if (tpl === 'letter') return this.letterHTML();
     const d = src || this.D();
     const t = this.T();
     const e = (s) => this.esc(s);
@@ -1335,7 +1459,7 @@ class Component extends DCLogic {
     const docTitle = this.esc((d.name || 'Resume') + ' - Resume');
     const auto = autoPrint ? '<script>window.addEventListener("load",function(){setTimeout(function(){window.print()},400)})<\/script>' : '';
     // use the paginated preview (same page breaks the user saw); fall back to a fresh render
-    const body = (this._printHTML && this._printTpl === this.state.tpl) ? this._printHTML : this.resumeHTML(this.state.tpl);
+    const body = (this._printHTML && this._printTpl === this.docTpl()) ? this._printHTML : this.resumeHTML(this.docTpl());
     const P = this.PAGE;
     return '<!doctype html><html><head><meta charset="utf-8"><title>' + docTitle + '</title>' +
       '<style>@page{size:A4;margin:' + P.TOP + 'px 0 0}@page:first{margin:0}html,body{margin:0;background:#fff}' + this.RESUME_CSS + '</style>' + auto + '</head><body>' +
@@ -1459,19 +1583,23 @@ class Component extends DCLogic {
     const t = this.T();
     if (this.state.pdfBusy) return;
     const hasColor = this.state.tpl === 'moden' || this.state.tpl === 'klasik';
-    const meta = { color: hasColor ? this.modenColor().id : 'none', pages: this.state.pages || 1, score: this.computeScore().score };
-    const count = () => { if (typeof this.state.genCount === 'number') this.setState({ genCount: this.state.genCount + 1 }); };
-    if (method === 'print') { this.printFallback(); this.track('pdf_download', Object.assign({ method: 'print' }, meta)); count(); return; }
+    const letter = this.docTpl() === 'letter';
+    const meta = letter ? { pages: this.state.pages || 1 } : { color: hasColor ? this.modenColor().id : 'none', pages: this.state.pages || 1, score: this.computeScore().score };
+    // the public counter only counts resumes; cover letters are tracked as their own event
+    const evName = letter ? 'letter_download' : 'pdf_download';
+    const count = () => { if (!letter && typeof this.state.genCount === 'number') this.setState({ genCount: this.state.genCount + 1 }); };
+    if (method === 'print') { this.printFallback(); this.track(evName, Object.assign({ method: 'print' }, meta)); count(); return; }
     this.setState({ pdfBusy: true });
     try {
       const blob = await this.buildPdf();
-      const base = String(this.D().name || 'Resume').replace(/[^A-Za-z0-9 _-]/g, '').trim().replace(/\s+/g, '_') || 'Resume';
-      const st = await this.saveBlob(blob, base === 'Resume' ? 'Resume.pdf' : base + '_Resume.pdf');
-      if (st === 'saved') { this.showToast(t.pdfSaved); this.track('pdf_download', Object.assign({ method: 'direct' }, meta)); count(); }
+      const base = String(this.D().name || '').replace(/[^A-Za-z0-9 _-]/g, '').trim().replace(/\s+/g, '_');
+      const kind = letter ? 'Surat_Permohonan' : 'Resume';
+      const st = await this.saveBlob(blob, (base ? base + '_' : '') + kind + '.pdf');
+      if (st === 'saved') { this.showToast(letter ? t.letterSaved : t.pdfSaved); this.track(evName, Object.assign({ method: 'direct' }, meta)); count(); }
     } catch (e) {
       // anything unexpected (no internet for the PDF library, unusual characters…) → old print method
       this.printFallback();
-      this.track('pdf_download', Object.assign({ method: 'print_fallback' }, meta)); count();
+      this.track(evName, Object.assign({ method: 'print_fallback' }, meta)); count();
     } finally {
       this.setState({ pdfBusy: false });
     }
@@ -1513,10 +1641,23 @@ class Component extends DCLogic {
     setTimeout(() => URL.revokeObjectURL(url), 60000);
     return 'saved';
   }
+  // Real width of a word in the PDF font. jsPDF measures bold text with the regular font's widths,
+  // so bold uses Helvetica-Bold's own character widths (characters 32–126, in 1/1000 of the font size).
+  pdfTextWidth(doc, word, bold, fsPt) {
+    if (!bold) return doc.getTextWidth(word);
+    const W = [278,333,474,556,556,889,722,238,333,333,389,584,278,333,278,278,556,556,556,556,556,556,556,556,556,556,333,333,584,584,584,611,975,722,722,722,722,667,611,778,722,278,556,722,611,833,722,778,667,778,722,667,611,722,667,944,667,667,611,333,278,333,584,556,333,556,611,556,611,556,333,611,611,278,278,556,278,889,611,611,611,611,389,556,333,611,556,778,556,556,500,389,280,389,584];
+    let w = 0;
+    for (const ch of word) {
+      const c = ch.charCodeAt(0);
+      w += c >= 32 && c <= 126 ? W[c - 32] * fsPt / 1000 : doc.getTextWidth(ch) * 1.06;
+    }
+    return w;
+  }
+
   // Draws the exact preview layout into a real PDF: text stays text (ATS-readable), links stay clickable.
   async buildPdf() {
     const JsPDF = await this.loadJsPDF();
-    const html = this._printHTML && this._printTpl === this.state.tpl ? this._printHTML : '';
+    const html = this._printHTML && this._printTpl === this.docTpl() ? this._printHTML : '';
     if (!html) throw new Error('no preview');
     this.ensureCSS();
     const host = document.createElement('div');
@@ -1627,8 +1768,10 @@ class Component extends DCLogic {
         doc.setFont('helvetica', bold && ital ? 'bolditalic' : bold ? 'bold' : ital ? 'italic' : 'normal');
         doc.setFontSize(fs * k);
         doc.setTextColor(c[0], c[1], c[2]);
-        doc.setCharSpace((parseFloat(cs.letterSpacing) || 0) * k);
+        const baseCs = (parseFloat(cs.letterSpacing) || 0) * k;
+        doc.setCharSpace(0);
         const up = cs.textTransform === 'uppercase';
+        const fsPt = fs * k;
         const re = /\S+/g; let m;
         while ((m = re.exec(txt))) {
           range.setStart(node, m.index); range.setEnd(node, m.index + m[0].length);
@@ -1638,7 +1781,11 @@ class Component extends DCLogic {
           const top = rr.top - R.top;
           const base = top + (rr.height - 1.117 * fs) / 2 + 0.905 * fs; // Arial/Helvetica ascent & descent
           const n = pageOf(top); doc.setPage(n);
-          doc.text(up ? m[0].toUpperCase() : m[0], (rr.left - R.left) * k, (base + offY(n)) * k, { baseline: 'alphabetic' });
+          const word = up ? m[0].toUpperCase() : m[0];
+          // the browser tightens letter pairs (kerning); squeeze the word slightly if the PDF version is wider than its slot
+          const slot = rr.width * k, w0 = this.pdfTextWidth(doc, word, bold, fsPt), len = word.length;
+          const cs2 = w0 + baseCs * len > slot + 0.3 && len > 1 ? (slot - w0) / len : baseCs;
+          doc.text(word, (rr.left - R.left) * k, (base + offY(n)) * k, { baseline: 'alphabetic', charSpace: cs2 });
         }
       }
       doc.setCharSpace(0);
@@ -1876,7 +2023,7 @@ class Component extends DCLogic {
         else this.setState({ step: cur + 1 });
       },
       prevStep: () => (this.state.step <= 0 ? this.setState({ screen: 'home' }) : this.setState({ step: this.state.step - 1 })),
-      curTierName: (cur[lang] || cur.ms) + ' · ' + (cur.tier === 'ats' ? t.ats : t.standard),
+      curTierName: this.state.docMode === 'letter' ? t.letterTier : (cur[lang] || cur.ms) + ' · ' + (cur.tier === 'ats' ? t.ats : t.standard),
       ...(() => {
         if (screen !== 'preview') return { scoreNum: '0', scoreTips: [] };
         const sc = this.computeScore();
@@ -1896,6 +2043,30 @@ class Component extends DCLogic {
       toast: this.state.toast, hasToast: !!this.state.toast,
       sheetOpen, sheetCats, sheetItems, closeSheet: () => this.setState({ dutySheet: -1 }),
       isModen: tpl === 'moden' || tpl === 'klasik',
+      ...(() => {
+        const letter = this.state.docMode === 'letter';
+        const cl = this.CL();
+        const tab = (key, label) => ({ label, bg: (letter ? 'letter' : 'resume') === key ? '#15171B' : 'transparent', fg: (letter ? 'letter' : 'resume') === key ? '#fff' : '#15171B',
+          go: () => { if ((letter ? 'letter' : 'resume') !== key) { this.setState({ docMode: key }); this.track('doc_switch', { doc: key }); } } });
+        const lf = (k, label, ph, opts) => this.field(label, cl[k], (ev) => this.setCl(k, ev.target.value), Object.assign({ ph }, opts || {}));
+        return {
+          isLetter: letter, isResumeDoc: !letter, previewTpl: letter ? 'letter' : tpl,
+          previewTitle: letter ? t.previewLetter : t.preview,
+          showColors: letter || tpl === 'moden' || tpl === 'klasik',
+          docTabs: [tab('resume', t.docResume), tab('letter', t.docLetter)],
+          letterFields: letter ? [
+            lf('company', t.clCompany, lang === 'en' ? 'e.g. Koperasi Maju Bhd.' : 'cth. Koperasi Maju Bhd.'),
+            lf('position', t.clPosition, d.title || (lang === 'en' ? 'e.g. Admin Executive' : 'cth. Eksekutif Pentadbiran')),
+            lf('recipient', t.clRecipient, t.clRecipientPh, { half: true }),
+            lf('source', t.clSource, t.clSourcePh, { half: true }),
+            lf('address', t.clAddress, t.clAddressPh, { multi: true }),
+          ] : [],
+          letterBody: letter ? (String(cl.body || '').trim() ? cl.body : this.autoLetter()) : '',
+          onLetterBody: (ev) => this.setCl('body', ev.target.value),
+          regenLetter: () => this.setCl('body', ''),
+          letterHint: String(cl.body || '').trim() ? t.clEdited : t.clAuto,
+        };
+      })(),
       colorName: (this.modenColor()[lang] || this.modenColor().ms),
       modenColors: this.MODEN_COLORS.map((c) => ({
         bg: c.bg, name: c[lang] || c.ms,
