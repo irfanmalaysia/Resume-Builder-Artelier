@@ -188,7 +188,10 @@
         </div>
       </div>
       <div style="display:flex; align-items:center; gap:14px; background:#fff; border:1px solid #ECECE9; border-radius:20px; padding:14px; margin-bottom:14px;">
-        <div style="width:68px; height:68px; flex:none; border-radius:50%; background:#EDEDEA; background-image:{{ photoBg }}; background-size:cover; background-position:center; display:flex; align-items:center; justify-content:center;">
+        <div style="width:68px; height:68px; flex:none; border-radius:50%; background:#EDEDEA; overflow:hidden; display:flex; align-items:center; justify-content:center;">
+          <sc-if value="{{ hasPhoto }}" hint-placeholder-val="{{ false }}">
+            <img src="{{ photoSrc }}" alt="" style="width:100%; height:100%; object-fit:cover; display:block;">
+          </sc-if>
           <sc-if value="{{ noPhoto }}" hint-placeholder-val="{{ true }}">
             <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="3.4" stroke="#A8ACB2" stroke-width="2"></circle><path d="M5 20c0-3.3 3.1-6 7-6s7 2.7 7 6" stroke="#A8ACB2" stroke-width="2" stroke-linecap="round"></path></svg>
           </sc-if>
@@ -199,6 +202,7 @@
           <div style="display:flex; gap:8px; margin-top:9px;">
             <label style="font-size:12.5px; font-weight:800; background:var(--accent,#B7F23A); padding:8px 12px; border-radius:11px; cursor:pointer;">{{ t.uploadPhoto }}<input type="file" accept="image/*" onChange="{{ onPhoto }}" style="display:none;"></label>
             <sc-if value="{{ hasPhoto }}" hint-placeholder-val="{{ false }}">
+              <div onClick="{{ adjustPhoto }}" style="font-size:12.5px; font-weight:700; padding:8px 12px; border-radius:11px; background:#F4F4F2; cursor:pointer;">{{ t.adjustPhoto }}</div>
               <div onClick="{{ removePhoto }}" style="font-size:12.5px; font-weight:700; padding:8px 12px; border-radius:11px; background:#F4F4F2; cursor:pointer;">{{ t.removePhoto }}</div>
             </sc-if>
           </div>
@@ -568,6 +572,27 @@
     </div>
   </sc-if>
 
+  <!-- ===== PHOTO CROP ===== -->
+  <sc-if value="{{ cropOpen }}" hint-placeholder-val="{{ false }}">
+    <div style="position:absolute; inset:0; z-index:96; background:rgba(21,23,27,.86); display:flex; flex-direction:column; align-items:center; justify-content:center; padding:24px;">
+      <div style="color:#fff; font-size:18px; font-weight:800;">{{ t.cropTitle }}</div>
+      <div style="color:rgba(255,255,255,.7); font-size:12.5px; margin-top:4px; text-align:center;">{{ t.cropHint }}</div>
+      <div onPointerDown="{{ cropDown }}" onPointerMove="{{ cropMove }}" onPointerUp="{{ cropUp }}" onPointerCancel="{{ cropUp }}" style="position:relative; width:260px; height:260px; margin-top:18px; overflow:hidden; border-radius:14px; background:#000; touch-action:none; cursor:grab; user-select:none;">
+        <img src="{{ cropSrc }}" alt="" draggable="false" style="position:absolute; left:{{ cropLeft }}; top:{{ cropTop }}; width:{{ cropW }}; height:{{ cropH }}; max-width:none; pointer-events:none;">
+        <div style="position:absolute; inset:0; border-radius:50%; box-shadow:0 0 0 400px rgba(0,0,0,.45); border:2px solid rgba(255,255,255,.9); pointer-events:none;"></div>
+      </div>
+      <div style="display:flex; align-items:center; gap:10px; width:260px; margin-top:18px;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="6.5" stroke="#fff" stroke-width="2"></circle><path d="M16 16l4 4M8 11h6" stroke="#fff" stroke-width="2" stroke-linecap="round"></path></svg>
+        <input type="range" min="1" max="3" step="0.01" value="{{ cropZoom }}" onChange="{{ onCropZoom }}" style="flex:1; accent-color:#B7F23A;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="6.5" stroke="#fff" stroke-width="2"></circle><path d="M16 16l4 4M8 11h6M11 8v6" stroke="#fff" stroke-width="2" stroke-linecap="round"></path></svg>
+      </div>
+      <div style="display:flex; gap:10px; width:260px; margin-top:20px;">
+        <div onClick="{{ cropCancel }}" style="flex:1; text-align:center; padding:13px; border-radius:13px; background:rgba(255,255,255,.14); color:#fff; font-size:14px; font-weight:800; cursor:pointer;">{{ t.cropCancel }}</div>
+        <div onClick="{{ cropApply }}" style="flex:1.4; text-align:center; padding:13px; border-radius:13px; background:var(--accent,#B7F23A); color:#15171B; font-size:14px; font-weight:800; cursor:pointer;">{{ t.cropUse }}</div>
+      </div>
+    </div>
+  </sc-if>
+
   <!-- ===== CONFIRM CLEAR ===== -->
   <sc-if value="{{ confirmClear }}" hint-placeholder-val="{{ false }}">
     <div style="position:absolute; inset:0; z-index:95; display:flex; align-items:center; justify-content:center; padding:24px;">
@@ -688,6 +713,7 @@ class Component extends DCLogic {
         tSkills: 'Tambah sekurang-kurangnya 5 kemahiran.', tLangs: 'Tambah bahasa yang anda kuasai.',
         tPhoto: 'Tambah gambar berukuran pasport untuk templat ini.', tLinked: 'Tambah pautan LinkedIn atau portfolio.', tExtras: 'Tambah sijil, kursus atau projek supaya anda lebih menonjol.',
         tProjects: 'Tambah projek tahun akhir atau projek lain.', tCocu: 'Tambah kokurikulum atau aktiviti (kelab, sukan, sukarela).', tPages: 'Ringkaskan resume kepada 1 halaman.',
+        cropTitle: 'Laraskan gambar', cropHint: 'Seret untuk alihkan, gunakan gelangsar untuk zum.', cropUse: 'Guna gambar', cropCancel: 'Batal', adjustPhoto: 'Laras',
         confirmTitle: 'Padam semua maklumat?', confirmText: 'Semua maklumat yang anda isi akan dipadam dan tidak boleh dikembalikan.', confirmBackup: 'Simpan salinan dahulu', confirmNo: 'Batal', confirmYes: 'Ya, padam',
         backupTitle: 'Salinan maklumat', backupText: 'Simpan fail salinan supaya anda boleh sambung semula di telefon lain atau selepas data pelayar dipadam.', backupSave: 'Simpan salinan', backupOpen: 'Buka salinan',
         backupSaved: 'Salinan disimpan. Semak folder Muat Turun / Fail anda.', backupLoaded: 'Salinan dibuka. Maklumat anda telah dipulihkan.', backupBad: 'Fail ini bukan salinan resume yang sah.',
@@ -762,6 +788,7 @@ class Component extends DCLogic {
         tSkills: 'Add at least 5 skills.', tLangs: 'Add the languages you speak.',
         tPhoto: 'Add a passport-style photo for this template.', tLinked: 'Add a LinkedIn or portfolio link.', tExtras: 'Add certificates, courses or projects to stand out.',
         tProjects: 'Add a final year project or other project.', tCocu: 'Add co-curricular activities (clubs, sports, volunteering).', tPages: 'Shorten your resume to 1 page.',
+        cropTitle: 'Adjust photo', cropHint: 'Drag to move, use the slider to zoom.', cropUse: 'Use photo', cropCancel: 'Cancel', adjustPhoto: 'Adjust',
         confirmTitle: 'Delete all details?', confirmText: 'Everything you have filled in will be deleted and cannot be brought back.', confirmBackup: 'Save a copy first', confirmNo: 'Cancel', confirmYes: 'Yes, delete',
         backupTitle: 'Backup copy', backupText: 'Save a backup file so you can continue on another phone or after your browser data is cleared.', backupSave: 'Save copy', backupOpen: 'Open copy',
         backupSaved: 'Copy saved. Check your Downloads / Files folder.', backupLoaded: 'Copy opened. Your details have been restored.', backupBad: 'This file is not a valid resume backup.',
@@ -1800,6 +1827,48 @@ class Component extends DCLogic {
     }
   }
 
+  // ---------- Photo crop & zoom ----------
+  get CROP_F() { return 260; } // size of the square crop frame on screen (px)
+  openCropper(img) {
+    // keep a reasonably sized copy to work from (big phone photos are slow)
+    const max = 1400;
+    const sc = Math.min(1, max / Math.max(img.width, img.height));
+    const c = document.createElement('canvas');
+    c.width = Math.round(img.width * sc); c.height = Math.round(img.height * sc);
+    c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+    this._cropSrc = c;
+    this.setState({ crop: { src: c.toDataURL('image/jpeg', 0.9), w: c.width, h: c.height, zoom: 1, x: 0, y: 0 } });
+  }
+  adjustPhoto() {
+    const src = this.D().photo;
+    if (!src) return;
+    const img = new Image();
+    img.onload = () => this.openCropper(img);
+    img.src = src;
+  }
+  cropGeom(cr) {
+    const F = this.CROP_F;
+    const base = Math.max(F / cr.w, F / cr.h);
+    const dw = cr.w * base * cr.zoom, dh = cr.h * base * cr.zoom;
+    const mx = Math.max(0, (dw - F) / 2), my = Math.max(0, (dh - F) / 2);
+    const x = Math.max(-mx, Math.min(mx, cr.x)), y = Math.max(-my, Math.min(my, cr.y));
+    return { F, dw, dh, x, y, left: F / 2 - dw / 2 + x, top: F / 2 - dh / 2 + y };
+  }
+  applyCrop() {
+    const cr = this.state.crop;
+    if (!cr || !this._cropSrc) { this.setState({ crop: null }); return; }
+    const g = this.cropGeom(cr);
+    const OUT = 480, s = OUT / g.F;
+    const c = document.createElement('canvas'); c.width = OUT; c.height = OUT;
+    const ctx = c.getContext('2d');
+    ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, OUT, OUT);
+    ctx.drawImage(this._cropSrc, g.left * s, g.top * s, g.dw * s, g.dh * s);
+    this.setF('photo', c.toDataURL('image/jpeg', 0.88));
+    this.setState({ crop: null });
+    this._cropSrc = null;
+    this.track('photo_cropped', { zoom: Math.round(cr.zoom * 10) / 10 });
+  }
+
   onPhoto(ev) {
     const t = this.T();
     const file = ev && ev.target && ev.target.files && ev.target.files[0];
@@ -1807,14 +1876,7 @@ class Component extends DCLogic {
     const reader = new FileReader();
     reader.onload = () => {
       const img = new Image();
-      img.onload = () => {
-        const max = 480;
-        const sc = Math.min(1, max / Math.max(img.width, img.height));
-        const c = document.createElement('canvas');
-        c.width = Math.round(img.width * sc); c.height = Math.round(img.height * sc);
-        c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
-        this.setF('photo', c.toDataURL('image/jpeg', 0.86));
-      };
+      img.onload = () => this.openCropper(img);
       img.onerror = () => this.showToast(t.photoErr);
       img.src = reader.result;
     };
@@ -2007,9 +2069,30 @@ class Component extends DCLogic {
       personalFields, listItems, skillFields, skillChips: this.splitList(d.skills),
       addLabel: step === 1 ? t.addExp : t.addEdu,
       addItem: () => { const k = this.state.step === 1 ? 'exp' : 'edu'; this.setD({ [k]: (this.D()[k] || []).concat([k === 'exp' ? this.blankExp() : this.blankEdu()]) }); },
-      hasPhoto: !!d.photo, noPhoto: !d.photo, photoBg: d.photo ? 'url(' + d.photo + ')' : 'none',
+      hasPhoto: !!d.photo, noPhoto: !d.photo, photoSrc: d.photo || '',
       onPhoto: (ev) => this.onPhoto(ev), removePhoto: () => this.setF('photo', ''),
       loadSample: () => { this.setState({ d: Object.assign(fresh ? this.sampleFresh(lang) : this.sample(lang), { photo: d.photo || '', fresh }) }); this.showToast(t.sampleLoaded); this.track('sample_loaded', { fresh }); },
+      ...(() => {
+        const cr = this.state.crop;
+        if (!cr) return { cropOpen: false };
+        const g = this.cropGeom(cr);
+        return {
+          cropOpen: true, cropSrc: cr.src, cropZoom: cr.zoom,
+          cropLeft: g.left + 'px', cropTop: g.top + 'px', cropW: g.dw + 'px', cropH: g.dh + 'px',
+          onCropZoom: (ev) => { const z = parseFloat(ev.target.value) || 1; const c = this.state.crop; if (!c) return; const gg = this.cropGeom(Object.assign({}, c, { zoom: z })); this.setState({ crop: Object.assign({}, c, { zoom: z, x: gg.x, y: gg.y }) }); },
+          cropDown: (ev) => { this._drag = { px: ev.clientX, py: ev.clientY, x: g.x, y: g.y }; try { ev.currentTarget.setPointerCapture(ev.pointerId); } catch (e) {} },
+          cropMove: (ev) => {
+            if (!this._drag) return;
+            const c = this.state.crop; if (!c) return;
+            const nx = this._drag.x + (ev.clientX - this._drag.px), ny = this._drag.y + (ev.clientY - this._drag.py);
+            const gg = this.cropGeom(Object.assign({}, c, { x: nx, y: ny }));
+            this.setState({ crop: Object.assign({}, c, { x: gg.x, y: gg.y }) });
+          },
+          cropUp: () => { this._drag = null; },
+        };
+      })(),
+      cropApply: () => this.applyCrop(), cropCancel: () => { this._cropSrc = null; this.setState({ crop: null }); },
+      adjustPhoto: () => this.adjustPhoto(),
       askClear: () => this.setState({ confirmClear: true }), cancelClear: () => this.setState({ confirmClear: false }),
       confirmClear: !!this.state.confirmClear,
       clearAll: () => { this.setState({ d: this.blank(), step: 0, confirmClear: false }); this.showToast(t.cleared); this.track('form_cleared'); },
