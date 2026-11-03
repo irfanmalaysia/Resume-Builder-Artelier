@@ -166,7 +166,7 @@
         <div style="font-size:21px; font-weight:800; margin-top:2px;">{{ stepTitle }}</div>
       </div>
       <div style="display:flex; gap:6px;">
-        <div onClick="{{ clearAll }}" style="font-size:12px; font-weight:700; padding:8px 10px; border-radius:11px; background:#fff; border:1px solid #ECECE9; cursor:pointer; color:#B4412E;">{{ t.clear }}</div>
+        <div onClick="{{ askClear }}" style="font-size:12px; font-weight:700; padding:8px 10px; border-radius:11px; background:#fff; border:1px solid #ECECE9; cursor:pointer; color:#B4412E;">{{ t.clear }}</div>
       </div>
     </div>
     <div style="display:grid; grid-template-columns:repeat(5, minmax(0, 1fr)); gap:6px; margin:14px 0 18px;">
@@ -337,6 +337,15 @@
       <div onClick="{{ nextStep }}" style="flex:1.6; text-align:center; padding:15px; border-radius:15px; background:#15171B; color:#fff; font-size:14px; font-weight:800; cursor:pointer;">{{ nextLabel }}</div>
     </div>
     <div style="text-align:center; font-size:11.5px; color:#A8ACB2; margin-top:12px;">{{ t.autosave }}</div>
+    <!-- backup: save / open a copy of the details -->
+    <div style="margin-top:16px; background:#fff; border:1px solid #ECECE9; border-radius:18px; padding:14px;">
+      <div style="font-size:13.5px; font-weight:800;">{{ t.backupTitle }}</div>
+      <div style="font-size:12px; color:#6B7079; margin-top:3px; line-height:1.45;">{{ t.backupText }}</div>
+      <div style="display:flex; gap:8px; margin-top:10px;">
+        <div onClick="{{ saveBackup }}" style="flex:1; text-align:center; font-size:13px; font-weight:800; padding:11px; border-radius:12px; background:#15171B; color:#fff; cursor:pointer;">{{ t.backupSave }}</div>
+        <label style="flex:1; text-align:center; font-size:13px; font-weight:800; padding:11px; border-radius:12px; background:#F4F4F2; cursor:pointer;">{{ t.backupOpen }}<input type="file" accept=".json,application/json" onChange="{{ openBackup }}" style="display:none;"></label>
+      </div>
+    </div>
   </div>
   </sc-if>
 
@@ -489,6 +498,22 @@
     </div>
   </sc-if>
 
+  <!-- ===== CONFIRM CLEAR ===== -->
+  <sc-if value="{{ confirmClear }}" hint-placeholder-val="{{ false }}">
+    <div style="position:absolute; inset:0; z-index:95; display:flex; align-items:center; justify-content:center; padding:24px;">
+      <div onClick="{{ cancelClear }}" style="position:absolute; inset:0; background:rgba(21,23,27,.5);"></div>
+      <div style="position:relative; width:100%; max-width:340px; background:#fff; border-radius:22px; padding:20px;">
+        <div style="font-size:17px; font-weight:800;">{{ t.confirmTitle }}</div>
+        <div style="font-size:13px; color:#6B7079; margin-top:6px; line-height:1.5;">{{ t.confirmText }}</div>
+        <div onClick="{{ saveBackup }}" style="font-size:12.5px; font-weight:800; margin-top:10px; text-decoration:underline; cursor:pointer;">{{ t.confirmBackup }}</div>
+        <div style="display:flex; gap:8px; margin-top:16px;">
+          <div onClick="{{ cancelClear }}" style="flex:1; text-align:center; padding:13px; border-radius:13px; background:#F4F4F2; font-size:14px; font-weight:800; cursor:pointer;">{{ t.confirmNo }}</div>
+          <div onClick="{{ clearAll }}" style="flex:1; text-align:center; padding:13px; border-radius:13px; background:#B4412E; color:#fff; font-size:14px; font-weight:800; cursor:pointer;">{{ t.confirmYes }}</div>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
   <!-- ===== TOAST ===== -->
   <sc-if value="{{ hasToast }}" hint-placeholder-val="{{ false }}">
     <div style="position:absolute; left:20px; right:20px; bottom:calc(90px + env(safe-area-inset-bottom)); z-index:80; background:#15171B; color:#fff; border-radius:14px; padding:13px 16px; font-size:13px; font-weight:600; box-shadow:0 10px 30px rgba(21,23,27,.25);">{{ toast }}</div>
@@ -576,6 +601,9 @@ class Component extends DCLogic {
         privacyTitle: 'Privasi anda terjaga', privacyText: 'Maklumat resume anda disimpan dalam peranti anda sahaja dan tidak dihantar kepada kami. Kami hanya mengira penggunaan tanpa nama, seperti bilangan resume yang dijana.',
         editInfo: 'Sunting maklumat', launchPromo: 'Promosi\npelancaran',
         atsPhotoNote: 'Templat ATS Pro tidak memaparkan gambar dan warna — ini lebih selamat untuk sistem ATS.',
+        confirmTitle: 'Padam semua maklumat?', confirmText: 'Semua maklumat yang anda isi akan dipadam dan tidak boleh dikembalikan.', confirmBackup: 'Simpan salinan dahulu', confirmNo: 'Batal', confirmYes: 'Ya, padam',
+        backupTitle: 'Salinan maklumat', backupText: 'Simpan fail salinan supaya anda boleh sambung semula di telefon lain atau selepas data pelayar dipadam.', backupSave: 'Simpan salinan', backupOpen: 'Buka salinan',
+        backupSaved: 'Salinan disimpan. Semak folder Muat Turun / Fail anda.', backupLoaded: 'Salinan dibuka. Maklumat anda telah dipulihkan.', backupBad: 'Fail ini bukan salinan resume yang sah.',
         cleared: 'Borang dikosongkan.', sampleLoaded: 'Contoh dimuatkan — sunting ikut maklumat anda.', printing: 'Membuka tetingkap cetak…',
         photoErr: 'Gambar tidak dapat dibaca. Cuba fail JPG atau PNG.',
         tabHome: 'Utama', tabBuild: 'Bina', tabPreview: 'Pratonton',
@@ -630,6 +658,9 @@ class Component extends DCLogic {
         privacyTitle: 'Your privacy is protected', privacyText: 'Your resume details stay on your device and are never sent to us. We only count anonymous usage, such as how many resumes are created.',
         editInfo: 'Edit details', launchPromo: 'Launch\npromo',
         atsPhotoNote: 'ATS Pro hides the photo and colours — safer for ATS screening systems.',
+        confirmTitle: 'Delete all details?', confirmText: 'Everything you have filled in will be deleted and cannot be brought back.', confirmBackup: 'Save a copy first', confirmNo: 'Cancel', confirmYes: 'Yes, delete',
+        backupTitle: 'Backup copy', backupText: 'Save a backup file so you can continue on another phone or after your browser data is cleared.', backupSave: 'Save copy', backupOpen: 'Open copy',
+        backupSaved: 'Copy saved. Check your Downloads / Files folder.', backupLoaded: 'Copy opened. Your details have been restored.', backupBad: 'This file is not a valid resume backup.',
         cleared: 'Form cleared.', sampleLoaded: 'Sample loaded — edit it with your own details.', printing: 'Opening print window…',
         photoErr: "Couldn't read that photo. Try a JPG or PNG file.",
         tabHome: 'Home', tabBuild: 'Build', tabPreview: 'Preview',
@@ -1258,6 +1289,38 @@ class Component extends DCLogic {
       '<style>@page{size:A4;margin:' + P.TOP + 'px 0 0}@page:first{margin:0}html,body{margin:0;background:#fff}' + this.RESUME_CSS + '</style>' + auto + '</head><body>' +
       body + '</body></html>';
   }
+  // ---------- Backup file: save / open a copy of everything the user typed ----------
+  async saveBackup() {
+    const t = this.T();
+    const d = this.D();
+    const data = JSON.stringify({ app: 'artelier-resume', v: 1, savedAt: new Date().toISOString(), d, tpl: this.state.tpl, mColor: this.state.mColor || 'navy', lang: this.state.lang });
+    const base = String(d.name || '').replace(/[^A-Za-z0-9 _-]/g, '').trim().replace(/\s+/g, '_');
+    const st = await this.saveBlob(new Blob([data], { type: 'application/json' }), (base ? base + '_' : '') + 'Resume_Salinan.json');
+    if (st === 'saved') { this.showToast(t.backupSaved); this.track('backup_save'); }
+  }
+  openBackup(ev) {
+    const t = this.T();
+    const file = ev && ev.target && ev.target.files && ev.target.files[0];
+    if (ev && ev.target) ev.target.value = '';
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => {
+      try {
+        const o = JSON.parse(String(reader.result));
+        if (!o || o.app !== 'artelier-resume' || !o.d || typeof o.d !== 'object') throw new Error('bad');
+        const blank = this.blank();
+        const d = Object.assign({}, blank, o.d);
+        ['exp', 'edu', 'certs', 'projects', 'cocu', 'refs'].forEach((k) => { if (!Array.isArray(d[k])) d[k] = blank[k]; });
+        if (d.photo && String(d.photo).indexOf('data:image/') !== 0) d.photo = '';
+        const tpls = ['moden', 'klasik', 'minimal', 'ats'];
+        this.setState({ d, step: 0, confirmClear: false, tpl: tpls.indexOf(o.tpl) >= 0 ? o.tpl : this.state.tpl, mColor: o.mColor || this.state.mColor, lang: o.lang === 'en' ? 'en' : o.lang === 'ms' ? 'ms' : this.state.lang });
+        this.showToast(t.backupLoaded); this.track('backup_open');
+      } catch (e) { this.showToast(t.backupBad); }
+    };
+    reader.onerror = () => this.showToast(t.backupBad);
+    reader.readAsText(file);
+  }
+
   // Old method (browser print window) — kept as a backup if the direct download fails
   printFallback() {
     const t = this.T();
@@ -1687,7 +1750,10 @@ class Component extends DCLogic {
       hasPhoto: !!d.photo, noPhoto: !d.photo, photoBg: d.photo ? 'url(' + d.photo + ')' : 'none',
       onPhoto: (ev) => this.onPhoto(ev), removePhoto: () => this.setF('photo', ''),
       loadSample: () => { this.setState({ d: Object.assign(fresh ? this.sampleFresh(lang) : this.sample(lang), { photo: d.photo || '', fresh }) }); this.showToast(t.sampleLoaded); this.track('sample_loaded', { fresh }); },
-      clearAll: () => { this.setState({ d: this.blank(), step: 0 }); this.showToast(t.cleared); },
+      askClear: () => this.setState({ confirmClear: true }), cancelClear: () => this.setState({ confirmClear: false }),
+      confirmClear: !!this.state.confirmClear,
+      clearAll: () => { this.setState({ d: this.blank(), step: 0, confirmClear: false }); this.showToast(t.cleared); this.track('form_cleared'); },
+      saveBackup: () => this.saveBackup(), openBackup: (ev) => this.openBackup(ev),
       nextLabel: step === LAST ? t.toPreview : t.next,
       nextStep: () => {
         const cur = this.state.step;
