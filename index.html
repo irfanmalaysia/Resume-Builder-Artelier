@@ -1350,8 +1350,7 @@ class Component extends DCLogic {
     const subject = en ? 'Re: Application for the position of ' + (pos || '…') : 'Permohonan jawatan ' + (pos || '…');
     const text = s(cl.body) ? String(cl.body) : this.autoLetter();
     const paras = text.split(/\n\s*\n/).map((p) => p.trim()).filter(Boolean).map((p) => '<p class="blk">' + e(p).replace(/\n/g, '<br>') + '</p>').join('');
-    const mc = this.modenColor();
-    return '<div class="rv rv-letter" style="--m-bar:' + mc.bar + '">' +
+    return '<div class="rv rv-letter" style="--m-bar:#15171B">' +
       '<div class="l-name blk">' + e(s(d.name) || t.yourName) + '</div>' + (contact ? '<div class="l-contact blk">' + contact + '</div>' : '') + '<div class="l-rule"></div>' +
       '<div class="l-block blk">' + e(this.letterDate()) + '</div>' +
       '<div class="l-block blk">' + recipient + '</div>' +
@@ -2052,7 +2051,7 @@ class Component extends DCLogic {
         return {
           isLetter: letter, isResumeDoc: !letter, previewTpl: letter ? 'letter' : tpl,
           previewTitle: letter ? t.previewLetter : t.preview,
-          showColors: letter || tpl === 'moden' || tpl === 'klasik',
+          showColors: !letter && (tpl === 'moden' || tpl === 'klasik'),
           docTabs: [tab('resume', t.docResume), tab('letter', t.docLetter)],
           letterFields: letter ? [
             lf('company', t.clCompany, lang === 'en' ? 'e.g. Koperasi Maju Bhd.' : 'cth. Koperasi Maju Bhd.'),
