@@ -973,7 +973,8 @@ class Component extends DCLogic {
       certs: [{ name: 'Meta Certified Digital Marketing Associate', issuer: 'Meta', year: '2023' }], projects: [], cocu: [], refs: [],
     };
   }
-  D() { return this.state.d || this.sample(this.state.lang); }
+  // new visitors start with an empty form (the template pictures on Home still use the sample)
+  D() { return this.state.d || this.blank(); }
 
   setD(patch) { this.setState({ d: Object.assign({}, this.D(), patch) }); }
   setF(k, v) { this.setD({ [k]: v }); }
@@ -1022,7 +1023,8 @@ class Component extends DCLogic {
       const crop = el.hasAttribute('data-rv-crop');
       const w = el.clientWidth || 362;
       const s = w / 794;
-      const html = this.resumeHTML(tpl);
+      // Home thumbnails always show the sample so each template looks complete
+      const html = this.resumeHTML(tpl, crop ? this.sample(this.state.lang) : null);
       const key = tpl + '|' + s + '|' + html.length + '|' + html;
       if (el.__rvKey === key) return;
       el.__rvKey = key;
@@ -1154,8 +1156,8 @@ class Component extends DCLogic {
   // split on commas, but not commas inside brackets: "E-dagang (Shopee, Lazada)" stays one item
   splitList(s) { return String(s || '').split(/,(?![^()]*\))/).map((x) => x.trim()).filter(Boolean); }
 
-  resumeHTML(tpl) {
-    const d = this.D();
+  resumeHTML(tpl, src) {
+    const d = src || this.D();
     const t = this.T();
     const e = (s) => this.esc(s);
     const accent = this.props.accentColor || '#B7F23A';
@@ -1288,7 +1290,7 @@ class Component extends DCLogic {
     try {
       const blob = await this.buildPdf();
       const base = String(this.D().name || 'Resume').replace(/[^A-Za-z0-9 _-]/g, '').trim().replace(/\s+/g, '_') || 'Resume';
-      const st = await this.saveBlob(blob, base + '_Resume.pdf');
+      const st = await this.saveBlob(blob, base === 'Resume' ? 'Resume.pdf' : base + '_Resume.pdf');
       if (st === 'saved') { this.showToast(t.pdfSaved); this.track('pdf_download', Object.assign({ method: 'direct' }, meta)); count(); }
     } catch (e) {
       // anything unexpected (no internet for the PDF library, unusual characters…) → old print method
