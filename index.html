@@ -7,7 +7,16 @@
 <meta name="description" content="Bina resume profesional dalam 5 minit. Pilih templat, isi maklumat dan muat turun PDF. Percuma, dalam Bahasa Melayu dan English.">
 <meta name="theme-color" content="#F4F4F2">
 <link rel="icon" type="image/png" href="assets/logo.png">
-<link rel="apple-touch-icon" href="assets/logo.png">
+<link rel="apple-touch-icon" href="assets/icon-192.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="ArtelierIrfan">
+<script>
+// catch the install offer early, and register the offline helper
+window.addEventListener('beforeinstallprompt', function (e) { e.preventDefault(); window.__bip = e; });
+if ('serviceWorker' in navigator) { window.addEventListener('load', function () { navigator.serviceWorker.register('sw.js').catch(function () {}); }); }
+</script>
 <meta property="og:type" content="website">
 <meta property="og:title" content="Pembina Resume Percuma | ArtelierIrfan">
 <meta property="og:description" content="Bina resume profesional dalam 5 minit dan muat turun PDF. Percuma.">
@@ -90,6 +99,25 @@
         </div>
       </div>
     </div>
+
+    <!-- install as app (only on the real website; hidden once installed or dismissed) -->
+    <sc-if value="{{ showInstall }}" hint-placeholder-val="{{ false }}">
+      <div style="padding:12px 20px 0;">
+        <div style="display:flex; align-items:center; gap:12px; background:#fff; border:1px solid #ECECE9; border-radius:18px; padding:12px 14px;">
+          <img src="assets/logo.png" alt="" style="width:40px; height:40px; border-radius:11px; flex:none; display:block;">
+          <div style="flex:1; min-width:0;">
+            <div style="font-size:13.5px; font-weight:800;">{{ t.installTitle }}</div>
+            <div style="font-size:11.5px; color:#6B7079; margin-top:2px; line-height:1.4;">{{ installText }}</div>
+          </div>
+          <sc-if value="{{ canInstall }}" hint-placeholder-val="{{ true }}">
+            <div onClick="{{ doInstall }}" style="flex:none; font-size:12.5px; font-weight:800; padding:9px 13px; border-radius:11px; background:#15171B; color:#fff; cursor:pointer;">{{ t.installBtn }}</div>
+          </sc-if>
+          <div onClick="{{ dismissInstall }}" style="flex:none; width:26px; height:26px; border-radius:8px; display:flex; align-items:center; justify-content:center; cursor:pointer;">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="#90949B" stroke-width="2.4" stroke-linecap="round"></path></svg>
+          </div>
+        </div>
+      </div>
+    </sc-if>
 
     <!-- public counter (appears once the Google Sheet total reaches showCounterFrom) -->
     <sc-if value="{{ showCounter }}" hint-placeholder-val="{{ false }}">
@@ -214,6 +242,12 @@
             <span style="font-size:12px; font-weight:700; color:#6B7079;">{{ f.label }}</span>
             <sc-if value="{{ f.multi }}" hint-placeholder-val="{{ false }}">
               <textarea class="fld" rows="5" value="{{ f.value }}" placeholder="{{ f.placeholder }}" onChange="{{ f.onChange }}"></textarea>
+              <sc-if value="{{ f.hasMic }}" hint-placeholder-val="{{ false }}">
+                <div onClick="{{ f.onMic }}" style="align-self:flex-start; display:inline-flex; align-items:center; gap:6px; font-size:12.5px; font-weight:800; padding:8px 12px; border-radius:11px; cursor:pointer; background:{{ f.micBg }}; color:{{ f.micFg }};">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><rect x="9" y="3" width="6" height="11" rx="3" stroke="currentColor" stroke-width="2"></rect><path d="M5 11a7 7 0 0 0 14 0M12 18v3" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path></svg>
+                  {{ f.micLabel }}
+                </div>
+              </sc-if>
             </sc-if>
             <sc-if value="{{ f.single }}" hint-placeholder-val="{{ true }}">
               <input class="fld" type="text" value="{{ f.value }}" placeholder="{{ f.placeholder }}" onChange="{{ f.onChange }}">
@@ -259,6 +293,11 @@
                   <div style="display:flex; align-items:center; gap:8px;">
                     <div style="width:22px; height:22px; flex:none; border-radius:7px; background:var(--accent,#B7F23A); display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:800;">{{ b.n }}</div>
                     <input class="fld" type="text" data-b="{{ b.key }}" value="{{ b.value }}" placeholder="{{ b.placeholder }}" onChange="{{ b.onChange }}" onKeyDown="{{ b.onKeyDown }}" style="padding:10px 12px; font-size:13.5px;">
+                    <sc-if value="{{ b.hasMic }}" hint-placeholder-val="{{ false }}">
+                      <div onClick="{{ b.onMic }}" title="{{ t.micBtn }}" style="width:30px; height:30px; flex:none; border-radius:10px; background:{{ b.micBg }}; color:{{ b.micFg }}; border:1px solid #ECECE9; display:flex; align-items:center; justify-content:center; cursor:pointer;">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><rect x="9" y="3" width="6" height="11" rx="3" stroke="currentColor" stroke-width="2.2"></rect><path d="M5 11a7 7 0 0 0 14 0M12 18v3" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"></path></svg>
+                      </div>
+                    </sc-if>
                     <div onClick="{{ b.remove }}" style="width:30px; height:30px; flex:none; border-radius:10px; background:#fff; border:1px solid #ECECE9; display:flex; align-items:center; justify-content:center; cursor:pointer;">
                       <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="#6B7079" stroke-width="2.4" stroke-linecap="round"></path></svg>
                     </div>
@@ -286,6 +325,12 @@
           <div style="display:flex; flex-direction:column; gap:6px;">
             <span style="font-size:12px; font-weight:700; color:#6B7079;">{{ f.label }}</span>
             <textarea class="fld" rows="4" value="{{ f.value }}" placeholder="{{ f.placeholder }}" onChange="{{ f.onChange }}"></textarea>
+            <sc-if value="{{ f.hasMic }}" hint-placeholder-val="{{ false }}">
+              <div onClick="{{ f.onMic }}" style="align-self:flex-start; display:inline-flex; align-items:center; gap:6px; font-size:12.5px; font-weight:800; padding:8px 12px; border-radius:11px; cursor:pointer; background:{{ f.micBg }}; color:{{ f.micFg }};">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><rect x="9" y="3" width="6" height="11" rx="3" stroke="currentColor" stroke-width="2"></rect><path d="M5 11a7 7 0 0 0 14 0M12 18v3" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path></svg>
+                {{ f.micLabel }}
+              </div>
+            </sc-if>
           </div>
         </sc-for>
         <div style="display:flex; flex-wrap:wrap; gap:6px;">
@@ -395,7 +440,15 @@
           </div>
           <div style="display:flex; align-items:center; justify-content:space-between; margin-top:14px;">
             <span style="font-size:12px; font-weight:700; color:#6B7079;">{{ t.clBody }}</span>
-            <div onClick="{{ regenLetter }}" style="font-size:12px; font-weight:800; padding:7px 10px; border-radius:10px; background:#F4F4F2; cursor:pointer;">{{ t.clRegen }}</div>
+            <div style="display:flex; gap:6px;">
+              <sc-if value="{{ letterMic.hasMic }}" hint-placeholder-val="{{ false }}">
+                <div onClick="{{ letterMic.onMic }}" style="display:inline-flex; align-items:center; gap:5px; font-size:12px; font-weight:800; padding:7px 10px; border-radius:10px; cursor:pointer; background:{{ letterMic.micBg }}; color:{{ letterMic.micFg }};">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><rect x="9" y="3" width="6" height="11" rx="3" stroke="currentColor" stroke-width="2.2"></rect><path d="M5 11a7 7 0 0 0 14 0M12 18v3" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"></path></svg>
+                  {{ letterMic.micLabel }}
+                </div>
+              </sc-if>
+              <div onClick="{{ regenLetter }}" style="font-size:12px; font-weight:800; padding:7px 10px; border-radius:10px; background:#F4F4F2; cursor:pointer;">{{ t.clRegen }}</div>
+            </div>
           </div>
           <textarea class="fld" rows="12" value="{{ letterBody }}" onChange="{{ onLetterBody }}" style="margin-top:6px; min-height:240px; font-size:13.5px;"></textarea>
           <div style="font-size:11.5px; color:#90949B; margin-top:6px; line-height:1.4;">{{ letterHint }}</div>
@@ -699,7 +752,10 @@ class Component extends DCLogic {
         preview: 'Pratonton resume', download: 'Muat turun PDF', downloadHint: 'Fail PDF akan dimuat turun terus ke peranti anda.',
         pdfMaking: 'Menyediakan PDF…', pdfSaved: 'PDF berjaya dimuat turun. Semak folder Muat Turun / Fail anda.',
         printAlt: 'Ada masalah? Guna cara cetak', printHint: 'Pilih “Simpan sebagai PDF” di tetingkap cetak.',
-        privacyTitle: 'Privasi anda terjaga', privacyText: 'Maklumat resume anda disimpan dalam peranti anda sahaja dan tidak dihantar kepada kami. Kami hanya mengira penggunaan tanpa nama, seperti bilangan resume yang dijana.',
+        installTitle: 'Pasang sebagai aplikasi', installText: 'Buka terus dari skrin utama telefon anda, seperti aplikasi biasa.', installBtn: 'Pasang',
+        installIos: 'Di iPhone: tekan butang Kongsi (petak dengan anak panah), kemudian pilih “Tambah ke Skrin Utama”.',
+        privacyTitle: 'Privasi anda terjaga', privacyText: 'Maklumat resume anda disimpan dalam peranti anda sahaja dan tidak dihantar kepada kami. Kami hanya mengira penggunaan tanpa nama, seperti bilangan resume yang dijana. Jika anda guna butang suara, suara anda diproses oleh perkhidmatan suara telefon atau pelayar anda.',
+        micBtn: 'Cakap', micStop: 'Berhenti', micListening: 'Sedang mendengar… cakap sekarang.', micDenied: 'Akses mikrofon ditolak. Benarkan mikrofon dalam tetapan pelayar anda.', micFail: 'Suara tidak dapat dikenal pasti. Cuba lagi.',
         editInfo: 'Sunting maklumat', launchPromo: 'Promosi\npelancaran',
         atsPhotoNote: 'Templat ATS Pro tidak memaparkan gambar dan warna — ini lebih selamat untuk sistem ATS.',
         scoreTitle: 'Skor resume', scoreSub: 'Ikut tip di bawah untuk naikkan skor anda.', scorePerfect: 'Hebat! Resume anda lengkap dan kemas.', fixBtn: 'Baiki',
@@ -774,7 +830,10 @@ class Component extends DCLogic {
         preview: 'Resume preview', download: 'Download PDF', downloadHint: 'The PDF file downloads straight to your device.',
         pdfMaking: 'Preparing PDF…', pdfSaved: 'PDF downloaded. Check your Downloads / Files folder.',
         printAlt: 'Having trouble? Use the print method', printHint: 'Choose “Save as PDF” in the print window.',
-        privacyTitle: 'Your privacy is protected', privacyText: 'Your resume details stay on your device and are never sent to us. We only count anonymous usage, such as how many resumes are created.',
+        installTitle: 'Install as an app', installText: 'Open it straight from your home screen, like a normal app.', installBtn: 'Install',
+        installIos: 'On iPhone: tap the Share button (square with an arrow), then choose “Add to Home Screen”.',
+        privacyTitle: 'Your privacy is protected', privacyText: 'Your resume details stay on your device and are never sent to us. We only count anonymous usage, such as how many resumes are created. If you use the voice button, your speech is processed by your phone or browser’s voice service.',
+        micBtn: 'Speak', micStop: 'Stop', micListening: 'Listening… speak now.', micDenied: 'Microphone access was blocked. Allow the microphone in your browser settings.', micFail: 'Could not catch that. Please try again.',
         editInfo: 'Edit details', launchPromo: 'Launch\npromo',
         atsPhotoNote: 'ATS Pro hides the photo and colours — safer for ATS screening systems.',
         scoreTitle: 'Resume score', scoreSub: 'Follow the tips below to raise your score.', scorePerfect: 'Great! Your resume is complete and polished.', fixBtn: 'Fix',
@@ -1161,6 +1220,7 @@ class Component extends DCLogic {
     this.paint();
     setTimeout(() => this.paint(), 400);
     this.setupAnalytics();
+    this.setupInstall();
   }
   componentDidUpdate() {
     this.paint();
@@ -1827,6 +1887,69 @@ class Component extends DCLogic {
     }
   }
 
+  // ---------- Install as app (Add to Home Screen) ----------
+  setupInstall() {
+    try {
+      const standalone = (window.matchMedia && window.matchMedia('(display-mode: standalone)').matches) || window.navigator.standalone === true;
+      const topLevel = window.self === window.top; // not inside the design editor
+      let dismissed = false;
+      try { dismissed = window.localStorage.getItem('artelier-install-dismissed') === '1'; } catch (e) {}
+      const ios = /iphone|ipad|ipod/i.test(window.navigator.userAgent || '');
+      // the website's <head> may have caught the install offer before the app finished loading
+      if (window.__bip) { this._bip = window.__bip; window.__bip = null; }
+      this.setState({ installOk: topLevel && !standalone && !dismissed, installIos: ios, canInstall: !!this._bip });
+      window.addEventListener('beforeinstallprompt', (e) => { e.preventDefault(); this._bip = e; this.setState({ canInstall: true }); });
+      window.addEventListener('appinstalled', () => { this._bip = null; this.setState({ canInstall: false, installOk: false }); this.track('app_installed'); });
+    } catch (e) {}
+  }
+  async doInstall() {
+    const e = this._bip;
+    if (!e) return;
+    e.prompt();
+    try { const r = await e.userChoice; this.track('install_prompt', { outcome: r && r.outcome }); } catch (err) {}
+    this._bip = null;
+    this.setState({ canInstall: false });
+  }
+
+  // ---------- Voice typing (browser speech recognition, free; hidden where the browser has none) ----------
+  micSupported() { return typeof window !== 'undefined' && !!(window.SpeechRecognition || window.webkitSpeechRecognition); }
+  micProps(key, onText) {
+    const t = this.T();
+    const on = this.state.listening === key;
+    return { hasMic: this.micSupported(), micLabel: on ? t.micStop : t.micBtn, micBg: on ? '#E0533D' : '#F4F4F2', micFg: on ? '#fff' : '#15171B', onMic: () => this.toggleMic(key, onText) };
+  }
+  toggleMic(key, onText) {
+    const t = this.T();
+    if (this._rec) { try { this._rec.stop(); } catch (e) {} this._rec = null; if (this.state.listening === key) { this.setState({ listening: null }); return; } }
+    const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!SR) return;
+    const rec = new SR();
+    rec.lang = this.state.lang === 'en' ? 'en-MY' : 'ms-MY';
+    rec.interimResults = false; rec.continuous = false; rec.maxAlternatives = 1;
+    let got = false;
+    rec.onresult = (e) => { const txt = e.results && e.results[0] && e.results[0][0] ? e.results[0][0].transcript : ''; if (txt.trim()) { got = true; onText(txt.trim()); } };
+    rec.onerror = (e) => { if (e && (e.error === 'not-allowed' || e.error === 'service-not-allowed')) this.showToast(t.micDenied); else if (e && e.error !== 'aborted') this.showToast(t.micFail); };
+    rec.onend = () => { if (this._rec === rec) this._rec = null; this.setState({ listening: null }); if (!got) {} };
+    try { rec.start(); this._rec = rec; this.setState({ listening: key }); this.showToast(t.micListening); this.track('voice_input', { field: key.split('-')[0] }); }
+    catch (e) { this.showToast(t.micFail); }
+  }
+  // add spoken words to existing text: each spoken part becomes its own sentence (speech has no punctuation)
+  joinSpoken(cur, txt) {
+    const c = String(cur || '').replace(/\s+$/, '');
+    const s = String(txt || '').trim();
+    if (!s) return cur || '';
+    const piece = s.charAt(0).toUpperCase() + s.slice(1);
+    if (!c) return piece;
+    return (/[.!?]$/.test(c) ? c : c + '.') + ' ' + piece;
+  }
+  // skills / languages: "excel dan canva" → "Excel, Canva"
+  joinList(cur, txt) {
+    const c = String(cur || '').trim().replace(/,$/, '');
+    const items = String(txt || '').split(/\s*,\s*|\s+(?:dan|and)\s+/i).map((x) => x.trim()).filter(Boolean).map((x) => x.charAt(0).toUpperCase() + x.slice(1));
+    if (!items.length) return cur || '';
+    return (c ? c + ', ' : '') + items.join(', ');
+  }
+
   // ---------- Photo crop & zoom ----------
   get CROP_F() { return 260; } // size of the square crop frame on screen (px)
   openCropper(img) {
@@ -1927,7 +2050,8 @@ class Component extends DCLogic {
       this.field(t.location, d.location, (ev) => this.setF('location', ev.target.value), { ph: 'Kemaman, Terengganu', half: true }),
       this.field(t.email, d.email, (ev) => this.setF('email', ev.target.value), { ph: 'nama@email.com' }),
       this.field(t.linkedin, d.linkedin, (ev) => this.setF('linkedin', ev.target.value), { ph: 'linkedin.com/in/nama' }),
-      this.field(t.summary, d.summary, (ev) => this.setF('summary', ev.target.value), { ph: t.summaryPh, multi: true }),
+      Object.assign(this.field(t.summary, d.summary, (ev) => this.setF('summary', ev.target.value), { ph: t.summaryPh, multi: true }),
+        this.micProps('summary', (txt) => this.setF('summary', this.joinSpoken(this.D().summary, txt)))),
     ];
 
     const listKey = step === 1 ? 'exp' : 'edu';
@@ -1948,7 +2072,9 @@ class Component extends DCLogic {
       const lines = isExp ? String(x.desc || '').split('\n') : [];
       const setLines = (arr) => this.setListField('exp', i, 'desc', arr.join('\n'));
       const focusB = (key) => setTimeout(() => { const el = document.querySelector('[data-b="' + key + '"]'); if (el) el.focus(); }, 30);
-      const bullets = lines.map((v, j) => ({
+      const bullets = lines.map((v, j) => Object.assign(this.micProps('duty-' + i + '-' + j, (txt) => {
+        const a = String((this.D().exp[i] || {}).desc || '').split('\n'); a[j] = this.joinSpoken(a[j], txt).replace(/[.]$/, ''); setLines(a);
+      }), {
         n: String(j + 1), key: i + '-' + j, value: v,
         placeholder: t.dutyPh[j % t.dutyPh.length],
         onChange: (ev) => { const a = String(this.D().exp[i].desc || '').split('\n'); a[j] = ev.target.value.replace(/\n/g, ' '); setLines(a); },
@@ -2035,8 +2161,10 @@ class Component extends DCLogic {
     }) : [];
 
     const skillFields = [
-      { label: t.skills, value: d.skills || '', placeholder: t.skillsPh, onChange: (ev) => this.setF('skills', ev.target.value) },
-      { label: t.languages, value: d.languages || '', placeholder: t.langsPh, onChange: (ev) => this.setF('languages', ev.target.value) },
+      Object.assign({ label: t.skills, value: d.skills || '', placeholder: t.skillsPh, onChange: (ev) => this.setF('skills', ev.target.value) },
+        this.micProps('skills', (txt) => this.setF('skills', this.joinList(this.D().skills, txt)))),
+      Object.assign({ label: t.languages, value: d.languages || '', placeholder: t.langsPh, onChange: (ev) => this.setF('languages', ev.target.value) },
+        this.micProps('languages', (txt) => this.setF('languages', this.joinList(this.D().languages, txt)))),
     ];
 
     const tabs = [
@@ -2055,6 +2183,11 @@ class Component extends DCLogic {
       setEn: () => { if (lang !== 'en') { this.setState({ lang: 'en' }); this.track('lang_switch', { lang: 'en' }); } },
       isHome: screen === 'home', isBuild: screen === 'build', isPreview: screen === 'preview',
       startBuild: () => { this.setState({ screen: 'build', step: 0 }); this.track('start_build', { from: 'hero' }); },
+      showInstall: !!this.state.installOk && (!!this.state.canInstall || !!this.state.installIos),
+      canInstall: !!this.state.canInstall,
+      installText: this.state.canInstall ? t.installText : t.installIos,
+      doInstall: () => this.doInstall(),
+      dismissInstall: () => { try { window.localStorage.setItem('artelier-install-dismissed', '1'); } catch (e) {} this.setState({ installOk: false }); },
       showCounter: typeof this.state.genCount === 'number' && this.state.genCount >= this.ANALYTICS.showCounterFrom,
       counterLabel: (this.state.genCount || 0).toLocaleString('en-MY') + ' ' + t.generated,
       goBuild: go('build'),
@@ -2146,6 +2279,7 @@ class Component extends DCLogic {
           letterBody: letter ? (String(cl.body || '').trim() ? cl.body : this.autoLetter()) : '',
           onLetterBody: (ev) => this.setCl('body', ev.target.value),
           regenLetter: () => this.setCl('body', ''),
+          letterMic: this.micProps('letter', (txt) => { const cur = String(this.CL().body || '').trim() ? this.CL().body : this.autoLetter(); this.setCl('body', this.joinSpoken(cur, txt)); }),
           letterHint: String(cl.body || '').trim() ? t.clEdited : t.clAuto,
         };
       })(),

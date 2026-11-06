@@ -1,0 +1,30 @@
+{
+  "name": "Pembina Resume ArtelierIrfan",
+  "short_name": "ArtelierIrfan",
+  "description": "Bina resume profesional dan surat permohonan kerja dalam 5 minit.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#F4F4F2",
+  "theme_color": "#F4F4F2",
+  "lang": "ms",
+  "icons": [
+    {
+      "src": "assets/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/icon-512-maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
