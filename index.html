@@ -41,6 +41,33 @@ if ('serviceWorker' in navigator) { window.addEventListener('load', function () 
   .fld:focus { border-color:#15171B; }
   .fld::placeholder { color:#B4B7BC; }
   textarea.fld { resize:vertical; line-height:1.45; min-height:84px; }
+  /* ---- iPhone-style motion ---- */
+  html, body { -webkit-tap-highlight-color: transparent; }
+  .scroll { -webkit-overflow-scrolling: touch; overscroll-behavior: contain; }
+  @keyframes aiFadeUp { from { opacity:0; transform:translateY(14px); } to { opacity:1; transform:none; } }
+  @keyframes aiSlideL { from { opacity:0; transform:translateX(32px); } to { opacity:1; transform:none; } }
+  @keyframes aiSlideR { from { opacity:0; transform:translateX(-32px); } to { opacity:1; transform:none; } }
+  @keyframes aiSheetUp { from { transform:translateY(100%); } to { transform:none; } }
+  @keyframes aiSheetDown { from { transform:none; } to { transform:translateY(100%); } }
+  @keyframes aiFadeIn { from { opacity:0; } to { opacity:1; } }
+  @keyframes aiFadeOut { from { opacity:1; } to { opacity:0; } }
+  @keyframes aiPop { from { opacity:0; transform:scale(.92); } to { opacity:1; transform:none; } }
+  @keyframes aiZoomIn { from { opacity:0; transform:scale(.94) translateY(24px); } to { opacity:1; transform:none; } }
+  @keyframes aiZoomOut { from { opacity:1; transform:none; } to { opacity:0; transform:scale(.96) translateY(24px); } }
+  .anim-up { animation: aiFadeUp .4s cubic-bezier(.22,1,.36,1) both; }
+  .anim-left { animation: aiSlideL .42s cubic-bezier(.22,1,.36,1) both; }
+  .anim-right { animation: aiSlideR .42s cubic-bezier(.22,1,.36,1) both; }
+  .anim-sheet { animation: aiSheetUp .5s cubic-bezier(.32,.72,0,1) both; }
+  .anim-sheet-out { animation: aiSheetDown .28s cubic-bezier(.4,0,1,1) both; }
+  .anim-fade { animation: aiFadeIn .3s ease both; }
+  .anim-fade-out { animation: aiFadeOut .26s ease both; }
+  .anim-pop { animation: aiPop .34s cubic-bezier(.22,1,.36,1) both; }
+  .anim-zoom { animation: aiZoomIn .45s cubic-bezier(.22,1,.36,1) both; }
+  .anim-zoom-out { animation: aiZoomOut .24s ease both; }
+  /* gentle press-down on every tappable button, like iOS */
+  div[style*="cursor: pointer"]:not([data-card]), label { transition: transform .18s cubic-bezier(.22,1,.36,1), background-color .2s ease, color .2s ease; }
+  div[style*="cursor: pointer"]:not([data-card]):active, label:active { transform: scale(.96); }
+  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration:.01ms !important; transition-duration:.01ms !important; } }
 </style>
 </helmet>
 
@@ -138,9 +165,9 @@ if ('serviceWorker' in navigator) { window.addEventListener('load', function () 
     </div>
     <!-- template carousel: swipe left/right, the centre card is big, the background takes its colour; tap it for details -->
     <div style="margin:12px 20px 0; border-radius:26px; background:{{ carBg }}; transition:background .45s ease; padding:20px 0 18px;">
-      <div data-carousel="1" class="chips" onScroll="{{ onCarScroll }}" style="display:flex; gap:14px; overflow-x:auto; scroll-snap-type:x mandatory; padding:6px calc(50% - 107px) 10px; -webkit-overflow-scrolling:touch;">
+      <div data-carousel="1" class="chips" onScroll="{{ onCarScroll }}" style="position:relative; display:flex; gap:14px; overflow-x:auto; scroll-snap-type:x mandatory; padding:6px calc(50% - 107px) 10px; -webkit-overflow-scrolling:touch;">
         <sc-for list="{{ carCards }}" as="cc" hint-placeholder-count="3">
-          <div onClick="{{ cc.tap }}" style="flex:none; width:214px; scroll-snap-align:center; cursor:pointer; transform:scale({{ cc.scale }}); opacity:{{ cc.opacity }}; transition:transform .35s ease, opacity .35s ease; position:relative;">
+          <div data-card="1" onClick="{{ cc.tap }}" style="flex:none; width:214px; scroll-snap-align:center; cursor:pointer; transform:scale(.84); opacity:.55; will-change:transform; position:relative;">
             <div data-rv="{{ cc.id }}" data-rv-crop="1" style="width:214px; height:303px; border-radius:14px; overflow:hidden; background:#fff; pointer-events:none; box-shadow:0 14px 30px rgba(21,23,27,.18);"></div>
             <div style="position:absolute; top:10px; left:10px; background:{{ cc.badgeBg }}; color:{{ cc.badgeFg }}; font-size:10px; font-weight:800; letter-spacing:.6px; text-transform:uppercase; padding:4px 8px; border-radius:8px;">{{ cc.tierLabel }}</div>
           </div>
@@ -216,6 +243,7 @@ if ('serviceWorker' in navigator) { window.addEventListener('load', function () 
       </sc-for>
     </div>
 
+    <div data-step-body="1">
     <!-- step 1: personal -->
     <sc-if value="{{ isStep0 }}" hint-placeholder-val="{{ true }}">
       <!-- fresh graduate mode switch -->
@@ -392,6 +420,7 @@ if ('serviceWorker' in navigator) { window.addEventListener('load', function () 
         </div>
       </sc-for>
     </sc-if>
+    </div>
 
     <!-- nav buttons -->
     <div style="display:flex; gap:10px; margin-top:22px;">
@@ -553,8 +582,8 @@ if ('serviceWorker' in navigator) { window.addEventListener('load', function () 
   <!-- ===== SAMPLE DUTIES BOTTOM SHEET ===== -->
   <sc-if value="{{ sheetOpen }}" hint-placeholder-val="{{ false }}">
     <div style="position:absolute; inset:0; z-index:90; display:flex; flex-direction:column; justify-content:flex-end;">
-      <div onClick="{{ closeSheet }}" style="position:absolute; inset:0; background:rgba(21,23,27,.45);"></div>
-      <div style="position:relative; background:#fff; border-radius:26px 26px 0 0; max-height:78%; display:flex; flex-direction:column; padding:10px 0 28px;">
+      <div onClick="{{ closeSheet }}" class="{{ sheetBgAnim }}" style="position:absolute; inset:0; background:rgba(21,23,27,.45);"></div>
+      <div class="{{ sheetAnim }}" style="position:relative; background:#fff; border-radius:26px 26px 0 0; max-height:78%; display:flex; flex-direction:column; padding:10px 0 28px;">
         <div style="width:40px; height:5px; border-radius:3px; background:#DEDFDA; margin:0 auto 12px;"></div>
         <div style="padding:0 20px; display:flex; align-items:flex-start; justify-content:space-between; gap:10px;">
           <div>
@@ -640,7 +669,7 @@ if ('serviceWorker' in navigator) { window.addEventListener('load', function () 
 
   <!-- ===== TEMPLATE DETAIL ===== -->
   <sc-if value="{{ detailOpen }}" hint-placeholder-val="{{ false }}">
-    <div class="scroll" style="position:absolute; inset:0; z-index:85; background:{{ detBg }}; overflow-y:auto; padding:calc(14px + env(safe-area-inset-top)) 20px 30px;">
+    <div class="scroll {{ detAnim }}" style="position:absolute; inset:0; z-index:85; background:{{ detBg }}; overflow-y:auto; padding:calc(14px + env(safe-area-inset-top)) 20px 30px;">
       <div style="display:flex; align-items:center; justify-content:space-between;">
         <div onClick="{{ closeDetail }}" style="width:42px; height:42px; border-radius:13px; background:rgba(255,255,255,.8); display:flex; align-items:center; justify-content:center; cursor:pointer;">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M15 5l-7 7 7 7" stroke="#15171B" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
@@ -675,7 +704,7 @@ if ('serviceWorker' in navigator) { window.addEventListener('load', function () 
 
   <!-- ===== PHOTO CROP ===== -->
   <sc-if value="{{ cropOpen }}" hint-placeholder-val="{{ false }}">
-    <div style="position:absolute; inset:0; z-index:96; background:rgba(21,23,27,.86); display:flex; flex-direction:column; align-items:center; justify-content:center; padding:24px;">
+    <div class="anim-fade" style="position:absolute; inset:0; z-index:96; background:rgba(21,23,27,.86); display:flex; flex-direction:column; align-items:center; justify-content:center; padding:24px;">
       <div style="color:#fff; font-size:18px; font-weight:800;">{{ t.cropTitle }}</div>
       <div style="color:rgba(255,255,255,.7); font-size:12.5px; margin-top:4px; text-align:center;">{{ t.cropHint }}</div>
       <div onPointerDown="{{ cropDown }}" onPointerMove="{{ cropMove }}" onPointerUp="{{ cropUp }}" onPointerCancel="{{ cropUp }}" style="position:relative; width:260px; height:260px; margin-top:18px; overflow:hidden; border-radius:14px; background:#000; touch-action:none; cursor:grab; user-select:none;">
@@ -697,8 +726,8 @@ if ('serviceWorker' in navigator) { window.addEventListener('load', function () 
   <!-- ===== CONFIRM CLEAR ===== -->
   <sc-if value="{{ confirmClear }}" hint-placeholder-val="{{ false }}">
     <div style="position:absolute; inset:0; z-index:95; display:flex; align-items:center; justify-content:center; padding:24px;">
-      <div onClick="{{ cancelClear }}" style="position:absolute; inset:0; background:rgba(21,23,27,.5);"></div>
-      <div style="position:relative; width:100%; max-width:340px; background:#fff; border-radius:22px; padding:20px;">
+      <div onClick="{{ cancelClear }}" class="anim-fade" style="position:absolute; inset:0; background:rgba(21,23,27,.5);"></div>
+      <div class="anim-pop" style="position:relative; width:100%; max-width:340px; background:#fff; border-radius:22px; padding:20px;">
         <div style="font-size:17px; font-weight:800;">{{ t.confirmTitle }}</div>
         <div style="font-size:13px; color:#6B7079; margin-top:6px; line-height:1.5;">{{ t.confirmText }}</div>
         <div onClick="{{ saveBackup }}" style="font-size:12.5px; font-weight:800; margin-top:10px; text-decoration:underline; cursor:pointer;">{{ t.confirmBackup }}</div>
@@ -712,7 +741,7 @@ if ('serviceWorker' in navigator) { window.addEventListener('load', function () 
 
   <!-- ===== TOAST ===== -->
   <sc-if value="{{ hasToast }}" hint-placeholder-val="{{ false }}">
-    <div style="position:absolute; left:20px; right:20px; bottom:calc(90px + env(safe-area-inset-bottom)); z-index:80; background:#15171B; color:#fff; border-radius:14px; padding:13px 16px; font-size:13px; font-weight:600; box-shadow:0 10px 30px rgba(21,23,27,.25);">{{ toast }}</div>
+    <div class="anim-up" style="position:absolute; left:20px; right:20px; bottom:calc(90px + env(safe-area-inset-bottom)); z-index:80; background:#15171B; color:#fff; border-radius:14px; padding:13px 16px; font-size:13px; font-weight:600; box-shadow:0 10px 30px rgba(21,23,27,.25);">{{ toast }}</div>
   </sc-if>
 
   <!-- ============ TAB BAR ============ -->
@@ -720,7 +749,7 @@ if ('serviceWorker' in navigator) { window.addEventListener('load', function () 
     <sc-for list="{{ tabs }}" as="tb" hint-placeholder-count="3">
       <div onClick="{{ tb.go }}" style="flex:1; display:flex; justify-content:center; cursor:pointer;">
         <sc-if value="{{ tb.active }}" hint-placeholder-val="{{ false }}">
-          <div style="display:flex; align-items:center; gap:8px; background:var(--accent,#B7F23A); color:#15171B; padding:10px 16px; border-radius:14px;">
+          <div class="anim-pop" style="display:flex; align-items:center; gap:8px; background:var(--accent,#B7F23A); color:#15171B; padding:10px 16px; border-radius:14px;">
             <sc-if value="{{ tb.isHome }}" hint-placeholder-val="{{ false }}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M3 11l9-7 9 7v8a1 1 0 0 1-1 1h-4v-6H8v6H4a1 1 0 0 1-1-1z" stroke="#15171B" stroke-width="2" stroke-linejoin="round"></path></svg></sc-if>
             <sc-if value="{{ tb.isBuild }}" hint-placeholder-val="{{ false }}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 20h4L19 9l-4-4L4 16z M13 7l4 4" stroke="#15171B" stroke-width="2" stroke-linejoin="round"></path></svg></sc-if>
             <sc-if value="{{ tb.isPreview }}" hint-placeholder-val="{{ false }}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M6 3h9l4 4v14H6z M14 3v5h5 M9 13h7M9 17h5" stroke="#15171B" stroke-width="2" stroke-linejoin="round"></path></svg></sc-if>
@@ -1285,9 +1314,12 @@ class Component extends DCLogic {
     setTimeout(() => this.paint(), 400);
     this.setupAnalytics();
     this.setupInstall();
+    this._navScreen = this.state.screen; this._navStep = this.state.step || 0;
+    setTimeout(() => this.updateCarousel(), 50);
   }
   componentDidUpdate() {
     this.paint();
+    this.animateNav();
     try { window.localStorage.setItem('artelier-resume-v1', JSON.stringify({ d: this.state.d, tpl: this.state.tpl, lang: this.state.lang, mColor: this.state.mColor })); } catch (e) {}
   }
   componentWillUnmount() { clearTimeout(this._tt); }
@@ -1986,6 +2018,44 @@ class Component extends DCLogic {
     }
   }
 
+  // ---------- Smooth navigation (iPhone-style) ----------
+  // Screens slide in from the side you are going to; builder steps slide and scroll back to the top.
+  restartAnim(el, cls) {
+    if (!el) return;
+    el.classList.remove('anim-left', 'anim-right', 'anim-up');
+    void el.offsetWidth; // restart the CSS animation
+    el.classList.add(cls);
+  }
+  animateNav() {
+    const order = { home: 0, build: 1, preview: 2 };
+    const sc = this.state.screen, st = this.state.step || 0;
+    if (this._navScreen !== undefined && this._navScreen !== sc) {
+      const label = sc === 'home' ? 'Home' : sc === 'build' ? 'Builder' : 'Preview';
+      const el = document.querySelector('[data-screen-label="' + label + '"]');
+      this.restartAnim(el, (order[sc] || 0) >= (order[this._navScreen] || 0) ? 'anim-left' : 'anim-right');
+      if (el) el.scrollTop = 0;
+    } else if (sc === 'build' && this._navStep !== undefined && this._navStep !== st) {
+      this.restartAnim(document.querySelector('[data-step-body]'), st > this._navStep ? 'anim-left' : 'anim-right');
+      const b = document.querySelector('[data-screen-label="Builder"]');
+      if (b) { try { b.scrollTo({ top: 0, behavior: 'smooth' }); } catch (e) { b.scrollTop = 0; } }
+    }
+    if (this._navScreen !== sc && sc === 'home') requestAnimationFrame(() => this.updateCarousel());
+    this._navScreen = sc; this._navStep = st;
+  }
+  // carousel: cards grow and fade smoothly with the finger, not in jumps
+  updateCarousel() {
+    const c = document.querySelector('[data-carousel]');
+    if (!c) return;
+    const mid = c.scrollLeft + c.clientWidth / 2;
+    const STEP = 214 + 14;
+    Array.prototype.forEach.call(c.querySelectorAll('[data-card]'), (card) => {
+      const center = card.offsetLeft + card.offsetWidth / 2;
+      const d = Math.min(1, Math.abs(center - mid) / STEP);
+      card.style.transform = 'scale(' + (1 - 0.16 * d).toFixed(3) + ')';
+      card.style.opacity = (1 - 0.45 * d).toFixed(3);
+    });
+  }
+
   // ---------- Install as app (Add to Home Screen) ----------
   setupInstall() {
     try {
@@ -2302,14 +2372,18 @@ class Component extends DCLogic {
           carDots: TPL.map((x, i) => ({ w: i === idx ? '22px' : '7px', bg: i === idx ? '#15171B' : 'rgba(21,23,27,.22)', go: () => goTo(i) })),
           onCarScroll: (ev) => {
             const el = ev.target; if (this._carRaf) return;
-            this._carRaf = requestAnimationFrame(() => { this._carRaf = null; const i = Math.max(0, Math.min(TPL.length - 1, Math.round(el.scrollLeft / STEP))); if (i !== (this.state.carIdx || 0)) this.setState({ carIdx: i }); });
+            this._carRaf = requestAnimationFrame(() => {
+              this._carRaf = null; this.updateCarousel();
+              const i = Math.max(0, Math.min(TPL.length - 1, Math.round(el.scrollLeft / STEP))); if (i !== (this.state.carIdx || 0)) this.setState({ carIdx: i });
+            });
           },
           carDetail: () => { this.setState({ detailId: cur.id }); this.track('template_detail', { template: cur.id }); },
           carUse: () => useTpl(cur.id),
           detailOpen: !!det, detId: det ? det.id : '', detName: det ? nm(det) : '', detBg: det ? det.bg : '#F4F4F2',
           detTier: det ? (det.tier === 'ats' ? t.ats : t.standard) : '', detPrice: det ? this.price(det.tier) : '',
           detBest: det ? (lang === 'en' ? det.bestEn : det.bestMs) : '', detTags: det ? (lang === 'en' ? det.tagsEn : det.tagsMs) : [],
-          closeDetail: () => this.setState({ detailId: null }), detUse: () => det && useTpl(det.id),
+          detAnim: this.state.detailClosing ? 'anim-zoom-out' : 'anim-zoom',
+          closeDetail: () => { if (this.state.detailClosing) return; this.setState({ detailClosing: true }); setTimeout(() => this.setState({ detailId: null, detailClosing: false }), 230); }, detUse: () => det && useTpl(det.id),
         };
       })(),
       showInstall: !!this.state.installOk && (!!this.state.canInstall || !!this.state.installIos),
@@ -2385,7 +2459,9 @@ class Component extends DCLogic {
       download: () => this.download(), printDownload: () => this.download('print'),
       downloadLabel: this.state.pdfBusy ? t.pdfMaking : t.download,
       toast: this.state.toast, hasToast: !!this.state.toast,
-      sheetOpen, sheetCats, sheetItems, closeSheet: () => this.setState({ dutySheet: -1 }),
+      sheetOpen, sheetCats, sheetItems,
+      sheetAnim: this.state.sheetClosing ? 'anim-sheet-out' : 'anim-sheet', sheetBgAnim: this.state.sheetClosing ? 'anim-fade-out' : 'anim-fade',
+      closeSheet: () => { if (this.state.sheetClosing) return; this.setState({ sheetClosing: true }); setTimeout(() => this.setState({ dutySheet: -1, sheetClosing: false }), 270); },
       isModen: ['moden', 'klasik', 'kreatif'].indexOf(tpl) >= 0,
       ...(() => {
         const letter = this.state.docMode === 'letter';
