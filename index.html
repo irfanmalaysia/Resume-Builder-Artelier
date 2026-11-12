@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>ArtelierIrfan Resume | Bina Resume Profesional Percuma</title>
 <meta name="description" content="Bina resume profesional dalam 5 minit. Pilih templat, isi maklumat dan muat turun PDF. Percuma, dalam Bahasa Melayu dan English.">
-<meta name="theme-color" content="#F4F4F2">
+<meta name="theme-color" content="#F5F5F7">
 <link rel="icon" type="image/png" href="assets/logo.png">
 <link rel="apple-touch-icon" href="assets/icon-192.png">
 <link rel="manifest" href="manifest.webmanifest">
@@ -21,7 +21,7 @@ if ('serviceWorker' in navigator) { window.addEventListener('load', function () 
 <meta property="og:title" content="ArtelierIrfan Resume | Bina Resume Profesional Percuma">
 <meta property="og:description" content="Bina resume profesional dalam 5 minit dan muat turun PDF. Percuma.">
 <meta property="og:image" content="assets/logo.png">
-<style>html,body{margin:0;height:100%;background:#E7E5DF;overscroll-behavior:none}</style>
+<style>html,body{margin:0;height:100%;background:#E8E8ED;overscroll-behavior:none}</style>
 <script src="vendor/react.production.min.js"></script>
 <script src="vendor/react-dom.production.min.js"></script>
 <script src="./support.js"></script>
@@ -37,8 +37,8 @@ if ('serviceWorker' in navigator) { window.addEventListener('load', function () 
   body { margin: 0; }
   .scroll::-webkit-scrollbar { width: 0; height: 0; }
   .chips::-webkit-scrollbar { display: none; }
-  .fld { width:100%; background:#fff; border:1px solid #E6E6E2; border-radius:13px; padding:12px 14px; font-family:'Plus Jakarta Sans',system-ui,sans-serif; font-size:14.5px; color:#15171B; outline:none; }
-  .fld:focus { border-color:#15171B; }
+  .fld { width:100%; background:#fff; border:1px solid #E5E5EA; border-radius:13px; padding:12px 14px; font-family:'Plus Jakarta Sans',system-ui,sans-serif; font-size:14.5px; color:#1D1D1F; outline:none; }
+  .fld:focus { border-color:#1D1D1F; }
   .fld::placeholder { color:#B4B7BC; }
   textarea.fld { resize:vertical; line-height:1.45; min-height:84px; }
   /* ---- iPhone-style motion ---- */
@@ -71,23 +71,23 @@ if ('serviceWorker' in navigator) { window.addEventListener('load', function () 
 </style>
 </helmet>
 
-<div style="--accent: {{ accent }}; height:100dvh; box-sizing:border-box; display:flex; justify-content:center; background:#E7E5DF; font-family:'Plus Jakarta Sans',system-ui,sans-serif;">
+<div style="--accent: {{ accent }}; height:100dvh; box-sizing:border-box; display:flex; justify-content:center; background:#E8E8ED; font-family:'Plus Jakarta Sans',system-ui,sans-serif;">
 
-<div style="width:100%; max-width:480px; height:100%; box-shadow:0 0 40px rgba(21,23,27,.08); position:relative; overflow:hidden; background:#F4F4F2; font-family:'Plus Jakarta Sans',system-ui,sans-serif; color:#15171B;">
+<div style="width:100%; max-width:480px; height:100%; box-shadow:0 0 40px rgba(29,29,31,.08); position:relative; overflow:hidden; background:#F5F5F7; font-family:'Plus Jakarta Sans',system-ui,sans-serif; color:#1D1D1F;">
 
   <!-- ============ TOP BAR (all screens) ============ -->
-  <div style="position:absolute; top:0; left:0; right:0; z-index:40; background:#F4F4F2; padding:calc(14px + env(safe-area-inset-top)) 20px 10px; display:flex; align-items:center; justify-content:space-between;">
+  <div style="position:absolute; top:0; left:0; right:0; z-index:40; background:#F5F5F7; padding:calc(14px + env(safe-area-inset-top)) 20px 10px; display:flex; align-items:center; justify-content:space-between;">
     <div style="display:flex; align-items:center; gap:11px;">
       <img src="assets/logo.png" alt="ArtelierIrfan" style="width:40px; height:40px; border-radius:50%; object-fit:cover; display:block;">
       <div style="display:flex; flex-direction:column; line-height:1.15;">
-        <span style="font-size:11px; color:#90949B; font-weight:500;">{{ t.brandSub }}</span>
-        <span style="font-size:15.5px; color:#15171B; font-weight:700;">ArtelierIrfan</span>
+        <span style="font-size:11px; color:#8E8E93; font-weight:500;">{{ t.brandSub }}</span>
+        <span style="font-size:15.5px; color:#1D1D1F; font-weight:700;">ArtelierIrfan</span>
       </div>
     </div>
     <!-- language toggle -->
-    <div style="display:flex; background:#fff; border:1px solid #ECECE9; border-radius:13px; padding:3px; gap:2px;">
-      <div onClick="{{ setMs }}" style="padding:8px 11px; border-radius:10px; font-size:12.5px; font-weight:800; cursor:pointer; background:{{ msBg }}; color:#15171B;">BM</div>
-      <div onClick="{{ setEn }}" style="padding:8px 11px; border-radius:10px; font-size:12.5px; font-weight:800; cursor:pointer; background:{{ enBg }}; color:#15171B;">EN</div>
+    <div style="display:flex; background:#fff; border:1px solid #E5E5EA; border-radius:13px; padding:3px; gap:2px;">
+      <div onClick="{{ setMs }}" style="padding:8px 11px; border-radius:10px; font-size:12.5px; font-weight:800; cursor:pointer; background:{{ msBg }}; color:{{ msFg }};">BM</div>
+      <div onClick="{{ setEn }}" style="padding:8px 11px; border-radius:10px; font-size:12.5px; font-weight:800; cursor:pointer; background:{{ enBg }}; color:{{ enFg }};">EN</div>
     </div>
   </div>
 
@@ -96,11 +96,11 @@ if ('serviceWorker' in navigator) { window.addEventListener('load', function () 
   <div data-screen-label="Home" class="scroll" style="height:100%; overflow-y:auto; padding:calc(76px + env(safe-area-inset-top)) 0 calc(100px + env(safe-area-inset-bottom));">
     <!-- hero -->
     <div style="padding:6px 20px 0;">
-      <div style="height:208px; border-radius:26px; background:var(--accent,#B7F23A); padding:24px; position:relative; overflow:hidden;">
+      <div style="height:208px; border-radius:26px; background:#1D1D1F; color:#fff; padding:24px; position:relative; overflow:hidden;">
         <div style="position:relative; z-index:2; max-width:60%;">
-          <div style="font-size:11px; font-weight:800; letter-spacing:1.2px; text-transform:uppercase; color:rgba(21,23,27,.55);">{{ t.heroEyebrow }}</div>
-          <div style="font-size:23px; font-weight:800; line-height:1.1; color:#15171B; margin-top:9px;">{{ t.heroTitle }}</div>
-          <div onClick="{{ startBuild }}" style="display:inline-flex; align-items:center; gap:7px; margin-top:16px; background:#15171B; color:#fff; padding:11px 16px; border-radius:13px; font-size:13.5px; font-weight:700; cursor:pointer;">
+          <div style="font-size:11px; font-weight:800; letter-spacing:1.2px; text-transform:uppercase; color:#AAAAAA;">{{ t.heroEyebrow }}</div>
+          <div style="font-size:23px; font-weight:800; line-height:1.1; color:#fff; margin-top:9px;">{{ t.heroTitle }}</div>
+          <div onClick="{{ startBuild }}" style="display:inline-flex; align-items:center; gap:7px; margin-top:16px; background:#007AFF; color:#fff; padding:11px 16px; border-radius:13px; font-size:13.5px; font-weight:700; cursor:pointer;">
             {{ t.heroCta }}
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
           </div>
@@ -109,19 +109,19 @@ if ('serviceWorker' in navigator) { window.addEventListener('load', function () 
         <div style="position:absolute; right:-14px; bottom:-22px; width:150px; height:190px;">
           <div style="position:absolute; right:22px; bottom:20px; width:108px; height:148px; border-radius:12px; background:rgba(255,255,255,.45); transform:rotate(10deg);"></div>
           <div style="position:absolute; right:10px; bottom:12px; width:108px; height:148px; border-radius:12px; background:rgba(255,255,255,.7); transform:rotate(5deg);"></div>
-          <div style="position:absolute; right:0; bottom:0; width:108px; height:148px; border-radius:12px; background:#fff; box-shadow:0 8px 24px rgba(21,23,27,.18); padding:12px; display:flex; flex-direction:column; gap:6px;">
+          <div style="position:absolute; right:0; bottom:0; width:108px; height:148px; border-radius:12px; background:#fff; box-shadow:0 8px 24px rgba(29,29,31,.18); padding:12px; display:flex; flex-direction:column; gap:6px;">
             <div style="display:flex; gap:7px; align-items:center;">
-              <div style="width:22px; height:22px; border-radius:50%; background:#15171B;"></div>
-              <div style="flex:1; display:flex; flex-direction:column; gap:3px;"><div style="height:5px; border-radius:3px; background:#15171B;"></div><div style="height:4px; width:70%; border-radius:3px; background:#C9CBC4;"></div></div>
+              <div style="width:22px; height:22px; border-radius:50%; background:#1D1D1F;"></div>
+              <div style="flex:1; display:flex; flex-direction:column; gap:3px;"><div style="height:5px; border-radius:3px; background:#1D1D1F;"></div><div style="height:4px; width:70%; border-radius:3px; background:#C7C7CC;"></div></div>
             </div>
-            <div style="height:3px; background:#ECECE9; margin:3px 0;"></div>
-            <div style="height:4px; width:40%; border-radius:3px; background:#15171B;"></div>
-            <div style="height:3px; border-radius:3px; background:#DEDFDA;"></div>
-            <div style="height:3px; width:85%; border-radius:3px; background:#DEDFDA;"></div>
-            <div style="height:4px; width:45%; border-radius:3px; background:#15171B; margin-top:4px;"></div>
-            <div style="height:3px; border-radius:3px; background:#DEDFDA;"></div>
-            <div style="height:3px; width:75%; border-radius:3px; background:#DEDFDA;"></div>
-            <div style="display:flex; gap:3px; margin-top:4px;"><div style="height:8px; width:22px; border-radius:3px; background:var(--accent,#B7F23A);"></div><div style="height:8px; width:18px; border-radius:3px; background:var(--accent,#B7F23A);"></div></div>
+            <div style="height:3px; background:#E5E5EA; margin:3px 0;"></div>
+            <div style="height:4px; width:40%; border-radius:3px; background:#1D1D1F;"></div>
+            <div style="height:3px; border-radius:3px; background:#D1D1D6;"></div>
+            <div style="height:3px; width:85%; border-radius:3px; background:#D1D1D6;"></div>
+            <div style="height:4px; width:45%; border-radius:3px; background:#1D1D1F; margin-top:4px;"></div>
+            <div style="height:3px; border-radius:3px; background:#D1D1D6;"></div>
+            <div style="height:3px; width:75%; border-radius:3px; background:#D1D1D6;"></div>
+            <div style="display:flex; gap:3px; margin-top:4px;"><div style="height:8px; width:22px; border-radius:3px; background:var(--accent,#007AFF); color:#fff;"></div><div style="height:8px; width:18px; border-radius:3px; background:var(--accent,#007AFF); color:#fff;"></div></div>
           </div>
         </div>
       </div>
@@ -130,17 +130,17 @@ if ('serviceWorker' in navigator) { window.addEventListener('load', function () 
     <!-- install as app (only on the real website; hidden once installed or dismissed) -->
     <sc-if value="{{ showInstall }}" hint-placeholder-val="{{ false }}">
       <div style="padding:12px 20px 0;">
-        <div style="display:flex; align-items:center; gap:12px; background:#fff; border:1px solid #ECECE9; border-radius:18px; padding:12px 14px;">
+        <div style="display:flex; align-items:center; gap:12px; background:#fff; border:1px solid #E5E5EA; border-radius:18px; padding:12px 14px;">
           <img src="assets/logo.png" alt="" style="width:40px; height:40px; border-radius:11px; flex:none; display:block;">
           <div style="flex:1; min-width:0;">
             <div style="font-size:13.5px; font-weight:800;">{{ t.installTitle }}</div>
-            <div style="font-size:11.5px; color:#6B7079; margin-top:2px; line-height:1.4;">{{ installText }}</div>
+            <div style="font-size:11.5px; color:#6E6E73; margin-top:2px; line-height:1.4;">{{ installText }}</div>
           </div>
           <sc-if value="{{ canInstall }}" hint-placeholder-val="{{ true }}">
-            <div onClick="{{ doInstall }}" style="flex:none; font-size:12.5px; font-weight:800; padding:9px 13px; border-radius:11px; background:#15171B; color:#fff; cursor:pointer;">{{ t.installBtn }}</div>
+            <div onClick="{{ doInstall }}" style="flex:none; font-size:12.5px; font-weight:800; padding:9px 13px; border-radius:11px; background:#1D1D1F; color:#fff; cursor:pointer;">{{ t.installBtn }}</div>
           </sc-if>
           <div onClick="{{ dismissInstall }}" style="flex:none; width:26px; height:26px; border-radius:8px; display:flex; align-items:center; justify-content:center; cursor:pointer;">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="#90949B" stroke-width="2.4" stroke-linecap="round"></path></svg>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="#8E8E93" stroke-width="2.4" stroke-linecap="round"></path></svg>
           </div>
         </div>
       </div>
@@ -149,9 +149,9 @@ if ('serviceWorker' in navigator) { window.addEventListener('load', function () 
     <!-- public counter (appears once the Google Sheet total reaches showCounterFrom) -->
     <sc-if value="{{ showCounter }}" hint-placeholder-val="{{ false }}">
       <div style="padding:12px 20px 0;">
-        <div style="display:flex; align-items:center; gap:10px; background:#fff; border:1px solid #ECECE9; border-radius:16px; padding:11px 14px;">
-          <div style="width:28px; height:28px; flex:none; border-radius:9px; background:var(--accent,#B7F23A); display:flex; align-items:center; justify-content:center;">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="#15171B" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        <div style="display:flex; align-items:center; gap:10px; background:#fff; border:1px solid #E5E5EA; border-radius:16px; padding:11px 14px;">
+          <div style="width:28px; height:28px; flex:none; border-radius:9px; background:var(--accent,#007AFF); display:flex; align-items:center; justify-content:center; color:#fff;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>
           </div>
           <span style="font-size:13.5px; font-weight:800;">{{ counterLabel }}</span>
         </div>
@@ -161,14 +161,14 @@ if ('serviceWorker' in navigator) { window.addEventListener('load', function () 
     <!-- templates -->
     <div style="padding:24px 20px 0; display:flex; align-items:baseline; justify-content:space-between;">
       <span style="font-size:18px; font-weight:800;">{{ t.chooseTpl }}</span>
-      <span style="font-size:12px; color:#90949B; font-weight:600;">{{ t.tplCount }}</span>
+      <span style="font-size:12px; color:#8E8E93; font-weight:600;">{{ t.tplCount }}</span>
     </div>
     <!-- template carousel: swipe left/right, the centre card is big, the background takes its colour; tap it for details -->
     <div style="margin:12px 20px 0; border-radius:26px; background:{{ carBg }}; transition:background .45s ease; padding:20px 0 18px;">
       <div data-carousel="1" class="chips" onScroll="{{ onCarScroll }}" style="position:relative; display:flex; gap:14px; overflow-x:auto; scroll-snap-type:x mandatory; padding:6px calc(50% - 107px) 10px; -webkit-overflow-scrolling:touch;">
         <sc-for list="{{ carCards }}" as="cc" hint-placeholder-count="3">
           <div data-card="1" onClick="{{ cc.tap }}" style="flex:none; width:214px; scroll-snap-align:center; cursor:pointer; transform:scale(.84); opacity:.55; will-change:transform; position:relative;">
-            <div data-rv="{{ cc.id }}" data-rv-crop="1" style="width:214px; height:303px; border-radius:14px; overflow:hidden; background:#fff; pointer-events:none; box-shadow:0 14px 30px rgba(21,23,27,.18);"></div>
+            <div data-rv="{{ cc.id }}" data-rv-crop="1" style="width:214px; height:303px; border-radius:14px; overflow:hidden; background:#fff; pointer-events:none; box-shadow:0 14px 30px rgba(29,29,31,.18);"></div>
             <div style="position:absolute; top:10px; left:10px; background:{{ cc.badgeBg }}; color:{{ cc.badgeFg }}; font-size:10px; font-weight:800; letter-spacing:.6px; text-transform:uppercase; padding:4px 8px; border-radius:8px;">{{ cc.tierLabel }}</div>
           </div>
         </sc-for>
@@ -186,7 +186,7 @@ if ('serviceWorker' in navigator) { window.addEventListener('load', function () 
           </sc-for>
         </div>
         <div style="display:flex; justify-content:center; margin-top:14px; padding:0 20px;">
-          <div onClick="{{ carUse }}" style="flex:1; max-width:280px; text-align:center; padding:14px 18px; border-radius:15px; background:#15171B; color:#fff; font-size:14.5px; font-weight:800; cursor:pointer;">{{ t.carUse }}</div>
+          <div onClick="{{ carUse }}" style="flex:1; max-width:280px; text-align:center; padding:14px 18px; border-radius:15px; background:#1D1D1F; color:#fff; font-size:14.5px; font-weight:800; cursor:pointer;">{{ t.carUse }}</div>
         </div>
       </div>
     </div>
@@ -194,29 +194,29 @@ if ('serviceWorker' in navigator) { window.addEventListener('load', function () 
     <!-- how it works -->
     <div style="padding:26px 20px 0;">
       <div style="font-size:18px; font-weight:800; margin-bottom:12px;">{{ t.how }}</div>
-      <div style="background:#fff; border:1px solid #ECECE9; border-radius:22px; padding:6px 16px;">
+      <div style="background:#fff; border:1px solid #E5E5EA; border-radius:22px; padding:6px 16px;">
         <sc-for list="{{ howSteps }}" as="h" hint-placeholder-count="3">
           <div style="display:flex; gap:14px; align-items:center; padding:13px 0; border-bottom:{{ h.divider }};">
-            <div style="width:36px; height:36px; flex:none; border-radius:12px; background:var(--accent,#B7F23A); display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:800;">{{ h.n }}</div>
+            <div style="width:36px; height:36px; flex:none; border-radius:12px; background:var(--accent,#007AFF); display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:800; color:#fff;">{{ h.n }}</div>
             <div>
               <div style="font-size:14px; font-weight:700;">{{ h.title }}</div>
-              <div style="font-size:12.5px; color:#90949B; margin-top:2px; line-height:1.4;">{{ h.desc }}</div>
+              <div style="font-size:12.5px; color:#8E8E93; margin-top:2px; line-height:1.4;">{{ h.desc }}</div>
             </div>
           </div>
         </sc-for>
       </div>
-      <div style="margin-top:14px; background:#15171B; color:#fff; border-radius:20px; padding:16px 18px; display:flex; gap:12px; align-items:flex-start;">
-        <div style="font-size:11px; font-weight:800; background:var(--accent,#B7F23A); color:#15171B; padding:4px 7px; border-radius:7px; flex:none;">ATS</div>
+      <div style="margin-top:14px; background:#1D1D1F; color:#fff; border-radius:20px; padding:16px 18px; display:flex; gap:12px; align-items:flex-start;">
+        <div style="font-size:11px; font-weight:800; background:var(--accent,#007AFF); color:#fff; padding:4px 7px; border-radius:7px; flex:none;">ATS</div>
         <div style="font-size:12.5px; line-height:1.5; color:rgba(255,255,255,.82);">{{ t.atsNote }}</div>
       </div>
       <!-- privacy note -->
-      <div style="margin-top:12px; background:#fff; border:1px solid #ECECE9; border-radius:20px; padding:15px 16px; display:flex; gap:12px; align-items:flex-start;">
-        <div style="width:32px; height:32px; flex:none; border-radius:10px; background:#F4F4F2; display:flex; align-items:center; justify-content:center;">
-          <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><rect x="5" y="10.5" width="14" height="10" rx="2.5" stroke="#15171B" stroke-width="2"></rect><path d="M8.5 10.5V8a3.5 3.5 0 0 1 7 0v2.5" stroke="#15171B" stroke-width="2" stroke-linecap="round"></path></svg>
+      <div style="margin-top:12px; background:#fff; border:1px solid #E5E5EA; border-radius:20px; padding:15px 16px; display:flex; gap:12px; align-items:flex-start;">
+        <div style="width:32px; height:32px; flex:none; border-radius:10px; background:#F5F5F7; display:flex; align-items:center; justify-content:center;">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><rect x="5" y="10.5" width="14" height="10" rx="2.5" stroke="#1D1D1F" stroke-width="2"></rect><path d="M8.5 10.5V8a3.5 3.5 0 0 1 7 0v2.5" stroke="#1D1D1F" stroke-width="2" stroke-linecap="round"></path></svg>
         </div>
         <div>
           <div style="font-size:13.5px; font-weight:800;">{{ t.privacyTitle }}</div>
-          <div style="font-size:12.5px; color:#6B7079; margin-top:3px; line-height:1.5;">{{ t.privacyText }}</div>
+          <div style="font-size:12.5px; color:#6E6E73; margin-top:3px; line-height:1.5;">{{ t.privacyText }}</div>
         </div>
       </div>
     </div>
@@ -229,11 +229,11 @@ if ('serviceWorker' in navigator) { window.addEventListener('load', function () 
     <!-- step header -->
     <div style="display:flex; align-items:center; justify-content:space-between; margin-top:2px;">
       <div>
-        <div style="font-size:12px; color:#90949B; font-weight:700; letter-spacing:.4px;">{{ stepLabel }}</div>
+        <div style="font-size:12px; color:#8E8E93; font-weight:700; letter-spacing:.4px;">{{ stepLabel }}</div>
         <div style="font-size:21px; font-weight:800; margin-top:2px;">{{ stepTitle }}</div>
       </div>
       <div style="display:flex; gap:6px;">
-        <div onClick="{{ askClear }}" style="font-size:12px; font-weight:700; padding:8px 10px; border-radius:11px; background:#fff; border:1px solid #ECECE9; cursor:pointer; color:#B4412E;">{{ t.clear }}</div>
+        <div onClick="{{ askClear }}" style="font-size:12px; font-weight:700; padding:8px 10px; border-radius:11px; background:#fff; border:1px solid #E5E5EA; cursor:pointer; color:#B4412E;">{{ t.clear }}</div>
       </div>
     </div>
     <div style="display:grid; grid-template-columns:repeat(5, minmax(0, 1fr)); gap:6px; margin:14px 0 18px;">
@@ -249,29 +249,29 @@ if ('serviceWorker' in navigator) { window.addEventListener('load', function () 
       <div onClick="{{ toggleFresh }}" style="display:flex; align-items:center; gap:12px; background:{{ freshBg }}; border:1px solid {{ freshBorder }}; border-radius:18px; padding:13px 14px; margin-bottom:12px; cursor:pointer;">
         <div style="flex:1; min-width:0;">
           <div style="font-size:13.5px; font-weight:800;">{{ t.freshTitle }}</div>
-          <div style="font-size:11.5px; color:#6B7079; margin-top:2px; line-height:1.4;">{{ t.freshDesc }}</div>
+          <div style="font-size:11.5px; color:#6E6E73; margin-top:2px; line-height:1.4;">{{ t.freshDesc }}</div>
         </div>
         <div style="width:46px; height:28px; border-radius:14px; background:{{ switchBg }}; position:relative; flex:none;">
-          <div style="position:absolute; top:3px; left:{{ knobLeft }}; width:22px; height:22px; border-radius:50%; background:#fff; box-shadow:0 1px 3px rgba(21,23,27,.25);"></div>
+          <div style="position:absolute; top:3px; left:{{ knobLeft }}; width:22px; height:22px; border-radius:50%; background:#fff; box-shadow:0 1px 3px rgba(29,29,31,.25);"></div>
         </div>
       </div>
-      <div style="display:flex; align-items:center; gap:14px; background:#fff; border:1px solid #ECECE9; border-radius:20px; padding:14px; margin-bottom:14px;">
-        <div style="width:68px; height:68px; flex:none; border-radius:50%; background:#EDEDEA; overflow:hidden; display:flex; align-items:center; justify-content:center;">
+      <div style="display:flex; align-items:center; gap:14px; background:#fff; border:1px solid #E5E5EA; border-radius:20px; padding:14px; margin-bottom:14px;">
+        <div style="width:68px; height:68px; flex:none; border-radius:50%; background:#E5E5EA; overflow:hidden; display:flex; align-items:center; justify-content:center;">
           <sc-if value="{{ hasPhoto }}" hint-placeholder-val="{{ false }}">
             <img src="{{ photoSrc }}" alt="" style="width:100%; height:100%; object-fit:cover; display:block;">
           </sc-if>
           <sc-if value="{{ noPhoto }}" hint-placeholder-val="{{ true }}">
-            <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="3.4" stroke="#A8ACB2" stroke-width="2"></circle><path d="M5 20c0-3.3 3.1-6 7-6s7 2.7 7 6" stroke="#A8ACB2" stroke-width="2" stroke-linecap="round"></path></svg>
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="3.4" stroke="#AAAAAA" stroke-width="2"></circle><path d="M5 20c0-3.3 3.1-6 7-6s7 2.7 7 6" stroke="#AAAAAA" stroke-width="2" stroke-linecap="round"></path></svg>
           </sc-if>
         </div>
         <div style="flex:1; min-width:0;">
           <div style="font-size:13.5px; font-weight:700;">{{ t.photo }}</div>
-          <div style="font-size:11.5px; color:#90949B; margin-top:2px;">{{ t.photoHint }}</div>
+          <div style="font-size:11.5px; color:#8E8E93; margin-top:2px;">{{ t.photoHint }}</div>
           <div style="display:flex; gap:8px; margin-top:9px;">
-            <label style="font-size:12.5px; font-weight:800; background:var(--accent,#B7F23A); padding:8px 12px; border-radius:11px; cursor:pointer;">{{ t.uploadPhoto }}<input type="file" accept="image/*" onChange="{{ onPhoto }}" style="display:none;"></label>
+            <label style="font-size:12.5px; font-weight:800; background:var(--accent,#007AFF); padding:8px 12px; border-radius:11px; cursor:pointer; color:#fff;">{{ t.uploadPhoto }}<input type="file" accept="image/*" onChange="{{ onPhoto }}" style="display:none;"></label>
             <sc-if value="{{ hasPhoto }}" hint-placeholder-val="{{ false }}">
-              <div onClick="{{ adjustPhoto }}" style="font-size:12.5px; font-weight:700; padding:8px 12px; border-radius:11px; background:#F4F4F2; cursor:pointer;">{{ t.adjustPhoto }}</div>
-              <div onClick="{{ removePhoto }}" style="font-size:12.5px; font-weight:700; padding:8px 12px; border-radius:11px; background:#F4F4F2; cursor:pointer;">{{ t.removePhoto }}</div>
+              <div onClick="{{ adjustPhoto }}" style="font-size:12.5px; font-weight:700; padding:8px 12px; border-radius:11px; background:#F5F5F7; cursor:pointer;">{{ t.adjustPhoto }}</div>
+              <div onClick="{{ removePhoto }}" style="font-size:12.5px; font-weight:700; padding:8px 12px; border-radius:11px; background:#F5F5F7; cursor:pointer;">{{ t.removePhoto }}</div>
             </sc-if>
           </div>
         </div>
@@ -279,7 +279,7 @@ if ('serviceWorker' in navigator) { window.addEventListener('load', function () 
       <div style="display:grid; grid-template-columns:repeat(2, minmax(0, 1fr)); gap:12px;">
         <sc-for list="{{ personalFields }}" as="f" hint-placeholder-count="6">
           <div style="grid-column:{{ f.span }}; display:flex; flex-direction:column; gap:6px;">
-            <span style="font-size:12px; font-weight:700; color:#6B7079;">{{ f.label }}</span>
+            <span style="font-size:12px; font-weight:700; color:#6E6E73;">{{ f.label }}</span>
             <sc-if value="{{ f.multi }}" hint-placeholder-val="{{ false }}">
               <textarea class="fld" rows="5" value="{{ f.value }}" placeholder="{{ f.placeholder }}" onChange="{{ f.onChange }}"></textarea>
               <sc-if value="{{ f.hasMic }}" hint-placeholder-val="{{ false }}">
@@ -300,20 +300,20 @@ if ('serviceWorker' in navigator) { window.addEventListener('load', function () 
     <!-- step 2 & 3: experience / education (repeatable lists) -->
     <sc-if value="{{ isListStep }}" hint-placeholder-val="{{ false }}">
       <sc-if value="{{ freshExpHint }}" hint-placeholder-val="{{ false }}">
-        <div style="background:#F2F9E3; border:1px solid #DDEFC0; border-radius:16px; padding:12px 14px; margin-bottom:12px; font-size:12.5px; line-height:1.5; color:#3D4A2A;">{{ t.freshExpNote }}</div>
+        <div style="background:#EAF3FF; border:1px solid #CCE0FF; border-radius:16px; padding:12px 14px; margin-bottom:12px; font-size:12.5px; line-height:1.5; color:#1D3B66;">{{ t.freshExpNote }}</div>
       </sc-if>
       <sc-for list="{{ listItems }}" as="it" hint-placeholder-count="2">
-        <div style="background:#fff; border:1px solid #ECECE9; border-radius:20px; padding:14px; margin-bottom:12px;">
+        <div style="background:#fff; border:1px solid #E5E5EA; border-radius:20px; padding:14px; margin-bottom:12px;">
           <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:10px;">
-            <span style="font-size:12px; font-weight:800; letter-spacing:.6px; text-transform:uppercase; color:#90949B;">{{ it.heading }}</span>
-            <div onClick="{{ it.remove }}" style="width:30px; height:30px; border-radius:10px; background:#F4F4F2; display:flex; align-items:center; justify-content:center; cursor:pointer;">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M5 7h14M10 11v6M14 11v6M6 7l1 12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-12M9 7V5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2" stroke="#6B7079" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+            <span style="font-size:12px; font-weight:800; letter-spacing:.6px; text-transform:uppercase; color:#8E8E93;">{{ it.heading }}</span>
+            <div onClick="{{ it.remove }}" style="width:30px; height:30px; border-radius:10px; background:#F5F5F7; display:flex; align-items:center; justify-content:center; cursor:pointer;">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M5 7h14M10 11v6M14 11v6M6 7l1 12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-12M9 7V5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2" stroke="#6E6E73" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg>
             </div>
           </div>
           <div style="display:grid; grid-template-columns:repeat(2, minmax(0, 1fr)); gap:10px;">
             <sc-for list="{{ it.fields }}" as="f" hint-placeholder-count="4">
               <div style="grid-column:{{ f.span }}; display:flex; flex-direction:column; gap:6px;">
-                <span style="font-size:12px; font-weight:700; color:#6B7079;">{{ f.label }}</span>
+                <span style="font-size:12px; font-weight:700; color:#6E6E73;">{{ f.label }}</span>
                 <sc-if value="{{ f.multi }}" hint-placeholder-val="{{ false }}">
                   <textarea class="fld" rows="4" value="{{ f.value }}" placeholder="{{ f.placeholder }}" onChange="{{ f.onChange }}"></textarea>
                 </sc-if>
@@ -325,29 +325,29 @@ if ('serviceWorker' in navigator) { window.addEventListener('load', function () 
           </div>
           <!-- duties & achievements: one box per point -->
           <sc-if value="{{ it.isExp }}" hint-placeholder-val="{{ true }}">
-            <div style="margin-top:12px; background:#F7F7F5; border-radius:16px; padding:12px;">
-              <div style="font-size:12px; font-weight:700; color:#6B7079;">{{ t.dutiesLabel }}</div>
-              <div style="font-size:11.5px; color:#90949B; margin-top:3px; line-height:1.4;">{{ t.dutiesTip }}</div>
+            <div style="margin-top:12px; background:#F5F5F7; border-radius:16px; padding:12px;">
+              <div style="font-size:12px; font-weight:700; color:#6E6E73;">{{ t.dutiesLabel }}</div>
+              <div style="font-size:11.5px; color:#8E8E93; margin-top:3px; line-height:1.4;">{{ t.dutiesTip }}</div>
               <div style="display:flex; flex-direction:column; gap:8px; margin-top:10px;">
                 <sc-for list="{{ it.bullets }}" as="b" hint-placeholder-count="2">
                   <div style="display:flex; align-items:center; gap:8px;">
-                    <div style="width:22px; height:22px; flex:none; border-radius:7px; background:var(--accent,#B7F23A); display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:800;">{{ b.n }}</div>
+                    <div style="width:22px; height:22px; flex:none; border-radius:7px; background:var(--accent,#007AFF); display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:800; color:#fff;">{{ b.n }}</div>
                     <input class="fld" type="text" data-b="{{ b.key }}" value="{{ b.value }}" placeholder="{{ b.placeholder }}" onChange="{{ b.onChange }}" onKeyDown="{{ b.onKeyDown }}" style="padding:10px 12px; font-size:13.5px;">
                     <sc-if value="{{ b.hasMic }}" hint-placeholder-val="{{ false }}">
-                      <div onClick="{{ b.onMic }}" title="{{ t.micBtn }}" style="width:30px; height:30px; flex:none; border-radius:10px; background:{{ b.micBg }}; color:{{ b.micFg }}; border:1px solid #ECECE9; display:flex; align-items:center; justify-content:center; cursor:pointer;">
+                      <div onClick="{{ b.onMic }}" title="{{ t.micBtn }}" style="width:30px; height:30px; flex:none; border-radius:10px; background:{{ b.micBg }}; color:{{ b.micFg }}; border:1px solid #E5E5EA; display:flex; align-items:center; justify-content:center; cursor:pointer;">
                         <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><rect x="9" y="3" width="6" height="11" rx="3" stroke="currentColor" stroke-width="2.2"></rect><path d="M5 11a7 7 0 0 0 14 0M12 18v3" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"></path></svg>
                       </div>
                     </sc-if>
-                    <div onClick="{{ b.remove }}" style="width:30px; height:30px; flex:none; border-radius:10px; background:#fff; border:1px solid #ECECE9; display:flex; align-items:center; justify-content:center; cursor:pointer;">
-                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="#6B7079" stroke-width="2.4" stroke-linecap="round"></path></svg>
+                    <div onClick="{{ b.remove }}" style="width:30px; height:30px; flex:none; border-radius:10px; background:#fff; border:1px solid #E5E5EA; display:flex; align-items:center; justify-content:center; cursor:pointer;">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="#6E6E73" stroke-width="2.4" stroke-linecap="round"></path></svg>
                     </div>
                   </div>
                 </sc-for>
               </div>
               <div style="display:flex; flex-wrap:wrap; gap:8px; margin-top:10px;">
-                <div onClick="{{ it.addBullet }}" style="display:inline-flex; align-items:center; gap:6px; font-size:12.5px; font-weight:800; padding:8px 12px; border-radius:11px; background:#fff; border:1px solid #ECECE9; cursor:pointer;">{{ t.addDuty }}</div>
-                <div onClick="{{ it.openSamples }}" style="display:inline-flex; align-items:center; gap:6px; font-size:12.5px; font-weight:800; padding:8px 12px; border-radius:11px; background:var(--accent,#B7F23A); cursor:pointer;">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.4 1 1.1 1 1.8V16h5v-.3c0-.7.4-1.4 1-1.8A6 6 0 0 0 12 3z" stroke="#15171B" stroke-width="2" stroke-linejoin="round"></path></svg>
+                <div onClick="{{ it.addBullet }}" style="display:inline-flex; align-items:center; gap:6px; font-size:12.5px; font-weight:800; padding:8px 12px; border-radius:11px; background:#fff; border:1px solid #E5E5EA; cursor:pointer;">{{ t.addDuty }}</div>
+                <div onClick="{{ it.openSamples }}" style="display:inline-flex; align-items:center; gap:6px; font-size:12.5px; font-weight:800; padding:8px 12px; border-radius:11px; background:var(--accent,#007AFF); cursor:pointer; color:#fff;">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.4 1 1.1 1 1.8V16h5v-.3c0-.7.4-1.4 1-1.8A6 6 0 0 0 12 3z" stroke="#fff" stroke-width="2" stroke-linejoin="round"></path></svg>
                   {{ t.sampleDuties }}
                 </div>
               </div>
@@ -355,7 +355,7 @@ if ('serviceWorker' in navigator) { window.addEventListener('load', function () 
           </sc-if>
         </div>
       </sc-for>
-      <div onClick="{{ addItem }}" style="border:1.5px dashed #C9CBC4; border-radius:18px; padding:14px; text-align:center; font-size:13.5px; font-weight:800; cursor:pointer; color:#15171B;">{{ addLabel }}</div>
+      <div onClick="{{ addItem }}" style="border:1.5px dashed #C7C7CC; border-radius:18px; padding:14px; text-align:center; font-size:13.5px; font-weight:800; cursor:pointer; color:#1D1D1F;">{{ addLabel }}</div>
     </sc-if>
 
     <!-- step 4: skills -->
@@ -363,7 +363,7 @@ if ('serviceWorker' in navigator) { window.addEventListener('load', function () 
       <div style="display:flex; flex-direction:column; gap:12px;">
         <sc-for list="{{ skillFields }}" as="f" hint-placeholder-count="2">
           <div style="display:flex; flex-direction:column; gap:6px;">
-            <span style="font-size:12px; font-weight:700; color:#6B7079;">{{ f.label }}</span>
+            <span style="font-size:12px; font-weight:700; color:#6E6E73;">{{ f.label }}</span>
             <textarea class="fld" rows="4" value="{{ f.value }}" placeholder="{{ f.placeholder }}" onChange="{{ f.onChange }}"></textarea>
             <sc-if value="{{ f.hasMic }}" hint-placeholder-val="{{ false }}">
               <div onClick="{{ f.onMic }}" style="align-self:flex-start; display:inline-flex; align-items:center; gap:6px; font-size:12.5px; font-weight:800; padding:8px 12px; border-radius:11px; cursor:pointer; background:{{ f.micBg }}; color:{{ f.micFg }};">
@@ -375,11 +375,11 @@ if ('serviceWorker' in navigator) { window.addEventListener('load', function () 
         </sc-for>
         <div style="display:flex; flex-wrap:wrap; gap:6px;">
           <sc-for list="{{ skillChips }}" as="c" hint-placeholder-count="4">
-            <span style="background:#fff; border:1px solid #ECECE9; border-radius:9px; padding:6px 10px; font-size:12px; font-weight:700;">{{ c }}</span>
+            <span style="background:#fff; border:1px solid #E5E5EA; border-radius:9px; padding:6px 10px; font-size:12px; font-weight:700;">{{ c }}</span>
           </sc-for>
         </div>
         <div style="display:flex; flex-direction:column; gap:6px;">
-          <span style="font-size:12px; font-weight:700; color:#6B7079;">{{ t.licence }}</span>
+          <span style="font-size:12px; font-weight:700; color:#6E6E73;">{{ t.licence }}</span>
           <input class="fld" type="text" value="{{ licenceVal }}" placeholder="{{ t.licencePh }}" onChange="{{ onLicence }}">
         </div>
       </div>
@@ -387,26 +387,26 @@ if ('serviceWorker' in navigator) { window.addEventListener('load', function () 
 
     <!-- step 5: extra sections (all optional) -->
     <sc-if value="{{ isStep4 }}" hint-placeholder-val="{{ false }}">
-      <div style="font-size:12.5px; color:#6B7079; line-height:1.5; margin:-4px 0 14px;">{{ t.extrasIntro }}</div>
+      <div style="font-size:12.5px; color:#6E6E73; line-height:1.5; margin:-4px 0 14px;">{{ t.extrasIntro }}</div>
       <sc-for list="{{ extraSections }}" as="xs" hint-placeholder-count="4">
         <div style="margin-bottom:20px;">
           <div style="display:flex; align-items:baseline; justify-content:space-between; gap:10px;">
             <span style="font-size:15.5px; font-weight:800;">{{ xs.title }}</span>
-            <span style="font-size:11.5px; color:#90949B; font-weight:700;">{{ xs.countLabel }}</span>
+            <span style="font-size:11.5px; color:#8E8E93; font-weight:700;">{{ xs.countLabel }}</span>
           </div>
-          <div style="font-size:12px; color:#90949B; margin:2px 0 10px; line-height:1.4;">{{ xs.hint }}</div>
+          <div style="font-size:12px; color:#8E8E93; margin:2px 0 10px; line-height:1.4;">{{ xs.hint }}</div>
           <sc-for list="{{ xs.items }}" as="it" hint-placeholder-count="1">
-            <div style="background:#fff; border:1px solid #ECECE9; border-radius:20px; padding:14px; margin-bottom:10px;">
+            <div style="background:#fff; border:1px solid #E5E5EA; border-radius:20px; padding:14px; margin-bottom:10px;">
               <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:10px;">
-                <span style="font-size:12px; font-weight:800; letter-spacing:.6px; text-transform:uppercase; color:#90949B;">{{ it.heading }}</span>
-                <div onClick="{{ it.remove }}" style="width:30px; height:30px; border-radius:10px; background:#F4F4F2; display:flex; align-items:center; justify-content:center; cursor:pointer;">
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M5 7h14M10 11v6M14 11v6M6 7l1 12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-12M9 7V5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2" stroke="#6B7079" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                <span style="font-size:12px; font-weight:800; letter-spacing:.6px; text-transform:uppercase; color:#8E8E93;">{{ it.heading }}</span>
+                <div onClick="{{ it.remove }}" style="width:30px; height:30px; border-radius:10px; background:#F5F5F7; display:flex; align-items:center; justify-content:center; cursor:pointer;">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M5 7h14M10 11v6M14 11v6M6 7l1 12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-12M9 7V5a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2" stroke="#6E6E73" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg>
                 </div>
               </div>
               <div style="display:grid; grid-template-columns:repeat(2, minmax(0, 1fr)); gap:10px;">
                 <sc-for list="{{ it.fields }}" as="f" hint-placeholder-count="3">
                   <div style="grid-column:{{ f.span }}; display:flex; flex-direction:column; gap:6px;">
-                    <span style="font-size:12px; font-weight:700; color:#6B7079;">{{ f.label }}</span>
+                    <span style="font-size:12px; font-weight:700; color:#6E6E73;">{{ f.label }}</span>
                     <input class="fld" type="text" value="{{ f.value }}" placeholder="{{ f.placeholder }}" onChange="{{ f.onChange }}">
                   </div>
                 </sc-for>
@@ -414,7 +414,7 @@ if ('serviceWorker' in navigator) { window.addEventListener('load', function () 
             </div>
           </sc-for>
           <sc-if value="{{ xs.canAdd }}" hint-placeholder-val="{{ true }}">
-            <div onClick="{{ xs.add }}" style="border:1.5px dashed #C9CBC4; border-radius:16px; padding:12px; text-align:center; font-size:13px; font-weight:800; cursor:pointer;">{{ xs.addLabel }}</div>
+            <div onClick="{{ xs.add }}" style="border:1.5px dashed #C7C7CC; border-radius:16px; padding:12px; text-align:center; font-size:13px; font-weight:800; cursor:pointer;">{{ xs.addLabel }}</div>
           </sc-if>
         </div>
       </sc-for>
@@ -423,17 +423,17 @@ if ('serviceWorker' in navigator) { window.addEventListener('load', function () 
 
     <!-- nav buttons -->
     <div style="display:flex; gap:10px; margin-top:22px;">
-      <div onClick="{{ prevStep }}" style="flex:1; text-align:center; padding:15px; border-radius:15px; background:#fff; border:1px solid #ECECE9; font-size:14px; font-weight:800; cursor:pointer;">{{ t.back }}</div>
-      <div onClick="{{ nextStep }}" style="flex:1.6; text-align:center; padding:15px; border-radius:15px; background:#15171B; color:#fff; font-size:14px; font-weight:800; cursor:pointer;">{{ nextLabel }}</div>
+      <div onClick="{{ prevStep }}" style="flex:1; text-align:center; padding:15px; border-radius:15px; background:#fff; border:1px solid #E5E5EA; font-size:14px; font-weight:800; cursor:pointer;">{{ t.back }}</div>
+      <div onClick="{{ nextStep }}" style="flex:1.6; text-align:center; padding:15px; border-radius:15px; background:#1D1D1F; color:#fff; font-size:14px; font-weight:800; cursor:pointer;">{{ nextLabel }}</div>
     </div>
-    <div style="text-align:center; font-size:11.5px; color:#A8ACB2; margin-top:12px;">{{ t.autosave }}</div>
+    <div style="text-align:center; font-size:11.5px; color:#AAAAAA; margin-top:12px;">{{ t.autosave }}</div>
     <!-- backup: save / open a copy of the details -->
-    <div style="margin-top:16px; background:#fff; border:1px solid #ECECE9; border-radius:18px; padding:14px;">
+    <div style="margin-top:16px; background:#fff; border:1px solid #E5E5EA; border-radius:18px; padding:14px;">
       <div style="font-size:13.5px; font-weight:800;">{{ t.backupTitle }}</div>
-      <div style="font-size:12px; color:#6B7079; margin-top:3px; line-height:1.45;">{{ t.backupText }}</div>
+      <div style="font-size:12px; color:#6E6E73; margin-top:3px; line-height:1.45;">{{ t.backupText }}</div>
       <div style="display:flex; gap:8px; margin-top:10px;">
-        <div onClick="{{ saveBackup }}" style="flex:1; text-align:center; font-size:13px; font-weight:800; padding:11px; border-radius:12px; background:#15171B; color:#fff; cursor:pointer;">{{ t.backupSave }}</div>
-        <label style="flex:1; text-align:center; font-size:13px; font-weight:800; padding:11px; border-radius:12px; background:#F4F4F2; cursor:pointer;">{{ t.backupOpen }}<input type="file" accept=".json,application/json" onChange="{{ openBackup }}" style="display:none;"></label>
+        <div onClick="{{ saveBackup }}" style="flex:1; text-align:center; font-size:13px; font-weight:800; padding:11px; border-radius:12px; background:#1D1D1F; color:#fff; cursor:pointer;">{{ t.backupSave }}</div>
+        <label style="flex:1; text-align:center; font-size:13px; font-weight:800; padding:11px; border-radius:12px; background:#F5F5F7; cursor:pointer;">{{ t.backupOpen }}<input type="file" accept=".json,application/json" onChange="{{ openBackup }}" style="display:none;"></label>
       </div>
     </div>
   </div>
@@ -447,7 +447,7 @@ if ('serviceWorker' in navigator) { window.addEventListener('load', function () 
     </div>
     <!-- resume / cover letter switch -->
     <div style="padding:12px 20px 0;">
-      <div style="display:flex; background:#fff; border:1px solid #ECECE9; border-radius:14px; padding:4px; gap:4px;">
+      <div style="display:flex; background:#fff; border:1px solid #E5E5EA; border-radius:14px; padding:4px; gap:4px;">
         <sc-for list="{{ docTabs }}" as="dt" hint-placeholder-count="2">
           <div onClick="{{ dt.go }}" style="flex:1; text-align:center; padding:10px 8px; border-radius:11px; font-size:13px; font-weight:800; cursor:pointer; background:{{ dt.bg }}; color:{{ dt.fg }};">{{ dt.label }}</div>
         </sc-for>
@@ -456,20 +456,20 @@ if ('serviceWorker' in navigator) { window.addEventListener('load', function () 
     <sc-if value="{{ isResumeDoc }}" hint-placeholder-val="{{ true }}">
     <div class="chips" style="display:flex; gap:8px; overflow-x:auto; padding:12px 20px 4px;">
       <sc-for list="{{ templates }}" as="tp" hint-placeholder-count="4">
-        <div onClick="{{ tp.choose }}" style="flex:none; padding:9px 14px; border-radius:12px; font-size:13px; font-weight:800; cursor:pointer; background:{{ tp.chipBg }}; color:{{ tp.chipFg }}; border:1px solid #ECECE9;">{{ tp.name }}</div>
+        <div onClick="{{ tp.choose }}" style="flex:none; padding:9px 14px; border-radius:12px; font-size:13px; font-weight:800; cursor:pointer; background:{{ tp.chipBg }}; color:{{ tp.chipFg }}; border:1px solid #E5E5EA;">{{ tp.name }}</div>
       </sc-for>
     </div>
     </sc-if>
     <!-- cover letter details -->
     <sc-if value="{{ isLetter }}" hint-placeholder-val="{{ false }}">
       <div style="padding:12px 20px 0;">
-        <div style="background:#fff; border:1px solid #ECECE9; border-radius:20px; padding:14px;">
+        <div style="background:#fff; border:1px solid #E5E5EA; border-radius:20px; padding:14px;">
           <div style="font-size:13.5px; font-weight:800;">{{ t.clTitle }}</div>
-          <div style="font-size:12px; color:#6B7079; margin-top:3px; line-height:1.45;">{{ t.clIntro }}</div>
+          <div style="font-size:12px; color:#6E6E73; margin-top:3px; line-height:1.45;">{{ t.clIntro }}</div>
           <div style="display:grid; grid-template-columns:repeat(2, minmax(0, 1fr)); gap:10px; margin-top:12px;">
             <sc-for list="{{ letterFields }}" as="f" hint-placeholder-count="5">
               <div style="grid-column:{{ f.span }}; display:flex; flex-direction:column; gap:6px;">
-                <span style="font-size:12px; font-weight:700; color:#6B7079;">{{ f.label }}</span>
+                <span style="font-size:12px; font-weight:700; color:#6E6E73;">{{ f.label }}</span>
                 <sc-if value="{{ f.multi }}" hint-placeholder-val="{{ false }}">
                   <textarea class="fld" rows="3" value="{{ f.value }}" placeholder="{{ f.placeholder }}" onChange="{{ f.onChange }}" style="min-height:70px;"></textarea>
                 </sc-if>
@@ -480,7 +480,7 @@ if ('serviceWorker' in navigator) { window.addEventListener('load', function () 
             </sc-for>
           </div>
           <div style="display:flex; align-items:center; justify-content:space-between; margin-top:14px;">
-            <span style="font-size:12px; font-weight:700; color:#6B7079;">{{ t.clBody }}</span>
+            <span style="font-size:12px; font-weight:700; color:#6E6E73;">{{ t.clBody }}</span>
             <div style="display:flex; gap:6px;">
               <sc-if value="{{ letterMic.hasMic }}" hint-placeholder-val="{{ false }}">
                 <div onClick="{{ letterMic.onMic }}" style="display:inline-flex; align-items:center; gap:5px; font-size:12px; font-weight:800; padding:7px 10px; border-radius:10px; cursor:pointer; background:{{ letterMic.micBg }}; color:{{ letterMic.micFg }};">
@@ -488,11 +488,11 @@ if ('serviceWorker' in navigator) { window.addEventListener('load', function () 
                   {{ letterMic.micLabel }}
                 </div>
               </sc-if>
-              <div onClick="{{ regenLetter }}" style="font-size:12px; font-weight:800; padding:7px 10px; border-radius:10px; background:#F4F4F2; cursor:pointer;">{{ t.clRegen }}</div>
+              <div onClick="{{ regenLetter }}" style="font-size:12px; font-weight:800; padding:7px 10px; border-radius:10px; background:#F5F5F7; cursor:pointer;">{{ t.clRegen }}</div>
             </div>
           </div>
           <textarea class="fld" rows="12" value="{{ letterBody }}" onChange="{{ onLetterBody }}" style="margin-top:6px; min-height:240px; font-size:13.5px;"></textarea>
-          <div style="font-size:11.5px; color:#90949B; margin-top:6px; line-height:1.4;">{{ letterHint }}</div>
+          <div style="font-size:11.5px; color:#8E8E93; margin-top:6px; line-height:1.4;">{{ letterHint }}</div>
         </div>
       </div>
     </sc-if>
@@ -501,7 +501,7 @@ if ('serviceWorker' in navigator) { window.addEventListener('load', function () 
       <div style="padding:10px 20px 0;">
         <div style="display:flex; align-items:center; justify-content:space-between;">
           <span style="font-size:13px; font-weight:800;">{{ t.colorLabel }}</span>
-          <span style="font-size:12px; color:#6B7079; font-weight:700;">{{ colorName }}</span>
+          <span style="font-size:12px; color:#6E6E73; font-weight:700;">{{ colorName }}</span>
         </div>
         <div class="chips" style="display:flex; gap:10px; overflow-x:auto; padding:9px 4px 6px;">
           <sc-for list="{{ modenColors }}" as="c" hint-placeholder-count="8">
@@ -511,11 +511,11 @@ if ('serviceWorker' in navigator) { window.addEventListener('load', function () 
       </div>
     </sc-if>
     <div style="padding:10px 20px 0;">
-      <div data-rv="{{ previewTpl }}" style="width:100%; min-height:200px; border-radius:6px; overflow:hidden; background:#fff; box-shadow:0 10px 30px rgba(21,23,27,.14);"></div>
+      <div data-rv="{{ previewTpl }}" style="width:100%; min-height:200px; border-radius:6px; overflow:hidden; background:#fff; box-shadow:0 10px 30px rgba(29,29,31,.14);"></div>
       <!-- page counter -->
       <div style="display:flex; align-items:center; justify-content:space-between; gap:10px; margin-top:12px;">
-        <span style="font-size:12px; color:#6B7079; font-weight:600;"><sc-if value="{{ multiPage }}" hint-placeholder-val="{{ false }}">{{ t.pageLegend }}</sc-if></span>
-        <span style="flex:none; font-size:12.5px; font-weight:800; padding:6px 10px; border-radius:9px; background:{{ pagesBg }}; color:#15171B;">{{ pagesLabel }}</span>
+        <span style="font-size:12px; color:#6E6E73; font-weight:600;"><sc-if value="{{ multiPage }}" hint-placeholder-val="{{ false }}">{{ t.pageLegend }}</sc-if></span>
+        <span style="flex:none; font-size:12.5px; font-weight:800; padding:6px 10px; border-radius:9px; background:{{ pagesBg }}; color:#1D1D1F;">{{ pagesLabel }}</span>
       </div>
       <sc-if value="{{ multiPage }}" hint-placeholder-val="{{ false }}">
         <div style="margin-top:10px; background:#FFF1E8; border:1px solid #F6D2BF; border-radius:15px; padding:12px 14px; font-size:12.5px; line-height:1.45; color:#5B3A2A;">{{ pageTip }}</div>
@@ -524,13 +524,13 @@ if ('serviceWorker' in navigator) { window.addEventListener('load', function () 
     <!-- resume score & tips -->
     <sc-if value="{{ isResumeDoc }}" hint-placeholder-val="{{ true }}">
     <div style="padding:16px 20px 0;">
-      <div style="background:#fff; border:1px solid #ECECE9; border-radius:20px; padding:16px;">
+      <div style="background:#fff; border:1px solid #E5E5EA; border-radius:20px; padding:16px;">
         <div style="display:flex; align-items:center; justify-content:space-between; gap:12px;">
           <div>
-            <div style="font-size:12px; color:#90949B; font-weight:700;">{{ t.scoreTitle }}</div>
+            <div style="font-size:12px; color:#8E8E93; font-weight:700;">{{ t.scoreTitle }}</div>
             <div style="display:flex; align-items:baseline; gap:6px; margin-top:2px;">
               <span style="font-size:30px; font-weight:800; line-height:1;">{{ scoreNum }}</span>
-              <span style="font-size:14px; font-weight:700; color:#90949B;">/100</span>
+              <span style="font-size:14px; font-weight:700; color:#8E8E93;">/100</span>
             </div>
           </div>
           <span style="font-size:12.5px; font-weight:800; padding:6px 11px; border-radius:10px; background:{{ scoreBg }}; color:{{ scoreFg }};">{{ scoreLabel }}</span>
@@ -538,14 +538,14 @@ if ('serviceWorker' in navigator) { window.addEventListener('load', function () 
         <div style="height:8px; border-radius:4px; background:#EFEFEC; margin-top:12px; overflow:hidden;">
           <div style="height:100%; width:{{ scoreWidth }}; border-radius:4px; background:{{ scoreBar }};"></div>
         </div>
-        <div style="font-size:12px; color:#6B7079; margin-top:10px; line-height:1.45;">{{ scoreSub }}</div>
+        <div style="font-size:12px; color:#6E6E73; margin-top:10px; line-height:1.45;">{{ scoreSub }}</div>
         <div style="display:flex; flex-direction:column; gap:8px; margin-top:10px;">
           <sc-for list="{{ scoreTips }}" as="tip" hint-placeholder-count="3">
-            <div style="display:flex; align-items:center; gap:10px; background:#F7F7F5; border-radius:14px; padding:10px 12px;">
-              <span style="flex:none; font-size:11px; font-weight:800; color:#15171B; background:var(--accent,#B7F23A); padding:3px 7px; border-radius:7px;">{{ tip.gain }}</span>
+            <div style="display:flex; align-items:center; gap:10px; background:#F5F5F7; border-radius:14px; padding:10px 12px;">
+              <span style="flex:none; font-size:11px; font-weight:800; color:#fff; background:var(--accent,#007AFF); padding:3px 7px; border-radius:7px;">{{ tip.gain }}</span>
               <span style="flex:1; font-size:12.5px; line-height:1.4; font-weight:600;">{{ tip.text }}</span>
               <sc-if value="{{ tip.canFix }}" hint-placeholder-val="{{ true }}">
-                <div onClick="{{ tip.fix }}" style="flex:none; font-size:12px; font-weight:800; padding:7px 10px; border-radius:10px; background:#15171B; color:#fff; cursor:pointer;">{{ t.fixBtn }}</div>
+                <div onClick="{{ tip.fix }}" style="flex:none; font-size:12px; font-weight:800; padding:7px 10px; border-radius:10px; background:#1D1D1F; color:#fff; cursor:pointer;">{{ t.fixBtn }}</div>
               </sc-if>
             </div>
           </sc-for>
@@ -554,26 +554,26 @@ if ('serviceWorker' in navigator) { window.addEventListener('load', function () 
     </div>
     </sc-if>
     <div style="padding:16px 20px 0;">
-      <div style="background:#fff; border:1px solid #ECECE9; border-radius:20px; padding:14px 16px; display:flex; align-items:center; justify-content:space-between; gap:10px;">
+      <div style="background:#fff; border:1px solid #E5E5EA; border-radius:20px; padding:14px 16px; display:flex; align-items:center; justify-content:space-between; gap:10px;">
         <div>
-          <div style="font-size:12px; color:#90949B; font-weight:700;">{{ curTierName }}</div>
+          <div style="font-size:12px; color:#8E8E93; font-weight:700;">{{ curTierName }}</div>
           <div style="display:flex; align-items:baseline; gap:8px; margin-top:2px;">
             <span style="font-size:20px; font-weight:800;">{{ t.free }}</span>
-            <sc-if value="{{ isResumeDoc }}" hint-placeholder-val="{{ true }}"><span style="font-size:13px; color:#A8ACB2; text-decoration:line-through; font-weight:700;">{{ curPrice }}</span></sc-if>
+            <sc-if value="{{ isResumeDoc }}" hint-placeholder-val="{{ true }}"><span style="font-size:13px; color:#AAAAAA; text-decoration:line-through; font-weight:700;">{{ curPrice }}</span></sc-if>
           </div>
         </div>
-        <span style="font-size:11px; font-weight:800; background:var(--accent,#B7F23A); padding:5px 9px; border-radius:8px; text-align:center; white-space:pre-line; line-height:1.25;">{{ t.launchPromo }}</span>
+        <span style="font-size:11px; font-weight:800; background:var(--accent,#007AFF); padding:5px 9px; border-radius:8px; text-align:center; white-space:pre-line; line-height:1.25; color:#fff;">{{ t.launchPromo }}</span>
       </div>
       <sc-if value="{{ atsNoPhoto }}" hint-placeholder-val="{{ false }}">
-        <div style="font-size:12px; color:#6B7079; margin-top:10px; line-height:1.45;">{{ t.atsPhotoNote }}</div>
+        <div style="font-size:12px; color:#6E6E73; margin-top:10px; line-height:1.45;">{{ t.atsPhotoNote }}</div>
       </sc-if>
-      <div onClick="{{ download }}" style="margin-top:14px; display:flex; align-items:center; justify-content:center; gap:9px; background:#15171B; color:#fff; padding:16px; border-radius:16px; font-size:15px; font-weight:800; cursor:pointer;">
+      <div onClick="{{ download }}" style="margin-top:14px; display:flex; align-items:center; justify-content:center; gap:9px; background:#1D1D1F; color:#fff; padding:16px; border-radius:16px; font-size:15px; font-weight:800; cursor:pointer;">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 4v11M7 10l5 5 5-5M5 20h14" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
         {{ downloadLabel }}
       </div>
-      <div style="text-align:center; font-size:11.5px; color:#90949B; margin-top:9px;">{{ t.downloadHint }}</div>
-      <div onClick="{{ printDownload }}" style="text-align:center; font-size:11.5px; color:#6B7079; margin-top:6px; text-decoration:underline; cursor:pointer;">{{ t.printAlt }}</div>
-      <div onClick="{{ goBuild }}" style="margin-top:12px; text-align:center; padding:14px; border-radius:15px; background:#fff; border:1px solid #ECECE9; font-size:14px; font-weight:800; cursor:pointer;">{{ t.editInfo }}</div>
+      <div style="text-align:center; font-size:11.5px; color:#8E8E93; margin-top:9px;">{{ t.downloadHint }}</div>
+      <div onClick="{{ printDownload }}" style="text-align:center; font-size:11.5px; color:#6E6E73; margin-top:6px; text-decoration:underline; cursor:pointer;">{{ t.printAlt }}</div>
+      <div onClick="{{ goBuild }}" style="margin-top:12px; text-align:center; padding:14px; border-radius:15px; background:#fff; border:1px solid #E5E5EA; font-size:14px; font-weight:800; cursor:pointer;">{{ t.editInfo }}</div>
     </div>
   </div>
   </sc-if>
@@ -581,40 +581,40 @@ if ('serviceWorker' in navigator) { window.addEventListener('load', function () 
   <!-- ===== SAMPLE DUTIES BOTTOM SHEET ===== -->
   <sc-if value="{{ sheetOpen }}" hint-placeholder-val="{{ false }}">
     <div style="position:absolute; inset:0; z-index:90; display:flex; flex-direction:column; justify-content:flex-end;">
-      <div onClick="{{ closeSheet }}" class="{{ sheetBgAnim }}" style="position:absolute; inset:0; background:rgba(21,23,27,.45);"></div>
+      <div onClick="{{ closeSheet }}" class="{{ sheetBgAnim }}" style="position:absolute; inset:0; background:rgba(29,29,31,.45);"></div>
       <div class="{{ sheetAnim }}" style="position:relative; background:#fff; border-radius:26px 26px 0 0; max-height:78%; display:flex; flex-direction:column; padding:10px 0 28px;">
-        <div style="width:40px; height:5px; border-radius:3px; background:#DEDFDA; margin:0 auto 12px;"></div>
+        <div style="width:40px; height:5px; border-radius:3px; background:#D1D1D6; margin:0 auto 12px;"></div>
         <div style="padding:0 20px; display:flex; align-items:flex-start; justify-content:space-between; gap:10px;">
           <div>
             <div style="font-size:18px; font-weight:800;">{{ t.sampleDuties }}</div>
-            <div style="font-size:12px; color:#90949B; margin-top:3px; line-height:1.4;">{{ t.sheetTip }}</div>
+            <div style="font-size:12px; color:#8E8E93; margin-top:3px; line-height:1.4;">{{ t.sheetTip }}</div>
           </div>
-          <div onClick="{{ closeSheet }}" style="flex:none; font-size:13px; font-weight:800; padding:9px 14px; border-radius:12px; background:#15171B; color:#fff; cursor:pointer;">{{ t.done }}</div>
+          <div onClick="{{ closeSheet }}" style="flex:none; font-size:13px; font-weight:800; padding:9px 14px; border-radius:12px; background:#1D1D1F; color:#fff; cursor:pointer;">{{ t.done }}</div>
         </div>
         <!-- search -->
         <div style="padding:12px 20px 4px; flex:none; position:relative;">
-          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" style="position:absolute; left:34px; top:26px; pointer-events:none;"><circle cx="11" cy="11" r="6.5" stroke="#90949B" stroke-width="2"></circle><path d="M16 16l4 4" stroke="#90949B" stroke-width="2" stroke-linecap="round"></path></svg>
-          <input class="fld" type="text" value="{{ dutyQuery }}" placeholder="{{ t.searchPh }}" onChange="{{ onDutyQuery }}" style="padding-left:40px; background:#F4F4F2; border-color:#F4F4F2;">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" style="position:absolute; left:34px; top:26px; pointer-events:none;"><circle cx="11" cy="11" r="6.5" stroke="#8E8E93" stroke-width="2"></circle><path d="M16 16l4 4" stroke="#8E8E93" stroke-width="2" stroke-linecap="round"></path></svg>
+          <input class="fld" type="text" value="{{ dutyQuery }}" placeholder="{{ t.searchPh }}" onChange="{{ onDutyQuery }}" style="padding-left:40px; background:#F5F5F7; border-color:#F5F5F7;">
         </div>
         <div class="scroll" style="overflow-y:auto; flex:1; min-height:0; padding:8px 20px 0;">
           <sc-if value="{{ notSearching }}" hint-placeholder-val="{{ true }}">
             <!-- AI assistant -->
-            <div style="background:#15171B; color:#fff; border-radius:18px; padding:14px; margin-bottom:12px;">
+            <div style="background:#1D1D1F; color:#fff; border-radius:18px; padding:14px; margin-bottom:12px;">
               <div style="display:flex; align-items:center; gap:8px;">
-                <span style="width:24px; height:24px; border-radius:7px; background:var(--accent,#B7F23A); display:flex; align-items:center; justify-content:center;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 3l2.2 5.8L20 11l-5.8 2.2L12 19l-2.2-5.8L4 11l5.8-2.2z" fill="#15171B"></path></svg></span>
+                <span style="width:24px; height:24px; border-radius:7px; background:var(--accent,#007AFF); display:flex; align-items:center; justify-content:center; color:#fff;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 3l2.2 5.8L20 11l-5.8 2.2L12 19l-2.2-5.8L4 11l5.8-2.2z" fill="#fff"></path></svg></span>
                 <span style="font-size:14px; font-weight:800;">{{ t.aiTitle }}</span>
               </div>
               <div style="font-size:12px; color:rgba(255,255,255,.7); margin-top:6px; line-height:1.45;">{{ t.aiDesc }}</div>
               <div style="display:flex; gap:8px; margin-top:10px;">
                 <input class="fld" type="text" value="{{ aiRole }}" placeholder="{{ t.aiRolePh }}" onChange="{{ onAiRole }}" onKeyDown="{{ onAiKey }}" style="padding:10px 12px; font-size:13.5px; flex:1; min-width:0;">
-                <div onClick="{{ runAI }}" style="flex:none; display:flex; align-items:center; background:var(--accent,#B7F23A); color:#15171B; padding:0 14px; border-radius:12px; font-weight:800; font-size:13px; cursor:pointer; white-space:nowrap;">{{ aiBtnLabel }}</div>
+                <div onClick="{{ runAI }}" style="flex:none; display:flex; align-items:center; background:var(--accent,#007AFF); color:#fff; padding:0 14px; border-radius:12px; font-weight:800; font-size:13px; cursor:pointer; white-space:nowrap;">{{ aiBtnLabel }}</div>
               </div>
               <sc-if value="{{ aiHasErr }}" hint-placeholder-val="{{ false }}">
                 <div style="font-size:12px; color:#FFB9A8; margin-top:8px; line-height:1.4;">{{ aiErr }}</div>
               </sc-if>
             </div>
             <sc-if value="{{ hasAiItems }}" hint-placeholder-val="{{ false }}">
-              <div style="font-size:12px; font-weight:800; letter-spacing:.5px; text-transform:uppercase; color:#90949B; margin:2px 0 8px;">{{ aiListLabel }}</div>
+              <div style="font-size:12px; font-weight:800; letter-spacing:.5px; text-transform:uppercase; color:#8E8E93; margin:2px 0 8px;">{{ aiListLabel }}</div>
               <div style="display:flex; flex-direction:column; gap:8px; margin-bottom:16px;">
                 <sc-for list="{{ aiItems }}" as="si" hint-placeholder-count="3">
                   <div onClick="{{ si.toggle }}" style="display:flex; align-items:center; gap:12px; padding:12px 14px; border-radius:15px; cursor:pointer; background:{{ si.bg }}; border:1px solid {{ si.border }};">
@@ -625,36 +625,36 @@ if ('serviceWorker' in navigator) { window.addEventListener('load', function () 
               </div>
             </sc-if>
             <!-- categories -->
-            <div style="font-size:12px; font-weight:800; letter-spacing:.5px; text-transform:uppercase; color:#90949B; margin:2px 0 8px;">{{ t.byJob }}</div>
+            <div style="font-size:12px; font-weight:800; letter-spacing:.5px; text-transform:uppercase; color:#8E8E93; margin:2px 0 8px;">{{ t.byJob }}</div>
             <div class="chips" style="display:flex; gap:8px; overflow-x:auto; padding:0 0 10px;">
               <sc-for list="{{ sheetCats }}" as="sc" hint-placeholder-count="5">
-                <div onClick="{{ sc.pick }}" style="flex:none; padding:8px 13px; border-radius:11px; font-size:12.5px; font-weight:800; cursor:pointer; background:{{ sc.bg }}; color:{{ sc.fg }}; border:1px solid #ECECE9;">{{ sc.label }}</div>
+                <div onClick="{{ sc.pick }}" style="flex:none; padding:8px 13px; border-radius:11px; font-size:12.5px; font-weight:800; cursor:pointer; background:{{ sc.bg }}; color:{{ sc.fg }}; border:1px solid #E5E5EA;">{{ sc.label }}</div>
               </sc-for>
             </div>
           </sc-if>
           <sc-if value="{{ searching }}" hint-placeholder-val="{{ false }}">
-            <div style="font-size:12px; font-weight:800; letter-spacing:.5px; text-transform:uppercase; color:#90949B; margin:2px 0 8px;">{{ searchLabel }}</div>
+            <div style="font-size:12px; font-weight:800; letter-spacing:.5px; text-transform:uppercase; color:#8E8E93; margin:2px 0 8px;">{{ searchLabel }}</div>
           </sc-if>
           <sc-if value="{{ noResults }}" hint-placeholder-val="{{ false }}">
-            <div style="font-size:13px; color:#6B7079; background:#F7F7F5; border-radius:15px; padding:14px; line-height:1.45;">{{ t.noResults }}</div>
+            <div style="font-size:13px; color:#6E6E73; background:#F5F5F7; border-radius:15px; padding:14px; line-height:1.45;">{{ t.noResults }}</div>
           </sc-if>
           <div style="display:flex; flex-direction:column; gap:8px;">
           <sc-for list="{{ sheetItems }}" as="si" hint-placeholder-count="5">
             <div onClick="{{ si.toggle }}" style="display:flex; align-items:center; gap:12px; padding:12px 14px; border-radius:15px; cursor:pointer; background:{{ si.bg }}; border:1px solid {{ si.border }};">
               <div style="flex:1;">
                 <sc-if value="{{ si.hasCat }}" hint-placeholder-val="{{ false }}">
-                  <div style="font-size:10.5px; font-weight:800; letter-spacing:.5px; text-transform:uppercase; color:#90949B; margin-bottom:2px;">{{ si.cat }}</div>
+                  <div style="font-size:10.5px; font-weight:800; letter-spacing:.5px; text-transform:uppercase; color:#8E8E93; margin-bottom:2px;">{{ si.cat }}</div>
                 </sc-if>
                 <div style="font-size:13.5px; line-height:1.4; font-weight:600;">{{ si.text }}</div>
               </div>
               <sc-if value="{{ si.added }}" hint-placeholder-val="{{ false }}">
-                <div style="width:28px; height:28px; flex:none; border-radius:9px; background:#15171B; display:flex; align-items:center; justify-content:center;">
+                <div style="width:28px; height:28px; flex:none; border-radius:9px; background:#1D1D1F; display:flex; align-items:center; justify-content:center;">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>
                 </div>
               </sc-if>
               <sc-if value="{{ si.notAdded }}" hint-placeholder-val="{{ true }}">
-                <div style="width:28px; height:28px; flex:none; border-radius:9px; background:var(--accent,#B7F23A); display:flex; align-items:center; justify-content:center;">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="#15171B" stroke-width="2.6" stroke-linecap="round"></path></svg>
+                <div style="width:28px; height:28px; flex:none; border-radius:9px; background:var(--accent,#007AFF); display:flex; align-items:center; justify-content:center; color:#fff;">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="#fff" stroke-width="2.6" stroke-linecap="round"></path></svg>
                 </div>
               </sc-if>
             </div>
@@ -671,39 +671,39 @@ if ('serviceWorker' in navigator) { window.addEventListener('load', function () 
     <div class="scroll {{ detAnim }}" style="position:absolute; inset:0; z-index:85; background:{{ detBg }}; overflow-y:auto; padding:calc(14px + env(safe-area-inset-top)) 20px 30px;">
       <div style="display:flex; align-items:center; justify-content:space-between;">
         <div onClick="{{ closeDetail }}" style="width:42px; height:42px; border-radius:13px; background:rgba(255,255,255,.8); display:flex; align-items:center; justify-content:center; cursor:pointer;">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M15 5l-7 7 7 7" stroke="#15171B" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M15 5l-7 7 7 7" stroke="#1D1D1F" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
         </div>
         <span style="font-size:16px; font-weight:800;">{{ detName }}</span>
         <div style="width:42px;"></div>
       </div>
       <div style="display:flex; justify-content:center; margin-top:18px;">
-        <div data-rv="{{ detId }}" data-rv-crop="1" style="width:280px; height:396px; border-radius:16px; overflow:hidden; background:#fff; pointer-events:none; box-shadow:0 20px 44px rgba(21,23,27,.22);"></div>
+        <div data-rv="{{ detId }}" data-rv-crop="1" style="width:280px; height:396px; border-radius:16px; overflow:hidden; background:#fff; pointer-events:none; box-shadow:0 20px 44px rgba(29,29,31,.22);"></div>
       </div>
       <div style="background:#fff; border-radius:24px; padding:18px; margin-top:20px;">
         <div style="display:flex; align-items:center; justify-content:space-between; gap:10px;">
           <div>
             <div style="font-size:22px; font-weight:800;">{{ detName }}</div>
-            <div style="font-size:12px; color:#90949B; font-weight:700; margin-top:2px;">{{ detTier }}</div>
+            <div style="font-size:12px; color:#8E8E93; font-weight:700; margin-top:2px;">{{ detTier }}</div>
           </div>
           <div style="text-align:right;">
-            <div style="font-size:12.5px; color:#A8ACB2; text-decoration:line-through; font-weight:700;">{{ detPrice }}</div>
+            <div style="font-size:12.5px; color:#AAAAAA; text-decoration:line-through; font-weight:700;">{{ detPrice }}</div>
             <div style="font-size:20px; font-weight:800;">{{ t.free }}</div>
           </div>
         </div>
         <div style="font-size:13.5px; color:#4A4F57; line-height:1.5; margin-top:10px;">{{ detBest }}</div>
         <div style="display:flex; flex-wrap:wrap; gap:6px; margin-top:12px;">
           <sc-for list="{{ detTags }}" as="tg" hint-placeholder-count="3">
-            <span style="font-size:12px; font-weight:700; background:#F4F4F2; padding:6px 10px; border-radius:9px;">{{ tg }}</span>
+            <span style="font-size:12px; font-weight:700; background:#F5F5F7; padding:6px 10px; border-radius:9px;">{{ tg }}</span>
           </sc-for>
         </div>
-        <div onClick="{{ detUse }}" style="margin-top:16px; text-align:center; padding:15px; border-radius:16px; background:#15171B; color:#fff; font-size:15px; font-weight:800; cursor:pointer;">{{ t.carUse }}</div>
+        <div onClick="{{ detUse }}" style="margin-top:16px; text-align:center; padding:15px; border-radius:16px; background:#1D1D1F; color:#fff; font-size:15px; font-weight:800; cursor:pointer;">{{ t.carUse }}</div>
       </div>
     </div>
   </sc-if>
 
   <!-- ===== PHOTO CROP ===== -->
   <sc-if value="{{ cropOpen }}" hint-placeholder-val="{{ false }}">
-    <div class="anim-fade" style="position:absolute; inset:0; z-index:96; background:rgba(21,23,27,.86); display:flex; flex-direction:column; align-items:center; justify-content:center; padding:24px;">
+    <div class="anim-fade" style="position:absolute; inset:0; z-index:96; background:rgba(29,29,31,.86); display:flex; flex-direction:column; align-items:center; justify-content:center; padding:24px;">
       <div style="color:#fff; font-size:18px; font-weight:800;">{{ t.cropTitle }}</div>
       <div style="color:rgba(255,255,255,.7); font-size:12.5px; margin-top:4px; text-align:center;">{{ t.cropHint }}</div>
       <div onPointerDown="{{ cropDown }}" onPointerMove="{{ cropMove }}" onPointerUp="{{ cropUp }}" onPointerCancel="{{ cropUp }}" style="position:relative; width:260px; height:260px; margin-top:18px; overflow:hidden; border-radius:14px; background:#000; touch-action:none; cursor:grab; user-select:none;">
@@ -712,12 +712,12 @@ if ('serviceWorker' in navigator) { window.addEventListener('load', function () 
       </div>
       <div style="display:flex; align-items:center; gap:10px; width:260px; margin-top:18px;">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="6.5" stroke="#fff" stroke-width="2"></circle><path d="M16 16l4 4M8 11h6" stroke="#fff" stroke-width="2" stroke-linecap="round"></path></svg>
-        <input type="range" min="1" max="3" step="0.01" value="{{ cropZoom }}" onChange="{{ onCropZoom }}" style="flex:1; accent-color:#B7F23A;">
+        <input type="range" min="1" max="3" step="0.01" value="{{ cropZoom }}" onChange="{{ onCropZoom }}" style="flex:1; accent-color:#007AFF;">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="6.5" stroke="#fff" stroke-width="2"></circle><path d="M16 16l4 4M8 11h6M11 8v6" stroke="#fff" stroke-width="2" stroke-linecap="round"></path></svg>
       </div>
       <div style="display:flex; gap:10px; width:260px; margin-top:20px;">
         <div onClick="{{ cropCancel }}" style="flex:1; text-align:center; padding:13px; border-radius:13px; background:rgba(255,255,255,.14); color:#fff; font-size:14px; font-weight:800; cursor:pointer;">{{ t.cropCancel }}</div>
-        <div onClick="{{ cropApply }}" style="flex:1.4; text-align:center; padding:13px; border-radius:13px; background:var(--accent,#B7F23A); color:#15171B; font-size:14px; font-weight:800; cursor:pointer;">{{ t.cropUse }}</div>
+        <div onClick="{{ cropApply }}" style="flex:1.4; text-align:center; padding:13px; border-radius:13px; background:var(--accent,#007AFF); color:#fff; font-size:14px; font-weight:800; cursor:pointer;">{{ t.cropUse }}</div>
       </div>
     </div>
   </sc-if>
@@ -725,13 +725,13 @@ if ('serviceWorker' in navigator) { window.addEventListener('load', function () 
   <!-- ===== CONFIRM CLEAR ===== -->
   <sc-if value="{{ confirmClear }}" hint-placeholder-val="{{ false }}">
     <div style="position:absolute; inset:0; z-index:95; display:flex; align-items:center; justify-content:center; padding:24px;">
-      <div onClick="{{ cancelClear }}" class="anim-fade" style="position:absolute; inset:0; background:rgba(21,23,27,.5);"></div>
+      <div onClick="{{ cancelClear }}" class="anim-fade" style="position:absolute; inset:0; background:rgba(29,29,31,.5);"></div>
       <div class="anim-pop" style="position:relative; width:100%; max-width:340px; background:#fff; border-radius:22px; padding:20px;">
         <div style="font-size:17px; font-weight:800;">{{ t.confirmTitle }}</div>
-        <div style="font-size:13px; color:#6B7079; margin-top:6px; line-height:1.5;">{{ t.confirmText }}</div>
+        <div style="font-size:13px; color:#6E6E73; margin-top:6px; line-height:1.5;">{{ t.confirmText }}</div>
         <div onClick="{{ saveBackup }}" style="font-size:12.5px; font-weight:800; margin-top:10px; text-decoration:underline; cursor:pointer;">{{ t.confirmBackup }}</div>
         <div style="display:flex; gap:8px; margin-top:16px;">
-          <div onClick="{{ cancelClear }}" style="flex:1; text-align:center; padding:13px; border-radius:13px; background:#F4F4F2; font-size:14px; font-weight:800; cursor:pointer;">{{ t.confirmNo }}</div>
+          <div onClick="{{ cancelClear }}" style="flex:1; text-align:center; padding:13px; border-radius:13px; background:#F5F5F7; font-size:14px; font-weight:800; cursor:pointer;">{{ t.confirmNo }}</div>
           <div onClick="{{ clearAll }}" style="flex:1; text-align:center; padding:13px; border-radius:13px; background:#B4412E; color:#fff; font-size:14px; font-weight:800; cursor:pointer;">{{ t.confirmYes }}</div>
         </div>
       </div>
@@ -740,26 +740,26 @@ if ('serviceWorker' in navigator) { window.addEventListener('load', function () 
 
   <!-- ===== TOAST ===== -->
   <sc-if value="{{ hasToast }}" hint-placeholder-val="{{ false }}">
-    <div class="anim-up" style="position:absolute; left:20px; right:20px; bottom:calc(90px + env(safe-area-inset-bottom)); z-index:80; background:#15171B; color:#fff; border-radius:14px; padding:13px 16px; font-size:13px; font-weight:600; box-shadow:0 10px 30px rgba(21,23,27,.25);">{{ toast }}</div>
+    <div class="anim-up" style="position:absolute; left:20px; right:20px; bottom:calc(90px + env(safe-area-inset-bottom)); z-index:80; background:#1D1D1F; color:#fff; border-radius:14px; padding:13px 16px; font-size:13px; font-weight:600; box-shadow:0 10px 30px rgba(29,29,31,.25);">{{ toast }}</div>
   </sc-if>
 
   <!-- ============ TAB BAR ============ -->
-  <div style="position:absolute; bottom:0; left:0; right:0; background:#fff; border-top:1px solid #ECECE9; padding:10px 18px calc(10px + env(safe-area-inset-bottom)); display:flex; align-items:center; z-index:50;">
+  <div style="position:absolute; bottom:0; left:0; right:0; background:#fff; border-top:1px solid #E5E5EA; padding:10px 18px calc(10px + env(safe-area-inset-bottom)); display:flex; align-items:center; z-index:50;">
     <sc-for list="{{ tabs }}" as="tb" hint-placeholder-count="3">
       <div onClick="{{ tb.go }}" style="flex:1; display:flex; justify-content:center; cursor:pointer;">
         <sc-if value="{{ tb.active }}" hint-placeholder-val="{{ false }}">
-          <div class="anim-pop" style="display:flex; align-items:center; gap:8px; background:var(--accent,#B7F23A); color:#15171B; padding:10px 16px; border-radius:14px;">
-            <sc-if value="{{ tb.isHome }}" hint-placeholder-val="{{ false }}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M3 11l9-7 9 7v8a1 1 0 0 1-1 1h-4v-6H8v6H4a1 1 0 0 1-1-1z" stroke="#15171B" stroke-width="2" stroke-linejoin="round"></path></svg></sc-if>
-            <sc-if value="{{ tb.isBuild }}" hint-placeholder-val="{{ false }}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 20h4L19 9l-4-4L4 16z M13 7l4 4" stroke="#15171B" stroke-width="2" stroke-linejoin="round"></path></svg></sc-if>
-            <sc-if value="{{ tb.isPreview }}" hint-placeholder-val="{{ false }}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M6 3h9l4 4v14H6z M14 3v5h5 M9 13h7M9 17h5" stroke="#15171B" stroke-width="2" stroke-linejoin="round"></path></svg></sc-if>
+          <div class="anim-pop" style="display:flex; align-items:center; gap:8px; background:var(--accent,#007AFF); color:#fff; padding:10px 16px; border-radius:14px;">
+            <sc-if value="{{ tb.isHome }}" hint-placeholder-val="{{ false }}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M3 11l9-7 9 7v8a1 1 0 0 1-1 1h-4v-6H8v6H4a1 1 0 0 1-1-1z" stroke="#fff" stroke-width="2" stroke-linejoin="round"></path></svg></sc-if>
+            <sc-if value="{{ tb.isBuild }}" hint-placeholder-val="{{ false }}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 20h4L19 9l-4-4L4 16z M13 7l4 4" stroke="#fff" stroke-width="2" stroke-linejoin="round"></path></svg></sc-if>
+            <sc-if value="{{ tb.isPreview }}" hint-placeholder-val="{{ false }}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M6 3h9l4 4v14H6z M14 3v5h5 M9 13h7M9 17h5" stroke="#fff" stroke-width="2" stroke-linejoin="round"></path></svg></sc-if>
             <span style="font-size:13.5px; font-weight:800;">{{ tb.label }}</span>
           </div>
         </sc-if>
         <sc-if value="{{ tb.inactive }}" hint-placeholder-val="{{ true }}">
           <div style="padding:10px;">
-            <sc-if value="{{ tb.isHome }}" hint-placeholder-val="{{ false }}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M3 11l9-7 9 7v8a1 1 0 0 1-1 1h-4v-6H8v6H4a1 1 0 0 1-1-1z" stroke="#A8ACB2" stroke-width="2" stroke-linejoin="round"></path></svg></sc-if>
-            <sc-if value="{{ tb.isBuild }}" hint-placeholder-val="{{ false }}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 20h4L19 9l-4-4L4 16z M13 7l4 4" stroke="#A8ACB2" stroke-width="2" stroke-linejoin="round"></path></svg></sc-if>
-            <sc-if value="{{ tb.isPreview }}" hint-placeholder-val="{{ false }}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M6 3h9l4 4v14H6z M14 3v5h5 M9 13h7M9 17h5" stroke="#A8ACB2" stroke-width="2" stroke-linejoin="round"></path></svg></sc-if>
+            <sc-if value="{{ tb.isHome }}" hint-placeholder-val="{{ false }}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M3 11l9-7 9 7v8a1 1 0 0 1-1 1h-4v-6H8v6H4a1 1 0 0 1-1-1z" stroke="#AAAAAA" stroke-width="2" stroke-linejoin="round"></path></svg></sc-if>
+            <sc-if value="{{ tb.isBuild }}" hint-placeholder-val="{{ false }}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 20h4L19 9l-4-4L4 16z M13 7l4 4" stroke="#AAAAAA" stroke-width="2" stroke-linejoin="round"></path></svg></sc-if>
+            <sc-if value="{{ tb.isPreview }}" hint-placeholder-val="{{ false }}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M6 3h9l4 4v14H6z M14 3v5h5 M9 13h7M9 17h5" stroke="#AAAAAA" stroke-width="2" stroke-linejoin="round"></path></svg></sc-if>
           </div>
         </sc-if>
       </div>
@@ -770,7 +770,7 @@ if ('serviceWorker' in navigator) { window.addEventListener('load', function () 
 
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":"100%","height":974},"accentColor":{"editor":"color","default":"#B7F23A","options":["#B7F23A","#F2C94C","#7FD1F5","#F5A3C7"],"tsType":"string"}}'>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":"100%","height":974},"accentColor":{"editor":"color","default":"#007AFF","options":["#007AFF","#1D1D1F","#34C759","#FF9500"],"tsType":"string"}}'>
 class Component extends DCLogic {
   state = { lang: 'ms', screen: 'home', step: 0, tpl: 'moden', d: null, toast: '' };
 
@@ -941,22 +941,22 @@ class Component extends DCLogic {
 
   get TEMPLATES() {
     return [
-      { id: 'moden', ms: 'Moden', en: 'Modern', tier: 'standard', bg: '#DCE5F0',
+      { id: 'moden', ms: 'Moden', en: 'Modern', tier: 'standard', bg: '#E8E8ED',
         bestMs: 'Kemas dan moden. Sesuai untuk kebanyakan kerja pejabat dan eksekutif.', bestEn: 'Clean and modern. Fits most office and executive jobs.',
         tagsMs: ['Gambar', '8 pilihan warna', '2 lajur'], tagsEn: ['Photo', '8 colour choices', '2 columns'] },
-      { id: 'klasik', ms: 'Klasik', en: 'Classic', tier: 'standard', bg: '#E4E0EC',
+      { id: 'klasik', ms: 'Klasik', en: 'Classic', tier: 'standard', bg: '#E8E8ED',
         bestMs: 'Berwibawa dengan lajur sisi. Sesuai untuk pentadbiran, akaun dan pengurusan.', bestEn: 'Confident, with a side column. Fits admin, accounts and management.',
         tagsMs: ['Gambar', '8 pilihan warna', 'Lajur sisi'], tagsEn: ['Photo', '8 colour choices', 'Side column'] },
-      { id: 'minimal', ms: 'Minimalis', en: 'Minimal', tier: 'standard', bg: '#ECEAE4',
+      { id: 'minimal', ms: 'Minimalis', en: 'Minimal', tier: 'standard', bg: '#E8E8ED',
         bestMs: 'Ringkas dan elegan. Sesuai untuk pendidikan dan jawatan profesional.', bestEn: 'Simple and elegant. Fits education and professional roles.',
         tagsMs: ['Gambar', 'Hitam putih', 'Satu lajur'], tagsEn: ['Photo', 'Black & white', 'One column'] },
-      { id: 'formal', ms: 'Formal', en: 'Formal', tier: 'standard', bg: '#E2E2DE',
+      { id: 'formal', ms: 'Formal', en: 'Formal', tier: 'standard', bg: '#E8E8ED',
         bestMs: 'Gaya tradisional dengan gambar pasport. Sesuai untuk kerajaan, GLC dan bank.', bestEn: 'Traditional style with a passport photo. Fits government, GLCs and banks.',
         tagsMs: ['Gambar pasport', 'Hitam putih', 'Tajuk berlatar'], tagsEn: ['Passport photo', 'Black & white', 'Shaded headings'] },
-      { id: 'kreatif', ms: 'Kreatif', en: 'Creative', tier: 'standard', bg: '#F4DFE5',
+      { id: 'kreatif', ms: 'Kreatif', en: 'Creative', tier: 'standard', bg: '#E8E8ED',
         bestMs: 'Berwarna dan menonjol. Sesuai untuk pemasaran, jualan, reka bentuk dan F&B.', bestEn: 'Colourful and eye-catching. Fits marketing, sales, design and F&B.',
         tagsMs: ['Gambar bulat', '8 pilihan warna', 'Kotak kemahiran'], tagsEn: ['Round photo', '8 colour choices', 'Skills box'] },
-      { id: 'ats', ms: 'ATS Pro', en: 'ATS Pro', tier: 'ats', bg: '#DFEED5',
+      { id: 'ats', ms: 'ATS Pro', en: 'ATS Pro', tier: 'ats', bg: '#E8E8ED',
         bestMs: 'Mudah dibaca sistem saringan resume (ATS) syarikat besar dan MNC.', bestEn: 'Easy for the resume screening systems (ATS) of big companies and MNCs to read.',
         tagsMs: ['Mesra ATS', 'Tanpa gambar', 'Satu lajur'], tagsEn: ['ATS-friendly', 'No photo', 'One column'] },
     ];
@@ -2084,7 +2084,7 @@ class Component extends DCLogic {
   micProps(key, onText) {
     const t = this.T();
     const on = this.state.listening === key;
-    return { hasMic: this.micSupported(), micLabel: on ? t.micStop : t.micBtn, micBg: on ? '#E0533D' : '#F4F4F2', micFg: on ? '#fff' : '#15171B', onMic: () => this.toggleMic(key, onText) };
+    return { hasMic: this.micSupported(), micLabel: on ? t.micStop : t.micBtn, micBg: on ? '#FF3B30' : '#F5F5F7', micFg: on ? '#fff' : '#1D1D1F', onMic: () => this.toggleMic(key, onText) };
   }
   toggleMic(key, onText) {
     const t = this.T();
@@ -2186,7 +2186,7 @@ class Component extends DCLogic {
     const t = this.T();
     const lang = this.state.lang;
     const d = this.D();
-    const accent = this.props.accentColor || '#B7F23A';
+    const accent = this.props.accentColor || '#007AFF';
     const screen = this.state.screen;
     const step = this.state.step;
     const tpl = this.state.tpl;
@@ -2197,9 +2197,9 @@ class Component extends DCLogic {
       return {
         id: x.id, name: x[lang] || x.ms, price: this.price(x.tier),
         tierLabel: x.tier === 'ats' ? 'ATS' : t.standard,
-        badgeBg: x.tier === 'ats' ? '#15171B' : accent, badgeFg: x.tier === 'ats' ? '#fff' : '#15171B',
-        border: active ? '2px solid #15171B' : '1px solid #ECECE9',
-        chipBg: active ? '#15171B' : '#fff', chipFg: active ? '#fff' : '#15171B',
+        badgeBg: x.tier === 'ats' ? '#1D1D1F' : accent, badgeFg: '#fff',
+        border: active ? '2px solid #007AFF' : '1px solid #E5E5EA',
+        chipBg: active ? '#1D1D1F' : '#fff', chipFg: active ? '#fff' : '#1D1D1F',
         pick: () => { this.setState({ tpl: x.id, screen: 'build', step: 0 }); this.track('template_pick', { template: x.id, from: 'home' }); this.track('start_build', { template: x.id }); },
         choose: () => { this.setState({ tpl: x.id }); this.track('template_pick', { template: x.id, from: 'preview' }); },
       };
@@ -2209,7 +2209,7 @@ class Component extends DCLogic {
     const fresh = !!d.fresh;
     const stepTitles = [t.s0, fresh ? t.s1Fresh : t.s1, t.s2, t.s3, t.s4];
     const LAST = stepTitles.length - 1;
-    const stepBars = stepTitles.map((_, i) => ({ bg: i <= step ? '#15171B' : '#DEDFDA', go: () => this.setState({ step: i }) }));
+    const stepBars = stepTitles.map((_, i) => ({ bg: i <= step ? '#007AFF' : '#D1D1D6', go: () => this.setState({ step: i }) }));
 
     const personalFields = [
       this.field(t.name, d.name, (ev) => this.setF('name', ev.target.value), { ph: 'Nur Aisyah binti Ahmad' }),
@@ -2271,15 +2271,15 @@ class Component extends DCLogic {
     const curLines = sheetOpen ? String(d.exp[sheetIdx].desc || '').split('\n').map((x) => x.trim()) : [];
     const sheetCats = bank.map((c) => ({
       label: c[lang] || c.ms,
-      bg: c.id === cat.id ? '#15171B' : '#fff', fg: c.id === cat.id ? '#fff' : '#15171B',
+      bg: c.id === cat.id ? '#1D1D1F' : '#fff', fg: c.id === cat.id ? '#fff' : '#1D1D1F',
       pick: () => this.setState({ dutyCat: c.id }),
     }));
     const row = (text, catLabel) => {
       const added = curLines.indexOf(text) >= 0;
       return {
         text, added, notAdded: !added, cat: catLabel || '', hasCat: !!catLabel,
-        bg: added ? '#F2F9E3' : '#F7F7F5', border: added ? '#15171B' : '#F7F7F5',
-        icon: added ? '✓' : '+', iconBg: added ? '#15171B' : accent, iconFg: added ? '#fff' : '#15171B',
+        bg: added ? '#EAF3FF' : '#F5F5F7', border: added ? '#007AFF' : '#F5F5F7',
+        icon: added ? '✓' : '+', iconBg: added ? '#1D1D1F' : accent, iconFg: '#fff',
         toggle: () => this.toggleDuty(sheetIdx, text),
       };
     };
@@ -2346,7 +2346,7 @@ class Component extends DCLogic {
 
     return {
       accent, t, tpl,
-      msBg: lang === 'ms' ? accent : 'transparent', enBg: lang === 'en' ? accent : 'transparent',
+      msBg: lang === 'ms' ? accent : 'transparent', enBg: lang === 'en' ? accent : 'transparent', msFg: lang === 'ms' ? '#fff' : '#1D1D1F', enFg: lang === 'en' ? '#fff' : '#1D1D1F',
       setMs: () => { if (lang !== 'ms') { this.setState({ lang: 'ms' }); this.track('lang_switch', { lang: 'ms' }); } },
       setEn: () => { if (lang !== 'en') { this.setState({ lang: 'en' }); this.track('lang_switch', { lang: 'en' }); } },
       isHome: screen === 'home', isBuild: screen === 'build', isPreview: screen === 'preview',
@@ -2365,10 +2365,10 @@ class Component extends DCLogic {
           carBg: cur.bg, carName: nm(cur), carBest: lang === 'en' ? cur.bestEn : cur.bestMs, carPrice: this.price(cur.tier),
           carCards: TPL.map((x, i) => ({
             id: x.id, scale: i === idx ? '1' : '0.84', opacity: i === idx ? '1' : '0.55',
-            tierLabel: x.tier === 'ats' ? 'ATS' : t.standard, badgeBg: x.tier === 'ats' ? '#15171B' : accent, badgeFg: x.tier === 'ats' ? '#fff' : '#15171B',
+            tierLabel: x.tier === 'ats' ? 'ATS' : t.standard, badgeBg: x.tier === 'ats' ? '#1D1D1F' : accent, badgeFg: '#fff',
             tap: () => (i === idx ? (this.setState({ detailId: x.id }), this.track('template_detail', { template: x.id })) : goTo(i)),
           })),
-          carDots: TPL.map((x, i) => ({ w: i === idx ? '22px' : '7px', bg: i === idx ? '#15171B' : 'rgba(21,23,27,.22)', go: () => goTo(i) })),
+          carDots: TPL.map((x, i) => ({ w: i === idx ? '22px' : '7px', bg: i === idx ? '#007AFF' : 'rgba(29,29,31,.2)', go: () => goTo(i) })),
           onCarScroll: (ev) => {
             const el = ev.target; if (this._carRaf) return;
             this._carRaf = requestAnimationFrame(() => {
@@ -2378,7 +2378,7 @@ class Component extends DCLogic {
           },
           carDetail: () => { this.setState({ detailId: cur.id }); this.track('template_detail', { template: cur.id }); },
           carUse: () => useTpl(cur.id),
-          detailOpen: !!det, detId: det ? det.id : '', detName: det ? nm(det) : '', detBg: det ? det.bg : '#F4F4F2',
+          detailOpen: !!det, detId: det ? det.id : '', detName: det ? nm(det) : '', detBg: det ? det.bg : '#F5F5F7',
           detTier: det ? (det.tier === 'ats' ? t.ats : t.standard) : '', detPrice: det ? this.price(det.tier) : '',
           detBest: det ? (lang === 'en' ? det.bestEn : det.bestMs) : '', detTags: det ? (lang === 'en' ? det.tagsEn : det.tagsMs) : [],
           detAnim: this.state.detailClosing ? 'anim-zoom-out' : 'anim-zoom',
@@ -2399,8 +2399,8 @@ class Component extends DCLogic {
       extraSections, freshExpHint: fresh && step === 1,
       licenceVal: d.licence || '', onLicence: (ev) => this.setF('licence', ev.target.value),
       toggleFresh: () => { const on = !this.D().fresh; this.setD({ fresh: on }); this.track('fresh_mode', { on }); },
-      freshBg: fresh ? '#F2F9E3' : '#fff', freshBorder: fresh ? '#C6E59A' : '#ECECE9',
-      switchBg: fresh ? '#15171B' : '#DEDFDA', knobLeft: fresh ? '21px' : '3px',
+      freshBg: fresh ? '#EAF3FF' : '#fff', freshBorder: fresh ? '#B3D4FF' : '#E5E5EA',
+      switchBg: fresh ? '#34C759' : '#D1D1D6', knobLeft: fresh ? '21px' : '3px',
       personalFields, listItems, skillFields, skillChips: this.splitList(d.skills),
       addLabel: step === 1 ? t.addExp : t.addEdu,
       addItem: () => { const k = this.state.step === 1 ? 'exp' : 'edu'; this.setD({ [k]: (this.D()[k] || []).concat([k === 'exp' ? this.blankExp() : this.blankEdu()]) }); },
@@ -2445,7 +2445,7 @@ class Component extends DCLogic {
         if (screen !== 'preview') return { scoreNum: '0', scoreTips: [] };
         const sc = this.computeScore();
         const lv = sc.score >= 85 ? 3 : sc.score >= 70 ? 2 : sc.score >= 50 ? 1 : 0;
-        const colors = [['#FDE2DC', '#9A2F1C', '#E0533D'], ['#FFEFC7', '#7A5600', '#F2B320'], ['#E3F1FF', '#1F4E85', '#3A82D6'], [accent, '#15171B', '#5FA80F']];
+        const colors = [['#FDE2DC', '#9A2F1C', '#E0533D'], ['#FFEFC7', '#7A5600', '#F2B320'], ['#E5F0FF', '#0A4FA8', '#007AFF'], ['#E3F6E8', '#1E6B34', '#34C759']];
         return {
           scoreNum: String(sc.score), scoreLabel: t['lvl' + lv], scoreWidth: sc.score + '%',
           scoreBg: colors[lv][0], scoreFg: colors[lv][1], scoreBar: colors[lv][2],
@@ -2465,7 +2465,7 @@ class Component extends DCLogic {
       ...(() => {
         const letter = this.state.docMode === 'letter';
         const cl = this.CL();
-        const tab = (key, label) => ({ label, bg: (letter ? 'letter' : 'resume') === key ? '#15171B' : 'transparent', fg: (letter ? 'letter' : 'resume') === key ? '#fff' : '#15171B',
+        const tab = (key, label) => ({ label, bg: (letter ? 'letter' : 'resume') === key ? '#1D1D1F' : 'transparent', fg: (letter ? 'letter' : 'resume') === key ? '#fff' : '#1D1D1F',
           go: () => { if ((letter ? 'letter' : 'resume') !== key) { this.setState({ docMode: key }); this.track('doc_switch', { doc: key }); } } });
         const lf = (k, label, ph, opts) => this.field(label, cl[k], (ev) => this.setCl(k, ev.target.value), Object.assign({ ph }, opts || {}));
         return {
@@ -2490,11 +2490,11 @@ class Component extends DCLogic {
       colorName: (this.modenColor()[lang] || this.modenColor().ms),
       modenColors: this.MODEN_COLORS.map((c) => ({
         bg: c.bg, name: c[lang] || c.ms,
-        ring: c.id === this.modenColor().id ? '0 0 0 3px #F4F4F2, 0 0 0 5px #15171B' : 'inset 0 0 0 1px rgba(21,23,27,.12)',
+        ring: c.id === this.modenColor().id ? '0 0 0 3px #F5F5F7, 0 0 0 5px #007AFF' : 'inset 0 0 0 1px rgba(21,23,27,.12)',
         pick: () => { this.setState({ mColor: c.id }); this.track('color_pick', { color: c.id }); },
       })),
       pagesLabel: (this.state.pages || 1) > 1 ? this.state.pages + ' ' + t.pageMany : t.pageOne,
-      pagesBg: (this.state.pages || 1) > 1 ? '#FFD9C7' : accent,
+      pagesBg: (this.state.pages || 1) > 1 ? '#FFE3CC' : '#E5F0FF',
       multiPage: (this.state.pages || 1) > 1,
       pageTip: t.pageTipA + ' ' + (this.state.pages || 1) + ' ' + t.pageTipB,
       dutyQuery: this.state.dutyQuery || '', onDutyQuery: (ev) => this.setState({ dutyQuery: ev.target.value }),
