@@ -185,9 +185,8 @@ if ('serviceWorker' in navigator) { window.addEventListener('load', function () 
             <div onClick="{{ dot.go }}" style="height:7px; width:{{ dot.w }}; border-radius:4px; background:{{ dot.bg }}; transition:width .3s ease; cursor:pointer;"></div>
           </sc-for>
         </div>
-        <div style="display:flex; justify-content:center; gap:8px; margin-top:14px;">
-          <div onClick="{{ carDetail }}" style="padding:12px 16px; border-radius:14px; background:rgba(255,255,255,.75); font-size:13.5px; font-weight:800; cursor:pointer;">{{ t.carMore }}</div>
-          <div onClick="{{ carUse }}" style="padding:12px 18px; border-radius:14px; background:#15171B; color:#fff; font-size:13.5px; font-weight:800; cursor:pointer;">{{ t.carUse }}</div>
+        <div style="display:flex; justify-content:center; margin-top:14px; padding:0 20px;">
+          <div onClick="{{ carUse }}" style="flex:1; max-width:280px; text-align:center; padding:14px 18px; border-radius:15px; background:#15171B; color:#fff; font-size:14.5px; font-weight:800; cursor:pointer;">{{ t.carUse }}</div>
         </div>
       </div>
     </div>
