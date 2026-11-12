@@ -1,5 +1,5 @@
 // Offline helper for the resume app. Change VERSION when you upload new files.
-const VERSION = 'v3';
+const VERSION = 'v4';
 const CACHE = 'artelier-resume-' + VERSION;
 const CORE = ['./', 'index.html', 'support.js', 'vendor/react.production.min.js', 'vendor/react-dom.production.min.js',
   'vendor/jspdf.umd.min.js', 'assets/logo.png', 'assets/icon-192.png', 'manifest.webmanifest'];

@@ -25,6 +25,7 @@ if ('serviceWorker' in navigator) { window.addEventListener('load', function () 
 <script src="vendor/react.production.min.js"></script>
 <script src="vendor/react-dom.production.min.js"></script>
 <script src="./support.js"></script>
+<script>window.ARTELIER_OCR=(function(){var b=new URL('vendor/ocr/',location.href).href;return{script:b+'tesseract.min.js',workerPath:b+'worker.min.js',corePath:b,langPath:b+'lang'};})();</script>
 </head>
 <body>
 <x-dc>
@@ -157,6 +158,23 @@ if ('serviceWorker' in navigator) { window.addEventListener('load', function () 
         </div>
       </div>
     </sc-if>
+
+    <!-- scan a job ad (reads the text on the phone, no AI) -->
+    <div style="padding:12px 20px 0;">
+      <div onClick="{{ openScan }}" style="display:flex; align-items:center; gap:12px; background:#fff; border:1px solid #E5E5EA; border-radius:18px; padding:14px; cursor:pointer;">
+        <div style="width:44px; height:44px; flex:none; border-radius:13px; background:var(--accent,#007AFF); display:flex; align-items:center; justify-content:center;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 8V6a2 2 0 0 1 2-2h2M16 4h2a2 2 0 0 1 2 2v2M20 16v2a2 2 0 0 1-2 2h-2M8 20H6a2 2 0 0 1-2-2v-2M8 10h8M8 14h5" stroke="#fff" stroke-width="2.2" stroke-linecap="round"></path></svg>
+        </div>
+        <div style="flex:1; min-width:0;">
+          <div style="display:flex; align-items:center; gap:7px;">
+            <span style="font-size:14.5px; font-weight:800;">{{ t.scanCardTitle }}</span>
+            <span style="font-size:10px; font-weight:800; letter-spacing:.5px; color:#007AFF; background:#E5F0FF; padding:3px 6px; border-radius:6px;">{{ t.newBadge }}</span>
+          </div>
+          <div style="font-size:12px; color:#6E6E73; margin-top:3px; line-height:1.4;">{{ t.scanCardText }}</div>
+        </div>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style="flex:none;"><path d="M9 5l7 7-7 7" stroke="#AAAAAA" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+      </div>
+    </div>
 
     <!-- templates -->
     <div style="padding:24px 20px 0; display:flex; align-items:baseline; justify-content:space-between;">
@@ -553,6 +571,51 @@ if ('serviceWorker' in navigator) { window.addEventListener('load', function () 
       </div>
     </div>
     </sc-if>
+    <!-- match with a scanned job ad -->
+    <sc-if value="{{ showMatchCard }}" hint-placeholder-val="{{ false }}">
+    <div style="padding:16px 20px 0;">
+      <div style="background:#fff; border:1px solid #E5E5EA; border-radius:20px; padding:16px;">
+        <div style="display:flex; align-items:center; justify-content:space-between; gap:12px;">
+          <div style="min-width:0;">
+            <div style="font-size:12px; color:#8E8E93; font-weight:700;">{{ t.matchTitle }}</div>
+            <div style="display:flex; align-items:baseline; gap:6px; margin-top:2px;">
+              <span style="font-size:30px; font-weight:800; line-height:1;">{{ matchPct }}</span>
+              <span style="font-size:13px; font-weight:700; color:#8E8E93;">{{ matchCount }}</span>
+            </div>
+          </div>
+          <div onClick="{{ openScan }}" style="flex:none; font-size:12px; font-weight:800; padding:8px 11px; border-radius:10px; background:#F5F5F7; cursor:pointer;">{{ t.matchRescan }}</div>
+        </div>
+        <div style="font-size:12px; color:#6E6E73; margin-top:6px; line-height:1.4;">{{ matchFor }}</div>
+        <div style="height:8px; border-radius:4px; background:#EFEFF4; margin-top:10px; overflow:hidden;">
+          <div style="height:100%; width:{{ matchWidth }}; border-radius:4px; background:#007AFF;"></div>
+        </div>
+        <sc-if value="{{ matchHasMissing }}" hint-placeholder-val="{{ true }}">
+          <div style="font-size:12px; font-weight:800; color:#1D1D1F; margin-top:12px;">{{ t.scanMissing }}</div>
+          <div style="font-size:11.5px; color:#8E8E93; margin-top:2px; line-height:1.4;">{{ t.scanMissingHint }}</div>
+          <div style="display:flex; flex-wrap:wrap; gap:6px; margin-top:8px;">
+            <sc-for list="{{ matchMissing }}" as="k" hint-placeholder-count="3">
+              <div onClick="{{ k.add }}" style="font-size:12px; font-weight:700; padding:6px 10px; border-radius:9px; background:{{ k.bg }}; color:{{ k.fg }}; border:1px dashed {{ k.border }}; cursor:pointer;">{{ k.label }}</div>
+            </sc-for>
+          </div>
+        </sc-if>
+        <sc-if value="{{ matchAllGood }}" hint-placeholder-val="{{ false }}">
+          <div style="font-size:12.5px; color:#1E6B34; background:#E3F6E8; border-radius:12px; padding:10px 12px; margin-top:12px; font-weight:700;">{{ t.matchGood }}</div>
+        </sc-if>
+        <div onClick="{{ removeTarget }}" style="font-size:11.5px; color:#8E8E93; margin-top:12px; text-decoration:underline; cursor:pointer;">{{ t.matchRemove }}</div>
+      </div>
+    </div>
+    </sc-if>
+    <sc-if value="{{ showMatchPrompt }}" hint-placeholder-val="{{ false }}">
+    <div style="padding:16px 20px 0;">
+      <div onClick="{{ openScan }}" style="display:flex; align-items:center; gap:12px; background:#fff; border:1px solid #E5E5EA; border-radius:18px; padding:13px 14px; cursor:pointer;">
+        <div style="width:36px; height:36px; flex:none; border-radius:11px; background:#E5F0FF; display:flex; align-items:center; justify-content:center;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 8V6a2 2 0 0 1 2-2h2M16 4h2a2 2 0 0 1 2 2v2M20 16v2a2 2 0 0 1-2 2h-2M8 20H6a2 2 0 0 1-2-2v-2M8 10h8M8 14h5" stroke="#007AFF" stroke-width="2.2" stroke-linecap="round"></path></svg>
+        </div>
+        <div style="flex:1; font-size:12.5px; line-height:1.4; font-weight:600;">{{ t.matchPrompt }}</div>
+        <div style="flex:none; font-size:12px; font-weight:800; padding:8px 12px; border-radius:10px; background:#1D1D1F; color:#fff;">{{ t.matchPromptBtn }}</div>
+      </div>
+    </div>
+    </sc-if>
     <div style="padding:16px 20px 0;">
       <div style="background:#fff; border:1px solid #E5E5EA; border-radius:20px; padding:14px 16px; display:flex; align-items:center; justify-content:space-between; gap:10px;">
         <div>
@@ -666,6 +729,146 @@ if ('serviceWorker' in navigator) { window.addEventListener('load', function () 
     </div>
   </sc-if>
 
+  <!-- ===== SCAN JOB AD ===== -->
+  <sc-if value="{{ scanOpen }}" hint-placeholder-val="{{ false }}">
+    <div data-screen-label="Scan" class="scroll {{ scanAnim }}" style="position:absolute; inset:0; z-index:86; background:#F5F5F7; overflow-y:auto; padding:calc(14px + env(safe-area-inset-top)) 20px 40px;">
+      <div style="display:flex; align-items:center; justify-content:space-between;">
+        <div onClick="{{ closeScan }}" style="width:42px; height:42px; border-radius:13px; background:#fff; display:flex; align-items:center; justify-content:center; cursor:pointer;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M15 5l-7 7 7 7" stroke="#1D1D1F" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        </div>
+        <span style="font-size:16px; font-weight:800;">{{ t.scanCardTitle }}</span>
+        <div style="width:42px;"></div>
+      </div>
+
+      <!-- 1) choose a photo, screenshot or paste text -->
+      <sc-if value="{{ scanIsPick }}" hint-placeholder-val="{{ true }}">
+        <div style="background:#fff; border-radius:22px; padding:18px; margin-top:18px;">
+          <div style="width:52px; height:52px; border-radius:16px; background:#E5F0FF; display:flex; align-items:center; justify-content:center;">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M4 8V6a2 2 0 0 1 2-2h2M16 4h2a2 2 0 0 1 2 2v2M20 16v2a2 2 0 0 1-2 2h-2M8 20H6a2 2 0 0 1-2-2v-2M8 10h8M8 14h5" stroke="#007AFF" stroke-width="2.2" stroke-linecap="round"></path></svg>
+          </div>
+          <div style="font-size:19px; font-weight:800; margin-top:12px; line-height:1.25;">{{ t.scanHead }}</div>
+          <div style="font-size:13px; color:#6E6E73; margin-top:6px; line-height:1.5;">{{ t.scanIntro }}</div>
+          <div style="display:flex; align-items:center; gap:7px; margin-top:12px; font-size:12px; font-weight:700; color:#1E6B34;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><rect x="5" y="11" width="14" height="9" rx="2" stroke="#1E6B34" stroke-width="2.2"></rect><path d="M8 11V8a4 4 0 0 1 8 0v3" stroke="#1E6B34" stroke-width="2.2"></path></svg>
+            {{ t.scanPrivacy }}
+          </div>
+          <label style="display:flex; align-items:center; justify-content:center; gap:8px; margin-top:16px; padding:15px; border-radius:15px; background:var(--accent,#007AFF); color:#fff; font-size:15px; font-weight:800; cursor:pointer;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 8h3l2-3h6l2 3h3v11H4z" stroke="#fff" stroke-width="2.2" stroke-linejoin="round"></path><circle cx="12" cy="13" r="3.5" stroke="#fff" stroke-width="2.2"></circle></svg>
+            {{ t.scanCamera }}
+            <input type="file" accept="image/*" capture="environment" onChange="{{ onScanFile }}" style="display:none;">
+          </label>
+          <label style="display:flex; align-items:center; justify-content:center; gap:8px; margin-top:10px; padding:14px; border-radius:15px; background:#fff; border:1px solid #D1D1D6; color:#1D1D1F; font-size:14px; font-weight:800; cursor:pointer;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="16" height="16" rx="3" stroke="#1D1D1F" stroke-width="2.2"></rect><circle cx="9.5" cy="9.5" r="1.8" fill="#1D1D1F"></circle><path d="M5 17l4.5-4.5 3 3L15 13l4 4" stroke="#1D1D1F" stroke-width="2.2" stroke-linejoin="round"></path></svg>
+            {{ t.scanGallery }}
+            <input type="file" accept="image/*" onChange="{{ onScanFile }}" style="display:none;">
+          </label>
+        </div>
+        <sc-if value="{{ scanHasErr }}" hint-placeholder-val="{{ false }}">
+          <div style="margin-top:12px; background:#FFF1E8; border:1px solid #F6D2BF; border-radius:15px; padding:12px 14px; font-size:12.5px; line-height:1.45; color:#5B3A2A;">{{ scanErr }}</div>
+        </sc-if>
+        <div style="background:#fff; border-radius:22px; padding:16px; margin-top:12px;">
+          <div style="font-size:13.5px; font-weight:800;">{{ t.scanPaste }}</div>
+          <div style="font-size:12px; color:#8E8E93; margin-top:3px; line-height:1.4;">{{ t.scanPasteHint }}</div>
+          <textarea class="fld" rows="5" value="{{ scanPaste }}" placeholder="{{ t.scanPastePh }}" onChange="{{ onScanPaste }}" style="min-height:110px; margin-top:10px;"></textarea>
+          <div onClick="{{ scanPasteGo }}" style="margin-top:10px; text-align:center; padding:13px; border-radius:13px; background:#1D1D1F; color:#fff; font-size:14px; font-weight:800; cursor:pointer;">{{ t.scanCheck }}</div>
+        </div>
+      </sc-if>
+
+      <!-- 2) reading -->
+      <sc-if value="{{ scanIsReading }}" hint-placeholder-val="{{ false }}">
+        <div class="anim-fade" style="background:#fff; border-radius:22px; padding:20px; margin-top:18px; text-align:center;">
+          <sc-if value="{{ scanHasThumb }}" hint-placeholder-val="{{ false }}">
+            <img src="{{ scanThumb }}" alt="" style="width:150px; max-height:200px; object-fit:cover; object-position:top; border-radius:12px; display:block; margin:0 auto 16px; box-shadow:0 8px 20px rgba(29,29,31,.15);">
+          </sc-if>
+          <div style="font-size:16px; font-weight:800;">{{ t.scanReading }}</div>
+          <div style="height:8px; border-radius:4px; background:#EFEFF4; margin:14px 0 8px; overflow:hidden;">
+            <div style="height:100%; width:{{ scanProgW }}; border-radius:4px; background:#007AFF; transition:width .3s ease;"></div>
+          </div>
+          <div style="font-size:12.5px; font-weight:800; color:#007AFF;">{{ scanProgTxt }}</div>
+          <div style="font-size:11.5px; color:#8E8E93; margin-top:10px; line-height:1.45;">{{ t.scanFirstTime }}</div>
+        </div>
+      </sc-if>
+
+      <!-- 3) result -->
+      <sc-if value="{{ scanIsResult }}" hint-placeholder-val="{{ false }}">
+        <div class="anim-fade" style="background:#fff; border-radius:22px; padding:16px; margin-top:18px; display:flex; flex-direction:column; gap:10px;">
+          <div style="display:flex; flex-direction:column; gap:6px;">
+            <span style="font-size:12px; font-weight:700; color:#6E6E73;">{{ t.scanJob }}</span>
+            <input class="fld" type="text" value="{{ scanTitle }}" placeholder="{{ t.scanJobPh }}" onChange="{{ onScanTitle }}">
+          </div>
+          <div style="display:flex; flex-direction:column; gap:6px;">
+            <span style="font-size:12px; font-weight:700; color:#6E6E73;">{{ t.scanCompany }}</span>
+            <input class="fld" type="text" value="{{ scanCompany }}" placeholder="{{ t.scanCompanyPh }}" onChange="{{ onScanCompany }}">
+          </div>
+          <div style="font-size:11.5px; color:#8E8E93; line-height:1.4;">{{ t.scanCheckFields }}</div>
+        </div>
+
+        <div style="background:#fff; border-radius:22px; padding:16px; margin-top:12px;">
+          <div style="display:flex; align-items:baseline; justify-content:space-between; gap:10px;">
+            <span style="font-size:12px; color:#8E8E93; font-weight:700;">{{ t.matchTitle }}</span>
+            <span style="font-size:12px; color:#8E8E93; font-weight:700;">{{ scanCount }}</span>
+          </div>
+          <div style="font-size:30px; font-weight:800; line-height:1.1; margin-top:2px;">{{ scanPct }}</div>
+          <div style="height:8px; border-radius:4px; background:#EFEFF4; margin-top:10px; overflow:hidden;">
+            <div style="height:100%; width:{{ scanWidth }}; border-radius:4px; background:#007AFF; transition:width .4s ease;"></div>
+          </div>
+          <sc-if value="{{ scanNoKw }}" hint-placeholder-val="{{ false }}">
+            <div style="font-size:12.5px; color:#6E6E73; margin-top:12px; line-height:1.45;">{{ t.scanNoKw }}</div>
+          </sc-if>
+          <sc-if value="{{ scanHasMissing }}" hint-placeholder-val="{{ true }}">
+            <div style="font-size:12.5px; font-weight:800; margin-top:14px;">{{ t.scanMissing }}</div>
+            <div style="font-size:11.5px; color:#8E8E93; margin-top:2px; line-height:1.4;">{{ t.scanMissingHint }}</div>
+            <div style="display:flex; flex-wrap:wrap; gap:6px; margin-top:8px;">
+              <sc-for list="{{ scanMissingKw }}" as="k" hint-placeholder-count="3">
+                <div onClick="{{ k.add }}" style="font-size:12px; font-weight:700; padding:6px 10px; border-radius:9px; background:{{ k.bg }}; color:{{ k.fg }}; border:1px dashed {{ k.border }}; cursor:pointer;">{{ k.label }}</div>
+              </sc-for>
+            </div>
+          </sc-if>
+          <sc-if value="{{ scanHasHave }}" hint-placeholder-val="{{ true }}">
+            <div style="font-size:12.5px; font-weight:800; margin-top:14px;">{{ t.scanHave }}</div>
+            <div style="display:flex; flex-wrap:wrap; gap:6px; margin-top:8px;">
+              <sc-for list="{{ scanHaveKw }}" as="k" hint-placeholder-count="3">
+                <span style="font-size:12px; font-weight:700; padding:6px 10px; border-radius:9px; background:#E5F0FF; color:#0A4FA8;">✓ {{ k.label }}</span>
+              </sc-for>
+            </div>
+          </sc-if>
+        </div>
+
+        <sc-if value="{{ scanHasDuties }}" hint-placeholder-val="{{ true }}">
+          <div style="background:#fff; border-radius:22px; padding:16px; margin-top:12px;">
+            <div style="font-size:13.5px; font-weight:800;">{{ t.scanDuties }}</div>
+            <div style="font-size:11.5px; color:#8E8E93; margin-top:3px; line-height:1.4;">{{ scanDutiesHint }}</div>
+            <div style="display:flex; flex-direction:column; gap:8px; margin-top:10px;">
+              <sc-for list="{{ scanDuties }}" as="si" hint-placeholder-count="3">
+                <div onClick="{{ si.toggle }}" style="display:flex; align-items:center; gap:10px; padding:11px 12px; border-radius:14px; background:{{ si.bg }}; border:1px solid {{ si.border }}; cursor:pointer;">
+                  <span style="flex:1; font-size:13px; font-weight:600; line-height:1.4;">{{ si.text }}</span>
+                  <div style="width:26px; height:26px; flex:none; border-radius:8px; background:{{ si.iconBg }}; color:#fff; display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:800;">{{ si.icon }}</div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </sc-if>
+
+        <div style="background:#fff; border-radius:22px; padding:14px 16px; margin-top:12px;">
+          <div onClick="{{ toggleScanText }}" style="display:flex; align-items:center; justify-content:space-between; cursor:pointer;">
+            <span style="font-size:13px; font-weight:800;">{{ t.scanShowText }}</span>
+            <span style="font-size:12px; font-weight:800; color:#007AFF;">{{ scanTextBtn }}</span>
+          </div>
+          <sc-if value="{{ scanShowText }}" hint-placeholder-val="{{ false }}">
+            <div style="font-size:11.5px; color:#8E8E93; margin-top:6px; line-height:1.4;">{{ t.scanTextHint }}</div>
+            <textarea class="fld" rows="8" value="{{ scanText }}" onChange="{{ onScanText }}" style="min-height:160px; margin-top:8px; font-size:12.5px;"></textarea>
+          </sc-if>
+        </div>
+
+        <div style="display:flex; gap:10px; margin-top:16px;">
+          <div onClick="{{ scanAgain }}" style="flex:1; text-align:center; padding:15px 8px; border-radius:15px; background:#fff; border:1px solid #D1D1D6; font-size:14px; font-weight:800; cursor:pointer;">{{ t.scanAgain }}</div>
+          <div onClick="{{ scanSave }}" style="flex:1.4; text-align:center; padding:15px 8px; border-radius:15px; background:var(--accent,#007AFF); color:#fff; font-size:14px; font-weight:800; cursor:pointer;">{{ t.scanSave }}</div>
+        </div>
+        <div style="font-size:11.5px; color:#8E8E93; margin-top:10px; text-align:center; line-height:1.4;">{{ t.scanSaveHint }}</div>
+      </sc-if>
+    </div>
+  </sc-if>
+
   <!-- ===== TEMPLATE DETAIL ===== -->
   <sc-if value="{{ detailOpen }}" hint-placeholder-val="{{ false }}">
     <div class="scroll {{ detAnim }}" style="position:absolute; inset:0; z-index:85; background:{{ detBg }}; overflow-y:auto; padding:calc(14px + env(safe-area-inset-top)) 20px 30px;">
@@ -740,7 +943,7 @@ if ('serviceWorker' in navigator) { window.addEventListener('load', function () 
 
   <!-- ===== TOAST ===== -->
   <sc-if value="{{ hasToast }}" hint-placeholder-val="{{ false }}">
-    <div class="anim-up" style="position:absolute; left:20px; right:20px; bottom:calc(90px + env(safe-area-inset-bottom)); z-index:80; background:#1D1D1F; color:#fff; border-radius:14px; padding:13px 16px; font-size:13px; font-weight:600; box-shadow:0 10px 30px rgba(29,29,31,.25);">{{ toast }}</div>
+    <div class="anim-up" style="position:absolute; left:20px; right:20px; bottom:calc(90px + env(safe-area-inset-bottom)); z-index:120; background:#1D1D1F; color:#fff; border-radius:14px; padding:13px 16px; font-size:13px; font-weight:600; box-shadow:0 10px 30px rgba(29,29,31,.25);">{{ toast }}</div>
   </sc-if>
 
   <!-- ============ TAB BAR ============ -->
@@ -835,6 +1038,21 @@ class Component extends DCLogic {
         micBtn: 'Cakap', micStop: 'Berhenti', micListening: 'Sedang mendengar… cakap sekarang.', micDenied: 'Akses mikrofon ditolak. Benarkan mikrofon dalam tetapan pelayar anda.', micFail: 'Suara tidak dapat dikenal pasti. Cuba lagi.',
         editInfo: 'Sunting maklumat', launchPromo: 'Promosi\npelancaran',
         atsPhotoNote: 'Templat ATS Pro tidak memaparkan gambar dan warna — ini lebih selamat untuk sistem ATS.',
+        scanCardTitle: 'Imbas iklan kerja', newBadge: 'BAHARU', scanCardText: 'Snap atau muat naik iklan. Kami tunjuk kemahiran yang majikan cari.',
+        scanHead: 'Semak resume anda dengan iklan kerja', scanIntro: 'Ambil gambar iklan kerja, atau pilih tangkapan skrin. Kami baca teksnya dan tunjuk kemahiran & syarat yang majikan cari — dan apa yang belum ada dalam resume anda.',
+        scanPrivacy: 'Gambar kekal dalam telefon anda — tidak dihantar ke mana-mana.', scanCamera: 'Ambil gambar iklan', scanGallery: 'Pilih gambar / tangkapan skrin',
+        scanPaste: 'Atau tampal teks iklan', scanPasteHint: 'Sesuai untuk iklan dari WhatsApp, JobStreet atau Facebook.', scanPastePh: 'Tampal teks iklan di sini…', scanCheck: 'Semak iklan',
+        scanReading: 'Membaca teks iklan…', scanFirstTime: 'Kali pertama mungkin ambil masa sedikit lebih lama (pembaca teks dimuat turun sekali sahaja).',
+        scanFail: 'Tak dapat baca gambar ini. Cuba gambar yang lebih terang dan lurus, atau tampal teks iklan di bawah.', scanNeedText: 'Tampal teks iklan dahulu.',
+        scanJob: 'Jawatan dipohon', scanJobPh: 'cth. Kerani Akaun', scanCompany: 'Syarikat', scanCompanyPh: 'cth. Koperasi Maju Bhd.', scanCheckFields: 'Semak & betulkan jika salah. Ini akan diisi dalam surat permohonan.',
+        matchTitle: 'Padanan dengan iklan', scanMissing: 'Iklan minta — belum ada dalam resume', scanMissingHint: 'Tekan untuk tambah — hanya jika anda memang ada kemahiran ini.', scanHave: 'Sudah ada dalam resume',
+        scanNoKw: 'Tiada kemahiran khusus dikesan. Semak teks yang dibaca di bawah, atau tampal teks iklan.',
+        scanDuties: 'Tugas biasa untuk jawatan ini', scanDutiesHint: 'Tekan untuk tambah ke pengalaman terkini anda — hanya yang pernah anda buat.', scanDutiesHintFresh: 'Tekan untuk tambah ke pengalaman anda (latihan industri / kerja sambilan) — hanya yang pernah anda buat.',
+        scanShowText: 'Teks yang dibaca', scanTextHint: 'Betulkan perkataan yang salah dibaca — semakan dikemas kini serta-merta.', show: 'Lihat', hide: 'Sembunyi',
+        scanAgain: 'Imbas iklan lain', scanSave: 'Simpan & guna', scanSaveHint: 'Disimpan dalam telefon ini sahaja.', scanSaved: 'Disimpan. Jawatan & syarikat diisi dalam surat permohonan.',
+        scanAdded: 'Ditambah: ', scanDutyAdded: 'Tugas ditambah ke pengalaman anda', matchOf: 'kata kunci', matchFor: 'Untuk: ', matchRescan: 'Imbas semula', matchRemove: 'Buang iklan ini',
+        matchGood: 'Semua kemahiran utama dalam iklan sudah ada dalam resume anda. Bagus!', matchPrompt: 'Ada iklan kerja? Imbas untuk semak padanan resume anda.', matchPromptBtn: 'Imbas', matchRemoved: 'Iklan dibuang.',
+        scanReqHint: 'Ini syarat jawatan — tambah dalam Pendidikan, Sijil atau Lesen jika anda memilikinya.',
         scoreTitle: 'Skor resume', scoreSub: 'Ikut tip di bawah untuk naikkan skor anda.', scorePerfect: 'Hebat! Resume anda lengkap dan kemas.', fixBtn: 'Baiki',
         lvl0: 'Perlu dibaiki', lvl1: 'Sederhana', lvl2: 'Baik', lvl3: 'Cemerlang',
         tName: 'Isi nama penuh anda.', tTitle: 'Isi jawatan atau bidang yang anda pohon.', tPhone: 'Tambah nombor telefon.', tEmail: 'Tambah e-mel yang sah (cth. nama@gmail.com).', tLoc: 'Tambah lokasi (bandar, negeri).',
@@ -914,6 +1132,21 @@ class Component extends DCLogic {
         micBtn: 'Speak', micStop: 'Stop', micListening: 'Listening… speak now.', micDenied: 'Microphone access was blocked. Allow the microphone in your browser settings.', micFail: 'Could not catch that. Please try again.',
         editInfo: 'Edit details', launchPromo: 'Launch\npromo',
         atsPhotoNote: 'ATS Pro hides the photo and colours — safer for ATS screening systems.',
+        scanCardTitle: 'Scan a job ad', newBadge: 'NEW', scanCardText: 'Snap or upload the ad. We show the skills the employer wants.',
+        scanHead: 'Check your resume against a job ad', scanIntro: "Take a photo of the job ad, or pick a screenshot. We read the text and show the skills & requirements the employer wants — and what's still missing from your resume.",
+        scanPrivacy: 'Your photo stays on your phone — it is not sent anywhere.', scanCamera: 'Take a photo of the ad', scanGallery: 'Choose image / screenshot',
+        scanPaste: 'Or paste the ad text', scanPasteHint: 'Handy for ads from WhatsApp, JobStreet or Facebook.', scanPastePh: 'Paste the ad text here…', scanCheck: 'Check ad',
+        scanReading: 'Reading the ad…', scanFirstTime: 'The first time may take a little longer (the text reader downloads once).',
+        scanFail: "Couldn't read this image. Try a brighter, straighter photo, or paste the ad text below.", scanNeedText: 'Paste the ad text first.',
+        scanJob: 'Position applied for', scanJobPh: 'e.g. Accounts Clerk', scanCompany: 'Company', scanCompanyPh: 'e.g. Koperasi Maju Bhd.', scanCheckFields: 'Check & fix if wrong. These go into your cover letter.',
+        matchTitle: 'Match with the job ad', scanMissing: 'The ad asks for — not in your resume yet', scanMissingHint: 'Tap to add — only if you really have this skill.', scanHave: 'Already in your resume',
+        scanNoKw: 'No specific skills found. Check the text that was read below, or paste the ad text.',
+        scanDuties: 'Common duties for this role', scanDutiesHint: 'Tap to add to your latest job — only ones you have actually done.', scanDutiesHintFresh: 'Tap to add to your experience (internship / part-time) — only ones you have actually done.',
+        scanShowText: 'Text that was read', scanTextHint: 'Fix any misread words — the check updates instantly.', show: 'Show', hide: 'Hide',
+        scanAgain: 'Scan another ad', scanSave: 'Save & use', scanSaveHint: 'Saved on this phone only.', scanSaved: 'Saved. Position & company filled in your cover letter.',
+        scanAdded: 'Added: ', scanDutyAdded: 'Duty added to your experience', matchOf: 'keywords', matchFor: 'For: ', matchRescan: 'Scan again', matchRemove: 'Remove this ad',
+        matchGood: 'Every key skill in the ad is already in your resume. Great!', matchPrompt: 'Have a job ad? Scan it to check how well your resume matches.', matchPromptBtn: 'Scan', matchRemoved: 'Ad removed.',
+        scanReqHint: 'This is a job requirement — add it under Education, Certificates or Licence if you have it.',
         scoreTitle: 'Resume score', scoreSub: 'Follow the tips below to raise your score.', scorePerfect: 'Great! Your resume is complete and polished.', fixBtn: 'Fix',
         lvl0: 'Needs work', lvl1: 'Fair', lvl2: 'Good', lvl3: 'Excellent',
         tName: 'Add your full name.', tTitle: 'Add the job title or field you are applying for.', tPhone: 'Add a phone number.', tEmail: 'Add a valid email (e.g. name@gmail.com).', tLoc: 'Add your location (city, state).',
@@ -1224,6 +1457,336 @@ class Component extends DCLogic {
     else if (a.length && a[a.length - 1].trim() === '') a[a.length - 1] = text;
     else a.push(text);
     this.setListField('exp', i, 'desc', a.join('\n'));
+  }
+
+  // ---------- Scan a job ad (free: the text is read on the phone, no AI) ----------
+  // Skills & requirements we look for in job ads. type: s = skill (added to Skills), l = language (added to Languages), r = requirement (info only).
+  // p = words to look for (lowercase; regular-expression style). Add more lines any time.
+  get AD_KEYWORDS() {
+    const k = (id, type, ms, en, p) => ({ id, type, ms, en, p });
+    return [
+      k('excel', 's', 'Microsoft Excel', 'Microsoft Excel', ['excel', 'spreadsheet', 'hamparan']),
+      k('word', 's', 'Microsoft Word', 'Microsoft Word', ['ms word', 'microsoft word']),
+      k('ppt', 's', 'PowerPoint', 'PowerPoint', ['powerpoint', 'power point']),
+      k('office', 's', 'Microsoft Office', 'Microsoft Office', ['microsoft office', 'ms office', 'office suite']),
+      k('gsuite', 's', 'Google Workspace', 'Google Workspace', ['google sheets?', 'google docs', 'google workspace', 'google drive']),
+      k('computer', 's', 'Kemahiran komputer', 'Computer skills', ['komputer', 'computer literate', 'computer skills?', 'computer literacy', 'celik komputer']),
+      k('typing', 's', 'Menaip pantas', 'Fast typing', ['menaip', 'typing']),
+      k('dataentry', 's', 'Kemasukan data', 'Data entry', ['data entry', 'kemasukan data', 'key in data']),
+      k('comm', 's', 'Komunikasi yang baik', 'Good communication', ['komunikasi', 'communication', 'communicate', 'berkomunikasi']),
+      k('teamwork', 's', 'Kerja berpasukan', 'Teamwork', ['berpasukan', 'team player', 'teamwork', 'team work', 'work in a team']),
+      k('cs', 's', 'Khidmat pelanggan', 'Customer service', ['khidmat pelanggan', 'perkhidmatan pelanggan', 'customer service', 'customer care', 'melayan pelanggan']),
+      k('sales', 's', 'Jualan', 'Sales', ['jualan', 'sales', 'selling', 'menjual']),
+      k('nego', 's', 'Rundingan', 'Negotiation', ['rundingan', 'berunding', 'negotiat\\w*']),
+      k('accounting', 's', 'Perakaunan', 'Accounting', ['perakaunan', 'accounting', 'bookkeeping', 'simpan kira']),
+      k('ubs', 's', 'UBS Accounting', 'UBS Accounting', ['ubs']),
+      k('sqlacc', 's', 'SQL Accounting', 'SQL Accounting', ['sql account\\w*']),
+      k('autocount', 's', 'AutoCount', 'AutoCount', ['autocount', 'auto count']),
+      k('payroll', 's', 'Penggajian (payroll)', 'Payroll', ['payroll', 'penggajian']),
+      k('canva', 's', 'Canva', 'Canva', ['canva']),
+      k('photoshop', 's', 'Adobe Photoshop', 'Adobe Photoshop', ['photoshop']),
+      k('illustrator', 's', 'Adobe Illustrator', 'Adobe Illustrator', ['illustrator']),
+      k('capcut', 's', 'Suntingan video (CapCut)', 'Video editing (CapCut)', ['capcut', 'video editing', 'suntingan video', 'premiere']),
+      k('socmed', 's', 'Media sosial', 'Social media', ['media sosial', 'social media', 'facebook', 'instagram', 'tiktok']),
+      k('ecom', 's', 'E-dagang (Shopee / Lazada)', 'E-commerce (Shopee / Lazada)', ['shopee', 'lazada', 'e-?commerce', 'e-?dagang', 'online store']),
+      k('stock', 's', 'Pengurusan stok', 'Stock management', ['stok', 'stock', 'inventori', 'inventory']),
+      k('forklift', 's', 'Forklift', 'Forklift', ['forklift']),
+      k('pos', 's', 'Sistem POS / juruwang', 'POS / cashier system', ['pos system', 'sistem pos', 'point of sale', 'cashiering', 'mesin juruwang']),
+      k('cash', 's', 'Pengendalian tunai', 'Cash handling', ['cash handling', 'handle cash', 'pengendalian tunai', 'mengendalikan wang', 'urus wang tunai']),
+      k('lead', 's', 'Kepimpinan', 'Leadership', ['kepimpinan', 'leadership', 'memimpin', 'lead a team', 'supervise', 'menyelia']),
+      k('time', 's', 'Pengurusan masa', 'Time management', ['pengurusan masa', 'time management', 'meet deadlines?', 'tarikh akhir']),
+      k('problem', 's', 'Penyelesaian masalah', 'Problem solving', ['problem.solving', 'menyelesaikan masalah', 'penyelesaian masalah']),
+      k('multi', 's', 'Pelbagai tugas', 'Multitasking', ['multi-?task\\w*', 'pelbagai tugas']),
+      k('admin', 's', 'Pentadbiran pejabat', 'Office administration', ['pentadbiran', 'administration', 'administrative', 'clerical', 'perkeranian']),
+      k('report', 's', 'Penyediaan laporan', 'Report preparation', ['laporan', 'report writing', 'prepare reports?', 'reporting']),
+      k('safety', 's', 'Keselamatan pekerjaan (OSH)', 'Workplace safety (OSH)', ['osh', 'hse', 'keselamatan dan kesihatan', 'safety']),
+      k('web', 's', 'Laman web (HTML / WordPress)', 'Websites (HTML / WordPress)', ['wordpress', 'html', 'css']),
+      k('python', 's', 'Python', 'Python', ['python']),
+      k('en', 'l', 'Bahasa Inggeris', 'English', ['bahasa inggeris', 'english', 'b\\. ?inggeris']),
+      k('bm', 'l', 'Bahasa Melayu', 'Malay', ['bahasa melayu', 'bahasa malaysia', 'malay', 'b\\. ?melayu']),
+      k('zh', 'l', 'Mandarin', 'Mandarin', ['mandarin', 'chinese', 'bahasa cina']),
+      k('licence', 'r', 'Lesen memandu', 'Driving licence', ['lesen memandu', 'driving licen[cs]e', 'lesen (kereta|motosikal|d|da|b2|b|e|gdl)', 'licen[cs]e (d|b2|b|e)', 'gdl', 'own transport', 'kenderaan sendiri']),
+      k('spm', 'r', 'SPM', 'SPM', ['spm']),
+      k('stpm', 'r', 'STPM', 'STPM', ['stpm']),
+      k('skm', 'r', 'SKM', 'SKM', ['skm', 'sijil kemahiran malaysia']),
+      k('diploma', 'r', 'Diploma', 'Diploma', ['diploma']),
+      k('degree', 'r', 'Ijazah', 'Degree', ['ijazah', 'degree', 'bachelor', 'sarjana muda']),
+      k('food', 'r', 'Kursus pengendali makanan', 'Food handling course', ['pengendali makanan', 'pengendalian makanan', 'food handl\\w*', 'typhoid', 'tifoid']),
+    ];
+  }
+  adNorm(s) { return ' ' + String(s || '').toLowerCase().replace(/[\u2018\u2019]/g, "'").replace(/\s+/g, ' ') + ' '; }
+  adHas(text, pats) { return pats.some((p) => new RegExp('(^|[^a-z0-9])(' + p + ')(?![a-z0-9])').test(text)); }
+  // all the words in the user's resume, in one lowercase string
+  resumeText() {
+    const d = this.D();
+    const parts = [d.title, d.summary, d.skills, d.languages, d.licence];
+    (d.exp || []).forEach((x) => parts.push(x.role, x.desc));
+    (d.edu || []).forEach((x) => parts.push(x.qual, x.school, x.note));
+    (d.certs || []).forEach((x) => parts.push(x.name, x.org));
+    (d.projects || []).forEach((x) => parts.push(x.title, x.desc));
+    (d.cocu || []).forEach((x) => parts.push(x.role, x.org));
+    return this.adNorm(parts.filter(Boolean).join(' \n '));
+  }
+  // find the skills & requirements in the ad, and check which ones the resume already has
+  analyseAd(raw) {
+    const ad = this.adNorm(raw);
+    const mine = this.resumeText();
+    const d = this.D();
+    const found = this.AD_KEYWORDS.filter((k) => this.adHas(ad, k.p));
+    // "Microsoft Office" already covers Word / PowerPoint / Excel mentions in the resume
+    const officeAlso = { word: 1, ppt: 1, excel: 1 };
+    const items = found.map((k) => {
+      let have = this.adHas(mine, k.p) || this.adHas(mine, [k.ms.toLowerCase().replace(/[^a-z0-9 ]/g, '.'), k.en.toLowerCase().replace(/[^a-z0-9 ]/g, '.')]);
+      if (!have && k.id === 'licence') have = !!String(d.licence || '').trim();
+      if (!have && officeAlso[k.id]) have = this.adHas(mine, ['microsoft office', 'ms office']);
+      return Object.assign({}, k, { have });
+    });
+    return { items, have: items.filter((x) => x.have).length, total: items.length };
+  }
+  // best guess of the job title and company name from the ad (the user can fix both)
+  guessAd(raw) {
+    const lines = String(raw || '').split(/\n+/).map((l) => l.replace(/[•*#|«»©®]+/g, ' ').replace(/^[^A-Za-z0-9(]+/, '').replace(/\s+/g, ' ').trim()).filter((l) => /[A-Za-z]{2}/.test(l));
+    const notTitle = /^(me[a-z]+|ber[a-z]+|boleh|mahir|mempunyai|minimum|min\.?|hantar|tarikh|gaji|syarat|tugas|kelayakan|faedah|prepare|manage|handle|assist|maintain|ensure|responsible|able|must|send|salary|requirements?|responsibilities)\b/i;
+    const tidy = (s) => {
+      s = String(s || '').replace(/^[\s:\-–—.,]+|[\s:\-–—.,!]+$/g, '').replace(/\s*\(.*$/, '').trim();
+      if (s && s === s.toUpperCase()) s = s.toLowerCase().replace(/(^|[\s\/&-])([a-z])/g, (m, a, b) => a + b.toUpperCase()).replace(/\b(Sdn|Bhd|Plt)\b/g, (m) => m === 'Plt' ? 'PLT' : m);
+      return s.slice(0, 60);
+    };
+    const isCo = (l) => /(sdn\.? ?bhd|berhad|\bbhd\b|\bplt\b|enterprise|trading|holdings|resources|^koperasi\b)/i.test(l);
+    let title = '';
+    const head = /^(jawatan kosong|kekosongan jawatan|kekosongan|jawatan|job vacancy|vacancy|vacancies|we(?:'re| are)? hiring|now hiring|hiring|position|job title|dicari|diperlukan( segera)?)\b\s*[:\-–!]*\s*(.*)$/i;
+    for (let i = 0; i < lines.length && !title; i++) {
+      const m = lines[i].match(head);
+      if (!m) continue;
+      const rest = m[m.length - 1].replace(/^(kosong|segera|urgent)\b\s*[:\-–!]*\s*/i, '');
+      if (rest && rest.split(' ').length <= 7) title = rest;
+      else if (!rest) { const nx = lines.slice(i + 1, i + 3).find((l) => l.split(' ').length <= 7 && !isCo(l) && !notTitle.test(l)); if (nx) title = nx; }
+    }
+    if (!title) {
+      const kw = [].concat.apply([], Object.values(this.JOB_KEYWORDS)).filter((w) => w.length > 2);
+      const cand = lines.slice(0, Math.max(4, Math.ceil(lines.length * 0.4))).find((l) => l.split(' ').length <= 6 && !notTitle.test(l) && kw.some((w) => (' ' + l.toLowerCase() + ' ').indexOf(' ' + w + ' ') >= 0) && !/[:@]|\d{3}/.test(l));
+      if (cand) title = cand;
+    }
+    let company = '';
+    const co = /(sdn\.? ?bhd\.?|berhad|\bbhd\.?|\bplt\b|enterprise|trading|holdings|resources|\bberhad\b)/i;
+    for (const l of lines) {
+      const m = l.match(co);
+      if (m && l.length <= 80) { company = l.slice(0, m.index + m[0].length).replace(/^(.*\b(di|at|syarikat|company|join|sertai)\b\s*:?\s*)/i, ''); break; }
+      if (!company && /^koperasi\b/i.test(l) && l.length <= 80) { company = l; break; }
+    }
+    return { title: tidy(title), company: tidy(company) };
+  }
+  // load the free text reader (Tesseract) only when someone scans an ad
+  loadOcr() {
+    if (window.Tesseract) return Promise.resolve(window.Tesseract);
+    if (this._ocrLoading) return this._ocrLoading;
+    const cfg = window.ARTELIER_OCR || { script: 'https://cdn.jsdelivr.net/npm/tesseract.js@5.1.1/dist/tesseract.min.js' };
+    this._ocrLoading = new Promise((resolve, reject) => {
+      const s = document.createElement('script');
+      s.src = cfg.script; s.async = true;
+      s.onload = () => (window.Tesseract ? resolve(window.Tesseract) : reject(new Error('no ocr')));
+      s.onerror = () => { this._ocrLoading = null; reject(new Error('ocr load')); };
+      document.head.appendChild(s);
+    });
+    return this._ocrLoading;
+  }
+  // shrink big phone photos / enlarge small screenshots so the text reads well and fast
+  prepScanImage(file) {
+    return new Promise((resolve, reject) => {
+      const url = URL.createObjectURL(file);
+      const img = new Image();
+      img.onload = () => {
+        const w = img.naturalWidth, h = img.naturalHeight;
+        const long = Math.max(w, h);
+        const sc = long > 2200 ? 2200 / long : (long < 1100 ? Math.min(2, 1600 / long) : 1);
+        const c = document.createElement('canvas');
+        c.width = Math.round(w * sc); c.height = Math.round(h * sc);
+        const g = c.getContext('2d');
+        g.fillStyle = '#fff'; g.fillRect(0, 0, c.width, c.height);
+        g.drawImage(img, 0, 0, c.width, c.height);
+        this.flipDarkAreas(c);
+        const tc = document.createElement('canvas');
+        const ts = 320 / Math.max(c.width, 1);
+        tc.width = 320; tc.height = Math.round(c.height * ts);
+        tc.getContext('2d').drawImage(c, 0, 0, tc.width, tc.height);
+        URL.revokeObjectURL(url);
+        resolve({ canvas: c, thumb: tc.toDataURL('image/jpeg', 0.7) });
+      };
+      img.onerror = () => { URL.revokeObjectURL(url); reject(new Error('img')); };
+      img.src = url;
+    });
+  }
+  // white text on a coloured banner is hard to read: turn dark areas light (and their text dark) so every part reads like black on white
+  flipDarkAreas(c) {
+    try {
+      const W = c.width, H = c.height, g = c.getContext('2d');
+      const im = g.getImageData(0, 0, W, H), px = im.data;
+      const gray = new Uint8ClampedArray(W * H);
+      for (let i = 0, j = 0; j < gray.length; i += 4, j++) gray[j] = (px[i] * 299 + px[i + 1] * 587 + px[i + 2] * 114) / 1000;
+      // background brightness: average 8x8 blocks, then the median of the blocks around each one (text never wins the median)
+      const B = 8, bw = Math.ceil(W / B), bh = Math.ceil(H / B), blk = new Float32Array(bw * bh), cnt = new Uint16Array(bw * bh);
+      for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) { const k = ((y / B) | 0) * bw + ((x / B) | 0); blk[k] += gray[y * W + x]; cnt[k]++; }
+      for (let k = 0; k < blk.length; k++) blk[k] /= cnt[k] || 1;
+      const R = 4, bg = new Uint8Array(bw * bh), med = new Float32Array(bw * bh), win = [];
+      for (let by = 0; by < bh; by++) for (let bx = 0; bx < bw; bx++) {
+        win.length = 0;
+        for (let yy = Math.max(0, by - R); yy <= Math.min(bh - 1, by + R); yy++) for (let xx = Math.max(0, bx - R); xx <= Math.min(bw - 1, bx + R); xx++) win.push(blk[yy * bw + xx]);
+        win.sort((m, n) => m - n);
+        med[by * bw + bx] = win[win.length >> 1];
+        bg[by * bw + bx] = med[by * bw + bx] < 115 ? 1 : 0;
+      }
+      // smooth the dark/light map with a wider vote, so big bold headings don't break it into patches
+      const R2 = 8, I = new Int32Array((bw + 1) * (bh + 1)), dark = new Uint8Array(bw * bh);
+      for (let y = 0; y < bh; y++) { let row = 0; for (let x = 0; x < bw; x++) { row += bg[y * bw + x]; I[(y + 1) * (bw + 1) + x + 1] = I[y * (bw + 1) + x + 1] + row; } }
+      for (let y = 0; y < bh; y++) for (let x = 0; x < bw; x++) {
+        const y0 = Math.max(0, y - R2), y1 = Math.min(bh, y + R2 + 1), x0 = Math.max(0, x - R2), x1 = Math.min(bw, x + R2 + 1);
+        const sum = I[y1 * (bw + 1) + x1] - I[y0 * (bw + 1) + x1] - I[y1 * (bw + 1) + x0] + I[y0 * (bw + 1) + x0];
+        dark[y * bw + x] = sum * 2 > (y1 - y0) * (x1 - x0) ? 1 : 0;
+      }
+      for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) {
+        // flip dark areas, then lift every background to white (also removes shadows on photos)
+        const j = y * W + x, k = ((y / B) | 0) * bw + ((x / B) | 0), dk = dark[k];
+        const v = dk ? 255 - gray[j] : gray[j], base = Math.max(60, dk ? 255 - med[k] : med[k]);
+        px[j * 4] = px[j * 4 + 1] = px[j * 4 + 2] = Math.min(255, v * 255 / base);
+      }
+      g.putImageData(im, 0, 0);
+    } catch (e) {}
+  }
+  async onScanFile(ev) {
+    const t = this.T();
+    const file = ev && ev.target && ev.target.files && ev.target.files[0];
+    if (ev && ev.target) ev.target.value = '';
+    if (!file) return;
+    this.setState({ scanStage: 'reading', scanProg: 0.03, scanErr: '', scanThumb: '' });
+    let worker = null;
+    try {
+      const pic = await this.prepScanImage(file);
+      this.setState({ scanThumb: pic.thumb, scanProg: 0.08 });
+      const T = await this.loadOcr();
+      const cfg = window.ARTELIER_OCR || {};
+      const opts = {
+        logger: (m) => {
+          let p = null;
+          if (m.status === 'recognizing text') p = 0.35 + 0.65 * (m.progress || 0);
+          else if (/load|initializ/i.test(m.status || '')) p = 0.08 + 0.27 * (m.progress || 0);
+          if (p !== null && Math.abs(p - (this.state.scanProg || 0)) > 0.02) this.setState({ scanProg: p });
+        },
+      };
+      ['workerPath', 'corePath', 'langPath'].forEach((k) => { if (cfg[k]) opts[k] = cfg[k]; });
+      worker = await T.createWorker(['eng', 'msa'], 1, opts);
+      await worker.setParameters({ tessedit_pageseg_mode: '3' }); // auto layout: posters have headings, columns and banners
+      const res = await worker.recognize(pic.canvas);
+      const text = String((res && res.data && res.data.text) || '').replace(/\n{3,}/g, '\n\n').trim();
+      if (text.replace(/[^A-Za-z]/g, '').length < 15) throw new Error('empty');
+      this.showScanResult(text, 'photo');
+    } catch (e) {
+      this.setState({ scanStage: 'pick', scanErr: t.scanFail });
+      this.track('scan_fail', { why: String(e && e.message || 'x').slice(0, 30) });
+    } finally {
+      if (worker) { try { await worker.terminate(); } catch (e) {} }
+    }
+  }
+  showScanResult(text, source) {
+    const g = this.guessAd(text);
+    const a = this.analyseAd(text);
+    this.setState({ scanStage: 'result', scanText: text, scanTitle: g.title, scanCompany: g.company, scanShowText: false, scanErr: '' });
+    this.track('scan_ad', { source, found: a.total, have: a.have });
+  }
+  addFromAd(k) {
+    const t = this.T();
+    const lang = this.state.lang;
+    if (k.type === 'r') { this.showToast(t.scanReqHint); return; }
+    const field = k.type === 'l' ? 'languages' : 'skills';
+    const list = this.splitList(this.D()[field]);
+    const label = k[lang] || k.ms;
+    if (list.map((x) => x.toLowerCase()).indexOf(label.toLowerCase()) < 0) list.push(label);
+    this.setF(field, list.join(', '));
+    this.showToast(t.scanAdded + label);
+    this.track('scan_add_skill', { kw: k.id });
+  }
+  // chips for keywords that are still missing from the resume
+  missingChips(a) {
+    return a.items.filter((x) => !x.have).sort((x, y) => (x.type === 'r') - (y.type === 'r')).map((k) => ({
+      label: (k.type === 'r' ? '' : '+ ') + (k[this.state.lang] || k.ms),
+      bg: k.type === 'r' ? '#FFF4E5' : '#fff', fg: k.type === 'r' ? '#8A4B00' : '#1D1D1F', border: k.type === 'r' ? '#FFD199' : '#AAAAAA',
+      add: () => this.addFromAd(k),
+    }));
+  }
+  scanVals() {
+    const t = this.T();
+    const lang = this.state.lang;
+    const st = this.state.scanStage || 'pick';
+    const d = this.D();
+    const out = {
+      scanOpen: !!this.state.scanOpen, scanAnim: this.state.scanClosing ? 'anim-zoom-out' : 'anim-zoom',
+      scanIsPick: st === 'pick', scanIsReading: st === 'reading', scanIsResult: st === 'result',
+      scanErr: this.state.scanErr || '', scanHasErr: !!this.state.scanErr,
+      scanPaste: this.state.scanPaste || '', onScanPaste: (ev) => this.setState({ scanPaste: ev.target.value }),
+      scanPasteGo: () => { const txt = String(this.state.scanPaste || '').trim(); if (txt.length < 15) { this.setState({ scanErr: t.scanNeedText }); return; } this.setState({ scanThumb: '' }); this.showScanResult(txt, 'paste'); },
+      onScanFile: (ev) => this.onScanFile(ev),
+      scanThumb: this.state.scanThumb || '', scanHasThumb: !!this.state.scanThumb,
+      scanProgW: Math.round((this.state.scanProg || 0) * 100) + '%', scanProgTxt: Math.round((this.state.scanProg || 0) * 100) + '%',
+      closeScan: () => { if (this.state.scanClosing) return; this.setState({ scanClosing: true }); setTimeout(() => this.setState({ scanOpen: false, scanClosing: false }), 260); },
+    };
+    if (st !== 'result') return out;
+    const a = this.analyseAd(this.state.scanText || '');
+    const pct = a.total ? Math.round(a.have / a.total * 100) : 0;
+    // duties for this job type, added to the latest job
+    const role = String(this.state.scanTitle || '').trim();
+    const sugg = this.smartSuggest(role || this.state.scanText || '');
+    const lines = String(((d.exp || [])[0] || {}).desc || '').split('\n').map((l) => l.trim());
+    const duties = sugg.matched ? sugg.items.slice(0, 6) : [];
+    return Object.assign(out, {
+      scanTitle: this.state.scanTitle || '', onScanTitle: (ev) => this.setState({ scanTitle: ev.target.value }),
+      scanCompany: this.state.scanCompany || '', onScanCompany: (ev) => this.setState({ scanCompany: ev.target.value }),
+      scanPct: a.total ? pct + '%' : '—', scanWidth: pct + '%', scanCount: a.have + ' / ' + a.total + ' ' + t.matchOf,
+      scanNoKw: a.total === 0,
+      scanMissingKw: this.missingChips(a), scanHasMissing: a.items.some((x) => !x.have),
+      scanHaveKw: a.items.filter((x) => x.have).map((k) => ({ label: k[lang] || k.ms })), scanHasHave: a.have > 0,
+      scanHasDuties: duties.length > 0, scanDutiesHint: d.fresh ? t.scanDutiesHintFresh : t.scanDutiesHint,
+      scanDuties: duties.map((txt) => {
+        const added = lines.indexOf(txt) >= 0;
+        return { text: txt, bg: added ? '#EAF3FF' : '#F5F5F7', border: added ? '#007AFF' : '#F5F5F7', iconBg: added ? '#1D1D1F' : '#007AFF', icon: added ? '✓' : '+',
+          toggle: () => { if (!(this.D().exp || []).length) this.setD({ exp: [this.blankExp()] }); this.toggleDuty(0, txt); if (!added) { this.showToast(t.scanDutyAdded); this.track('scan_add_duty'); } } };
+      }),
+      scanText: this.state.scanText || '', onScanText: (ev) => this.setState({ scanText: ev.target.value }),
+      scanShowText: !!this.state.scanShowText, scanTextBtn: this.state.scanShowText ? t.hide : t.show,
+      toggleScanText: () => this.setState({ scanShowText: !this.state.scanShowText }),
+      scanAgain: () => this.setState({ scanStage: 'pick', scanErr: '', scanThumb: '' }),
+      scanSave: () => {
+        const title = String(this.state.scanTitle || '').trim(), company = String(this.state.scanCompany || '').trim();
+        const cl = Object.assign({}, this.CL());
+        if (title) cl.position = title;
+        if (company) cl.company = company;
+        this.setD({ target: { title, company, text: String(this.state.scanText || '').slice(0, 6000), at: Date.now() }, cl });
+        this.setState({ scanClosing: true });
+        setTimeout(() => this.setState({ scanOpen: false, scanClosing: false }), 260);
+        this.showToast(t.scanSaved);
+        this.track('scan_save', { found: a.total, have: a.have });
+      },
+    });
+  }
+  matchVals(letter) {
+    const t = this.T();
+    const tg = this.D().target;
+    const has = !!(tg && String(tg.text || '').trim());
+    if (letter) return { showMatchCard: false, showMatchPrompt: false };
+    if (!has) return { showMatchCard: false, showMatchPrompt: true };
+    const a = this.analyseAd(tg.text);
+    const pct = a.total ? Math.round(a.have / a.total * 100) : 0;
+    const forTxt = [tg.title, tg.company].filter((x) => String(x || '').trim()).join(' · ');
+    return {
+      showMatchCard: true, showMatchPrompt: false,
+      matchPct: a.total ? pct + '%' : '—', matchCount: a.have + ' / ' + a.total + ' ' + t.matchOf, matchWidth: pct + '%',
+      matchFor: forTxt ? t.matchFor + forTxt : '',
+      matchMissing: this.missingChips(a), matchHasMissing: a.items.some((x) => !x.have), matchAllGood: a.total > 0 && a.have === a.total,
+      removeTarget: () => { this.setD({ target: null }); this.showToast(t.matchRemoved); },
+    };
+  }
+  openScanNow() {
+    this.setState({ scanOpen: true, scanClosing: false, scanStage: 'pick', scanErr: '', scanThumb: '', scanPaste: '' });
+    this.track('scan_open');
+    this.loadOcr().catch(() => {}); // start downloading the reader early
   }
 
   // ---------- data ----------
@@ -2457,6 +3020,7 @@ class Component extends DCLogic {
       atsNoPhoto: tpl === 'ats',
       download: () => this.download(), printDownload: () => this.download('print'),
       downloadLabel: this.state.pdfBusy ? t.pdfMaking : t.download,
+      ...this.scanVals(), ...this.matchVals(this.state.docMode === 'letter'), openScan: () => this.openScanNow(),
       toast: this.state.toast, hasToast: !!this.state.toast,
       sheetOpen, sheetCats, sheetItems,
       sheetAnim: this.state.sheetClosing ? 'anim-sheet-out' : 'anim-sheet', sheetBgAnim: this.state.sheetClosing ? 'anim-fade-out' : 'anim-fade',
