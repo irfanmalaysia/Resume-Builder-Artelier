@@ -136,20 +136,33 @@ if ('serviceWorker' in navigator) { window.addEventListener('load', function () 
       <span style="font-size:18px; font-weight:800;">{{ t.chooseTpl }}</span>
       <span style="font-size:12px; color:#90949B; font-weight:600;">{{ t.tplCount }}</span>
     </div>
-    <div style="padding:12px 20px 0; display:grid; grid-template-columns:repeat(2, minmax(0, 1fr)); gap:12px;">
-      <sc-for list="{{ templates }}" as="tp" hint-placeholder-count="4">
-        <div onClick="{{ tp.pick }}" style="background:#fff; border-radius:20px; padding:9px; border:{{ tp.border }}; cursor:pointer; position:relative;">
-          <div data-rv="{{ tp.id }}" data-rv-crop="1" style="width:100%; height:205px; border-radius:12px; overflow:hidden; background:#F4F4F2; pointer-events:none; box-shadow:inset 0 0 0 1px #ECECE9;"></div>
-          <div style="position:absolute; top:16px; left:16px; background:{{ tp.badgeBg }}; color:{{ tp.badgeFg }}; font-size:10px; font-weight:800; letter-spacing:.6px; text-transform:uppercase; padding:4px 8px; border-radius:8px;">{{ tp.tierLabel }}</div>
-          <div style="padding:9px 4px 3px;">
-            <div style="font-size:14px; font-weight:800;">{{ tp.name }}</div>
-            <div style="display:flex; align-items:center; gap:6px; margin-top:3px;">
-              <span style="font-size:12px; color:#A8ACB2; text-decoration:line-through; font-weight:600;">{{ tp.price }}</span>
-              <span style="font-size:12.5px; font-weight:800; color:#15171B;">{{ t.free }}</span>
-            </div>
+    <!-- template carousel: swipe left/right, the centre card is big, the background takes its colour; tap it for details -->
+    <div style="margin:12px 20px 0; border-radius:26px; background:{{ carBg }}; transition:background .45s ease; padding:20px 0 18px;">
+      <div data-carousel="1" class="chips" onScroll="{{ onCarScroll }}" style="display:flex; gap:14px; overflow-x:auto; scroll-snap-type:x mandatory; padding:6px calc(50% - 107px) 10px; -webkit-overflow-scrolling:touch;">
+        <sc-for list="{{ carCards }}" as="cc" hint-placeholder-count="3">
+          <div onClick="{{ cc.tap }}" style="flex:none; width:214px; scroll-snap-align:center; cursor:pointer; transform:scale({{ cc.scale }}); opacity:{{ cc.opacity }}; transition:transform .35s ease, opacity .35s ease; position:relative;">
+            <div data-rv="{{ cc.id }}" data-rv-crop="1" style="width:214px; height:303px; border-radius:14px; overflow:hidden; background:#fff; pointer-events:none; box-shadow:0 14px 30px rgba(21,23,27,.18);"></div>
+            <div style="position:absolute; top:10px; left:10px; background:{{ cc.badgeBg }}; color:{{ cc.badgeFg }}; font-size:10px; font-weight:800; letter-spacing:.6px; text-transform:uppercase; padding:4px 8px; border-radius:8px;">{{ cc.tierLabel }}</div>
           </div>
+        </sc-for>
+      </div>
+      <div style="text-align:center; margin-top:10px;">
+        <div style="font-size:22px; font-weight:800;">{{ carName }}</div>
+        <div style="font-size:12.5px; color:#4A4F57; margin:4px 30px 0; line-height:1.4;">{{ carBest }}</div>
+        <div style="display:flex; align-items:baseline; justify-content:center; gap:8px; margin-top:8px;">
+          <span style="font-size:13px; color:#8A8E94; text-decoration:line-through; font-weight:700;">{{ carPrice }}</span>
+          <span style="font-size:20px; font-weight:800;">{{ t.free }}</span>
         </div>
-      </sc-for>
+        <div style="display:flex; justify-content:center; gap:6px; margin-top:12px;">
+          <sc-for list="{{ carDots }}" as="dot" hint-placeholder-count="6">
+            <div onClick="{{ dot.go }}" style="height:7px; width:{{ dot.w }}; border-radius:4px; background:{{ dot.bg }}; transition:width .3s ease; cursor:pointer;"></div>
+          </sc-for>
+        </div>
+        <div style="display:flex; justify-content:center; gap:8px; margin-top:14px;">
+          <div onClick="{{ carDetail }}" style="padding:12px 16px; border-radius:14px; background:rgba(255,255,255,.75); font-size:13.5px; font-weight:800; cursor:pointer;">{{ t.carMore }}</div>
+          <div onClick="{{ carUse }}" style="padding:12px 18px; border-radius:14px; background:#15171B; color:#fff; font-size:13.5px; font-weight:800; cursor:pointer;">{{ t.carUse }}</div>
+        </div>
+      </div>
     </div>
 
     <!-- how it works -->
@@ -625,6 +638,41 @@ if ('serviceWorker' in navigator) { window.addEventListener('load', function () 
     </div>
   </sc-if>
 
+  <!-- ===== TEMPLATE DETAIL ===== -->
+  <sc-if value="{{ detailOpen }}" hint-placeholder-val="{{ false }}">
+    <div class="scroll" style="position:absolute; inset:0; z-index:85; background:{{ detBg }}; overflow-y:auto; padding:calc(14px + env(safe-area-inset-top)) 20px 30px;">
+      <div style="display:flex; align-items:center; justify-content:space-between;">
+        <div onClick="{{ closeDetail }}" style="width:42px; height:42px; border-radius:13px; background:rgba(255,255,255,.8); display:flex; align-items:center; justify-content:center; cursor:pointer;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M15 5l-7 7 7 7" stroke="#15171B" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        </div>
+        <span style="font-size:16px; font-weight:800;">{{ detName }}</span>
+        <div style="width:42px;"></div>
+      </div>
+      <div style="display:flex; justify-content:center; margin-top:18px;">
+        <div data-rv="{{ detId }}" data-rv-crop="1" style="width:280px; height:396px; border-radius:16px; overflow:hidden; background:#fff; pointer-events:none; box-shadow:0 20px 44px rgba(21,23,27,.22);"></div>
+      </div>
+      <div style="background:#fff; border-radius:24px; padding:18px; margin-top:20px;">
+        <div style="display:flex; align-items:center; justify-content:space-between; gap:10px;">
+          <div>
+            <div style="font-size:22px; font-weight:800;">{{ detName }}</div>
+            <div style="font-size:12px; color:#90949B; font-weight:700; margin-top:2px;">{{ detTier }}</div>
+          </div>
+          <div style="text-align:right;">
+            <div style="font-size:12.5px; color:#A8ACB2; text-decoration:line-through; font-weight:700;">{{ detPrice }}</div>
+            <div style="font-size:20px; font-weight:800;">{{ t.free }}</div>
+          </div>
+        </div>
+        <div style="font-size:13.5px; color:#4A4F57; line-height:1.5; margin-top:10px;">{{ detBest }}</div>
+        <div style="display:flex; flex-wrap:wrap; gap:6px; margin-top:12px;">
+          <sc-for list="{{ detTags }}" as="tg" hint-placeholder-count="3">
+            <span style="font-size:12px; font-weight:700; background:#F4F4F2; padding:6px 10px; border-radius:9px;">{{ tg }}</span>
+          </sc-for>
+        </div>
+        <div onClick="{{ detUse }}" style="margin-top:16px; text-align:center; padding:15px; border-radius:16px; background:#15171B; color:#fff; font-size:15px; font-weight:800; cursor:pointer;">{{ t.carUse }}</div>
+      </div>
+    </div>
+  </sc-if>
+
   <!-- ===== PHOTO CROP ===== -->
   <sc-if value="{{ cropOpen }}" hint-placeholder-val="{{ false }}">
     <div style="position:absolute; inset:0; z-index:96; background:rgba(21,23,27,.86); display:flex; flex-direction:column; align-items:center; justify-content:center; padding:24px;">
@@ -703,6 +751,7 @@ class Component extends DCLogic {
     return {
       ms: {
         brandSub: 'Pembina Resume', heroEyebrow: 'Baharu · Percuma', heroTitle: 'Resume profesional dalam 5 minit', heroCta: 'Mula bina',
+        carMore: 'Lihat butiran', carUse: 'Guna templat ini',
         chooseTpl: 'Pilih templat', tplCount: '6 templat', free: 'Percuma', standard: 'Standard', ats: 'Mesra ATS',
         how: 'Cara ia berfungsi',
         how1: 'Pilih templat', how1d: 'Moden, Klasik, Formal, Kreatif, Minimalis atau ATS Pro.',
@@ -781,6 +830,7 @@ class Component extends DCLogic {
       },
       en: {
         brandSub: 'Resume Builder', heroEyebrow: 'New · Free', heroTitle: 'A professional resume in 5 minutes', heroCta: 'Start building',
+        carMore: 'See details', carUse: 'Use this template',
         chooseTpl: 'Choose a template', tplCount: '6 templates', free: 'Free', standard: 'Standard', ats: 'ATS-friendly',
         how: 'How it works',
         how1: 'Pick a template', how1d: 'Modern, Classic, Formal, Creative, Minimal or ATS Pro.',
@@ -863,12 +913,24 @@ class Component extends DCLogic {
 
   get TEMPLATES() {
     return [
-      { id: 'moden', ms: 'Moden', en: 'Modern', tier: 'standard' },
-      { id: 'klasik', ms: 'Klasik', en: 'Classic', tier: 'standard' },
-      { id: 'minimal', ms: 'Minimalis', en: 'Minimal', tier: 'standard' },
-      { id: 'formal', ms: 'Formal', en: 'Formal', tier: 'standard' },
-      { id: 'kreatif', ms: 'Kreatif', en: 'Creative', tier: 'standard' },
-      { id: 'ats', ms: 'ATS Pro', en: 'ATS Pro', tier: 'ats' },
+      { id: 'moden', ms: 'Moden', en: 'Modern', tier: 'standard', bg: '#DCE5F0',
+        bestMs: 'Kemas dan moden. Sesuai untuk kebanyakan kerja pejabat dan eksekutif.', bestEn: 'Clean and modern. Fits most office and executive jobs.',
+        tagsMs: ['Gambar', '8 pilihan warna', '2 lajur'], tagsEn: ['Photo', '8 colour choices', '2 columns'] },
+      { id: 'klasik', ms: 'Klasik', en: 'Classic', tier: 'standard', bg: '#E4E0EC',
+        bestMs: 'Berwibawa dengan lajur sisi. Sesuai untuk pentadbiran, akaun dan pengurusan.', bestEn: 'Confident, with a side column. Fits admin, accounts and management.',
+        tagsMs: ['Gambar', '8 pilihan warna', 'Lajur sisi'], tagsEn: ['Photo', '8 colour choices', 'Side column'] },
+      { id: 'minimal', ms: 'Minimalis', en: 'Minimal', tier: 'standard', bg: '#ECEAE4',
+        bestMs: 'Ringkas dan elegan. Sesuai untuk pendidikan dan jawatan profesional.', bestEn: 'Simple and elegant. Fits education and professional roles.',
+        tagsMs: ['Gambar', 'Hitam putih', 'Satu lajur'], tagsEn: ['Photo', 'Black & white', 'One column'] },
+      { id: 'formal', ms: 'Formal', en: 'Formal', tier: 'standard', bg: '#E2E2DE',
+        bestMs: 'Gaya tradisional dengan gambar pasport. Sesuai untuk kerajaan, GLC dan bank.', bestEn: 'Traditional style with a passport photo. Fits government, GLCs and banks.',
+        tagsMs: ['Gambar pasport', 'Hitam putih', 'Tajuk berlatar'], tagsEn: ['Passport photo', 'Black & white', 'Shaded headings'] },
+      { id: 'kreatif', ms: 'Kreatif', en: 'Creative', tier: 'standard', bg: '#F4DFE5',
+        bestMs: 'Berwarna dan menonjol. Sesuai untuk pemasaran, jualan, reka bentuk dan F&B.', bestEn: 'Colourful and eye-catching. Fits marketing, sales, design and F&B.',
+        tagsMs: ['Gambar bulat', '8 pilihan warna', 'Kotak kemahiran'], tagsEn: ['Round photo', '8 colour choices', 'Skills box'] },
+      { id: 'ats', ms: 'ATS Pro', en: 'ATS Pro', tier: 'ats', bg: '#DFEED5',
+        bestMs: 'Mudah dibaca sistem saringan resume (ATS) syarikat besar dan MNC.', bestEn: 'Easy for the resume screening systems (ATS) of big companies and MNCs to read.',
+        tagsMs: ['Mesra ATS', 'Tanpa gambar', 'Satu lajur'], tagsEn: ['ATS-friendly', 'No photo', 'One column'] },
     ];
   }
   price(tier) { return tier === 'ats' ? 'RM10' : 'RM5'; }
@@ -2220,6 +2282,36 @@ class Component extends DCLogic {
       setEn: () => { if (lang !== 'en') { this.setState({ lang: 'en' }); this.track('lang_switch', { lang: 'en' }); } },
       isHome: screen === 'home', isBuild: screen === 'build', isPreview: screen === 'preview',
       startBuild: () => { this.setState({ screen: 'build', step: 0 }); this.track('start_build', { from: 'hero' }); },
+      ...(() => {
+        // template carousel on Home
+        const TPL = this.TEMPLATES;
+        const idx = Math.max(0, Math.min(TPL.length - 1, this.state.carIdx || 0));
+        const cur = TPL[idx];
+        const STEP = 214 + 14;
+        const goTo = (i) => { const el = document.querySelector('[data-carousel]'); if (el) el.scrollTo({ left: i * STEP, behavior: 'smooth' }); this.setState({ carIdx: i }); };
+        const nm = (x) => x[lang] || x.ms;
+        const det = TPL.find((x) => x.id === this.state.detailId);
+        const useTpl = (id) => { this.setState({ tpl: id, screen: 'build', step: 0, detailId: null }); this.track('template_pick', { template: id, from: 'home' }); this.track('start_build', { template: id }); };
+        return {
+          carBg: cur.bg, carName: nm(cur), carBest: lang === 'en' ? cur.bestEn : cur.bestMs, carPrice: this.price(cur.tier),
+          carCards: TPL.map((x, i) => ({
+            id: x.id, scale: i === idx ? '1' : '0.84', opacity: i === idx ? '1' : '0.55',
+            tierLabel: x.tier === 'ats' ? 'ATS' : t.standard, badgeBg: x.tier === 'ats' ? '#15171B' : accent, badgeFg: x.tier === 'ats' ? '#fff' : '#15171B',
+            tap: () => (i === idx ? (this.setState({ detailId: x.id }), this.track('template_detail', { template: x.id })) : goTo(i)),
+          })),
+          carDots: TPL.map((x, i) => ({ w: i === idx ? '22px' : '7px', bg: i === idx ? '#15171B' : 'rgba(21,23,27,.22)', go: () => goTo(i) })),
+          onCarScroll: (ev) => {
+            const el = ev.target; if (this._carRaf) return;
+            this._carRaf = requestAnimationFrame(() => { this._carRaf = null; const i = Math.max(0, Math.min(TPL.length - 1, Math.round(el.scrollLeft / STEP))); if (i !== (this.state.carIdx || 0)) this.setState({ carIdx: i }); });
+          },
+          carDetail: () => { this.setState({ detailId: cur.id }); this.track('template_detail', { template: cur.id }); },
+          carUse: () => useTpl(cur.id),
+          detailOpen: !!det, detId: det ? det.id : '', detName: det ? nm(det) : '', detBg: det ? det.bg : '#F4F4F2',
+          detTier: det ? (det.tier === 'ats' ? t.ats : t.standard) : '', detPrice: det ? this.price(det.tier) : '',
+          detBest: det ? (lang === 'en' ? det.bestEn : det.bestMs) : '', detTags: det ? (lang === 'en' ? det.tagsEn : det.tagsMs) : [],
+          closeDetail: () => this.setState({ detailId: null }), detUse: () => det && useTpl(det.id),
+        };
+      })(),
       showInstall: !!this.state.installOk && (!!this.state.canInstall || !!this.state.installIos),
       canInstall: !!this.state.canInstall,
       installText: this.state.canInstall ? t.installText : t.installIos,
