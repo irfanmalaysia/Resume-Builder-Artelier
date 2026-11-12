@@ -703,9 +703,9 @@ class Component extends DCLogic {
     return {
       ms: {
         brandSub: 'Pembina Resume', heroEyebrow: 'Baharu · Percuma', heroTitle: 'Resume profesional dalam 5 minit', heroCta: 'Mula bina',
-        chooseTpl: 'Pilih templat', tplCount: '4 templat', free: 'Percuma', standard: 'Standard', ats: 'Mesra ATS',
+        chooseTpl: 'Pilih templat', tplCount: '6 templat', free: 'Percuma', standard: 'Standard', ats: 'Mesra ATS',
         how: 'Cara ia berfungsi',
-        how1: 'Pilih templat', how1d: 'Moden, Klasik, Minimalis atau ATS Pro.',
+        how1: 'Pilih templat', how1d: 'Moden, Klasik, Formal, Kreatif, Minimalis atau ATS Pro.',
         how2: 'Isi maklumat anda', how2d: 'Gambar, pengalaman, pendidikan & kemahiran.',
         how3: 'Muat turun PDF', how3d: 'Sedia dihantar kepada majikan.',
         atsNote: 'Templat ATS Pro direka supaya mudah dibaca oleh sistem saringan resume (ATS) yang digunakan oleh banyak syarikat besar.',
@@ -781,9 +781,9 @@ class Component extends DCLogic {
       },
       en: {
         brandSub: 'Resume Builder', heroEyebrow: 'New · Free', heroTitle: 'A professional resume in 5 minutes', heroCta: 'Start building',
-        chooseTpl: 'Choose a template', tplCount: '4 templates', free: 'Free', standard: 'Standard', ats: 'ATS-friendly',
+        chooseTpl: 'Choose a template', tplCount: '6 templates', free: 'Free', standard: 'Standard', ats: 'ATS-friendly',
         how: 'How it works',
-        how1: 'Pick a template', how1d: 'Modern, Classic, Minimal or ATS Pro.',
+        how1: 'Pick a template', how1d: 'Modern, Classic, Formal, Creative, Minimal or ATS Pro.',
         how2: 'Fill in your details', how2d: 'Photo, experience, education & skills.',
         how3: 'Download as PDF', how3d: 'Ready to send to employers.',
         atsNote: 'The ATS Pro template is built to be read cleanly by the resume screening systems (ATS) many large companies use.',
@@ -866,6 +866,8 @@ class Component extends DCLogic {
       { id: 'moden', ms: 'Moden', en: 'Modern', tier: 'standard' },
       { id: 'klasik', ms: 'Klasik', en: 'Classic', tier: 'standard' },
       { id: 'minimal', ms: 'Minimalis', en: 'Minimal', tier: 'standard' },
+      { id: 'formal', ms: 'Formal', en: 'Formal', tier: 'standard' },
+      { id: 'kreatif', ms: 'Kreatif', en: 'Creative', tier: 'standard' },
       { id: 'ats', ms: 'ATS Pro', en: 'ATS Pro', tier: 'ats' },
     ];
   }
@@ -1371,6 +1373,29 @@ class Component extends DCLogic {
 .rv-ats .sec{margin-top:18px}
 .rv-ats .sec-h{font-size:14px;font-weight:700;text-transform:uppercase;border-bottom:1px solid #000;padding-bottom:3px;margin-bottom:8px}
 .rv-ats .job-co,.rv-ats .job-date,.rv-ats .job-note{color:#000}
+.rv-formal{padding:50px 56px;color:#111}
+.rv-formal .f-head{display:flex;justify-content:space-between;align-items:flex-start;gap:24px;padding-bottom:16px;border-bottom:2px solid #111;margin-bottom:4px}
+.rv-formal h1{font-size:26px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;line-height:1.2}
+.rv-formal .f-title{font-size:15px;font-weight:700;color:#333;margin-top:5px}
+.rv-formal .f-contact{font-size:12.5px;color:#333;margin-top:10px;line-height:1.7}
+.rv-formal .f-photo{width:104px;height:130px;object-fit:cover;border:1px solid #888;flex:none}
+.rv-formal .sec{margin-top:16px}
+.rv-formal .sec-h{background:#E6E6E3;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1px;padding:5px 10px;margin-bottom:10px}
+.rv-formal .sec > div:last-child{padding:0 4px}
+.rv-formal .job-co{color:#333}
+.rv-kreatif{padding:46px 48px 46px 40px;border-left:12px solid var(--m-bar)}
+.rv-kreatif .c-head{display:flex;justify-content:space-between;align-items:center;gap:24px;margin-bottom:28px}
+.rv-kreatif h1{font-size:38px;font-weight:700;line-height:1.08;color:var(--m-bar);letter-spacing:-.5px}
+.rv-kreatif .c-title{font-size:13px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:#555b65;margin-top:10px}
+.rv-kreatif .c-contact{display:flex;flex-wrap:wrap;gap:4px 16px;font-size:12.5px;color:#444;margin-top:12px}
+.rv-kreatif .c-photo{width:118px;height:118px;border-radius:50%;object-fit:cover;border:4px solid var(--m-bar);flex:none}
+.rv-kreatif .c-body{display:grid;grid-template-columns:1fr 200px;gap:28px}
+.rv-kreatif .sec{margin-bottom:22px}
+.rv-kreatif .sec-h{font-size:17px;font-weight:700;color:var(--m-bar);margin-bottom:10px}
+.rv-kreatif .job-role{color:var(--m-bar)}
+.rv-kreatif .c-side{background:var(--m-tint);border-radius:14px;padding:20px 18px;align-self:start}
+.rv-kreatif .c-side .sec-h{font-size:14px;letter-spacing:1px;text-transform:uppercase}
+.rv-kreatif .c-item{font-size:12.5px;margin-bottom:6px}
 .rv-letter{padding:64px 76px;color:#1d2026}
 .rv-letter .l-name{font-size:24px;font-weight:700;line-height:1.2}
 .rv-letter .l-contact{font-size:12.5px;color:#4a4f57;margin-top:6px;display:flex;flex-wrap:wrap;gap:4px 14px}
@@ -1530,6 +1555,18 @@ class Component extends DCLogic {
       return root('rv-ats', head + mainFlow() +
         sec(t.hSkills, skills.join(', ')) + sec(t.hLangs, langs.join(', ')) + sec(t.hLicence, licence) + refsSec);
     }
+    if (tpl === 'formal') {
+      const head = '<div class="f-head"><div><h1>' + name + '</h1><div class="f-title">' + title + '</div><div class="f-contact">' + contacts.join(' &nbsp;|&nbsp; ') + '</div></div>' +
+        (photo ? '<img class="f-photo" src="' + photo + '" alt="">' : '') + '</div>';
+      return root('rv-formal', head + mainFlow() + sec(t.hSkills, skills.join(', ')) + sec(t.hLangs, langs.join(', ')) + sec(t.hLicence, licence) + refsSec);
+    }
+    if (tpl === 'kreatif') {
+      const head = '<div class="c-head"><div><h1>' + name + '</h1><div class="c-title">' + title + '</div><div class="c-contact">' +
+        contacts.map((c) => '<span>' + c + '</span>').join('') + '</div></div>' + (photo ? '<img class="c-photo" src="' + photo + '" alt="">' : '') + '</div>';
+      const cItem = (c) => '<div class="c-item blk">' + c + '</div>';
+      const side = sec(t.hSkills, skills.map(cItem).join(''), true) + sec(t.hLangs, langs.map(cItem).join(''), true) + sec(t.hLicence, licence ? cItem(licence) : '', true);
+      return root('rv-kreatif', head + '<div class="c-body"><div class="c-main">' + mainFlow() + refsSec + '</div>' + (side ? '<div class="c-side">' + side + '</div>' : '<div></div>') + '</div>');
+    }
     // moden (default)
     const head = '<div class="m-head"><div><h1>' + name + '</h1><div class="m-title">' + title + '</div><div class="m-contact">' +
       contacts.map((c) => '<span>' + c + '</span>').join('') + '</div></div>' + (photo ? '<img class="m-photo" src="' + photo + '" alt="">' : '') + '</div>';
@@ -1636,7 +1673,7 @@ class Component extends DCLogic {
         const d = Object.assign({}, blank, o.d);
         ['exp', 'edu', 'certs', 'projects', 'cocu', 'refs'].forEach((k) => { if (!Array.isArray(d[k])) d[k] = blank[k]; });
         if (d.photo && String(d.photo).indexOf('data:image/') !== 0) d.photo = '';
-        const tpls = ['moden', 'klasik', 'minimal', 'ats'];
+        const tpls = ['moden', 'klasik', 'minimal', 'formal', 'kreatif', 'ats'];
         this.setState({ d, step: 0, confirmClear: false, tpl: tpls.indexOf(o.tpl) >= 0 ? o.tpl : this.state.tpl, mColor: o.mColor || this.state.mColor, lang: o.lang === 'en' ? 'en' : o.lang === 'ms' ? 'ms' : this.state.lang });
         this.showToast(t.backupLoaded); this.track('backup_open');
       } catch (e) { this.showToast(t.backupBad); }
@@ -1668,7 +1705,7 @@ class Component extends DCLogic {
   async download(method) {
     const t = this.T();
     if (this.state.pdfBusy) return;
-    const hasColor = this.state.tpl === 'moden' || this.state.tpl === 'klasik';
+    const hasColor = ['moden', 'klasik', 'kreatif'].indexOf(this.state.tpl) >= 0;
     const letter = this.docTpl() === 'letter';
     const meta = letter ? { pages: this.state.pages || 1 } : { color: hasColor ? this.modenColor().id : 'none', pages: this.state.pages || 1, score: this.computeScore().score };
     // the public counter only counts resumes; cover letters are tracked as their own event
@@ -2257,7 +2294,7 @@ class Component extends DCLogic {
       downloadLabel: this.state.pdfBusy ? t.pdfMaking : t.download,
       toast: this.state.toast, hasToast: !!this.state.toast,
       sheetOpen, sheetCats, sheetItems, closeSheet: () => this.setState({ dutySheet: -1 }),
-      isModen: tpl === 'moden' || tpl === 'klasik',
+      isModen: ['moden', 'klasik', 'kreatif'].indexOf(tpl) >= 0,
       ...(() => {
         const letter = this.state.docMode === 'letter';
         const cl = this.CL();
@@ -2267,7 +2304,7 @@ class Component extends DCLogic {
         return {
           isLetter: letter, isResumeDoc: !letter, previewTpl: letter ? 'letter' : tpl,
           previewTitle: letter ? t.previewLetter : t.preview,
-          showColors: !letter && (tpl === 'moden' || tpl === 'klasik'),
+          showColors: !letter && ['moden', 'klasik', 'kreatif'].indexOf(tpl) >= 0,
           docTabs: [tab('resume', t.docResume), tab('letter', t.docLetter)],
           letterFields: letter ? [
             lf('company', t.clCompany, lang === 'en' ? 'e.g. Koperasi Maju Bhd.' : 'cth. Koperasi Maju Bhd.'),
