@@ -391,10 +391,51 @@ if ('serviceWorker' in navigator) { window.addEventListener('load', function () 
             </sc-if>
           </div>
         </sc-for>
-        <div style="display:flex; flex-wrap:wrap; gap:6px;">
-          <sc-for list="{{ skillChips }}" as="c" hint-placeholder-count="4">
-            <span style="background:#fff; border:1px solid #E5E5EA; border-radius:9px; padding:6px 10px; font-size:12px; font-weight:700;">{{ c }}</span>
+        <!-- tap to pick skills -->
+        <div style="background:#fff; border:1px solid #E5E5EA; border-radius:18px; padding:14px;">
+          <div style="font-size:13.5px; font-weight:800;">{{ t.pickSkills }}</div>
+          <div style="font-size:11.5px; color:#8E8E93; margin-top:2px; line-height:1.4;">{{ t.pickSkillsHint }}</div>
+          <sc-for list="{{ skillGroups }}" as="sg" hint-placeholder-count="2">
+            <div style="font-size:11px; font-weight:800; letter-spacing:.5px; text-transform:uppercase; color:#8E8E93; margin:14px 0 7px;">{{ sg.title }}</div>
+            <div style="display:flex; flex-wrap:wrap; gap:6px;">
+              <sc-for list="{{ sg.items }}" as="c" hint-placeholder-count="4">
+                <div onClick="{{ c.toggle }}" style="font-size:12.5px; font-weight:700; padding:7px 11px; border-radius:10px; cursor:pointer; background:{{ c.bg }}; color:{{ c.fg }}; border:1px solid {{ c.border }};">{{ c.label }}</div>
+              </sc-for>
+            </div>
           </sc-for>
+        </div>
+
+        <!-- languages with a level -->
+        <div style="display:flex; flex-direction:column; gap:8px; margin-top:4px;">
+          <span style="font-size:12px; font-weight:700; color:#6E6E73;">{{ t.langsTitle }}</span>
+          <sc-for list="{{ langRows }}" as="lr" hint-placeholder-count="2">
+            <div style="background:#fff; border:1px solid #E5E5EA; border-radius:16px; padding:12px;">
+              <div style="display:flex; align-items:center; justify-content:space-between; gap:8px;">
+                <span style="font-size:14px; font-weight:800;">{{ lr.name }}</span>
+                <div onClick="{{ lr.remove }}" style="width:28px; height:28px; border-radius:9px; background:#F5F5F7; display:flex; align-items:center; justify-content:center; cursor:pointer;">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="#6E6E73" stroke-width="2.4" stroke-linecap="round"></path></svg>
+                </div>
+              </div>
+              <div style="display:grid; grid-template-columns:repeat(4, minmax(0, 1fr)); gap:5px; margin-top:9px;">
+                <sc-for list="{{ lr.levels }}" as="lv" hint-placeholder-count="4">
+                  <div onClick="{{ lv.pick }}" style="text-align:center; font-size:11.5px; font-weight:800; padding:8px 2px; border-radius:9px; cursor:pointer; background:{{ lv.bg }}; color:{{ lv.fg }};">{{ lv.label }}</div>
+                </sc-for>
+              </div>
+              <sc-if value="{{ lr.oldLevel }}" hint-placeholder-val="{{ false }}">
+                <div style="font-size:11px; color:#8E8E93; margin-top:6px;">{{ lr.oldText }}</div>
+              </sc-if>
+            </div>
+          </sc-for>
+          <div style="display:flex; flex-wrap:wrap; gap:6px;">
+            <sc-for list="{{ langAdd }}" as="la" hint-placeholder-count="4">
+              <div onClick="{{ la.add }}" style="font-size:12.5px; font-weight:700; padding:7px 11px; border-radius:10px; cursor:pointer; background:#fff; border:1px dashed #AAAAAA;">+ {{ la.label }}</div>
+            </sc-for>
+          </div>
+          <div style="display:flex; gap:8px;">
+            <input class="fld" type="text" value="{{ langCustom }}" placeholder="{{ t.langOtherPh }}" onChange="{{ onLangCustom }}" onKeyDown="{{ onLangKey }}" style="flex:1; min-width:0;">
+            <div onClick="{{ addLangCustom }}" style="flex:none; display:flex; align-items:center; padding:0 16px; border-radius:12px; background:#1D1D1F; color:#fff; font-size:13px; font-weight:800; cursor:pointer;">{{ t.add }}</div>
+          </div>
+          <div style="font-size:11.5px; color:#8E8E93; line-height:1.4;">{{ t.langLevelTip }}</div>
         </div>
         <div style="display:flex; flex-direction:column; gap:6px;">
           <span style="font-size:12px; font-weight:700; color:#6E6E73;">{{ t.licence }}</span>
@@ -1053,6 +1094,9 @@ class Component extends DCLogic {
         scanAdded: 'Ditambah: ', scanDutyAdded: 'Tugas ditambah ke pengalaman anda', matchOf: 'kata kunci', matchFor: 'Untuk: ', matchRescan: 'Imbas semula', matchRemove: 'Buang iklan ini',
         matchGood: 'Semua kemahiran utama dalam iklan sudah ada dalam resume anda. Bagus!', matchPrompt: 'Ada iklan kerja? Imbas untuk semak padanan resume anda.', matchPromptBtn: 'Imbas', matchRemoved: 'Iklan dibuang.',
         scanReqHint: 'Ini syarat jawatan — tambah dalam Pendidikan, Sijil atau Lesen jika anda memilikinya.',
+        pickSkills: 'Tekan untuk pilih kemahiran', pickSkillsHint: 'Tekan sekali untuk tambah, tekan lagi untuk buang. Anda masih boleh taip sendiri di atas.', pickForJob: 'Untuk', pickComputer: 'Komputer & perisian', pickSoft: 'Kemahiran insaniah',
+        langsTitle: 'Bahasa & tahap penguasaan', langOtherPh: 'Bahasa lain, cth. Bahasa Iban', add: 'Tambah', langOldLevel: 'Tahap sekarang: ',
+        langLevelTip: 'Tahap ditulis sebagai perkataan (cth. "Fasih") supaya sistem ATS boleh baca. Templat berwarna turut tunjuk palang tahap.',
         scoreTitle: 'Skor resume', scoreSub: 'Ikut tip di bawah untuk naikkan skor anda.', scorePerfect: 'Hebat! Resume anda lengkap dan kemas.', fixBtn: 'Baiki',
         lvl0: 'Perlu dibaiki', lvl1: 'Sederhana', lvl2: 'Baik', lvl3: 'Cemerlang',
         tName: 'Isi nama penuh anda.', tTitle: 'Isi jawatan atau bidang yang anda pohon.', tPhone: 'Tambah nombor telefon.', tEmail: 'Tambah e-mel yang sah (cth. nama@gmail.com).', tLoc: 'Tambah lokasi (bandar, negeri).',
@@ -1147,6 +1191,9 @@ class Component extends DCLogic {
         scanAdded: 'Added: ', scanDutyAdded: 'Duty added to your experience', matchOf: 'keywords', matchFor: 'For: ', matchRescan: 'Scan again', matchRemove: 'Remove this ad',
         matchGood: 'Every key skill in the ad is already in your resume. Great!', matchPrompt: 'Have a job ad? Scan it to check how well your resume matches.', matchPromptBtn: 'Scan', matchRemoved: 'Ad removed.',
         scanReqHint: 'This is a job requirement — add it under Education, Certificates or Licence if you have it.',
+        pickSkills: 'Tap to pick skills', pickSkillsHint: 'Tap once to add, tap again to remove. You can still type your own above.', pickForJob: 'For', pickComputer: 'Computer & software', pickSoft: 'Soft skills',
+        langsTitle: 'Languages & level', langOtherPh: 'Other language, e.g. Iban', add: 'Add', langOldLevel: 'Current level: ',
+        langLevelTip: 'The level is written as a word (e.g. "Fluent") so ATS systems can read it. Colour templates also show a level bar.',
         scoreTitle: 'Resume score', scoreSub: 'Follow the tips below to raise your score.', scorePerfect: 'Great! Your resume is complete and polished.', fixBtn: 'Fix',
         lvl0: 'Needs work', lvl1: 'Fair', lvl2: 'Good', lvl3: 'Excellent',
         tName: 'Add your full name.', tTitle: 'Add the job title or field you are applying for.', tPhone: 'Add a phone number.', tEmail: 'Add a valid email (e.g. name@gmail.com).', tLoc: 'Add your location (city, state).',
@@ -1789,6 +1836,127 @@ class Component extends DCLogic {
     this.loadOcr().catch(() => {}); // start downloading the reader early
   }
 
+  // ---------- Skills you can tap to pick (by job type) ----------
+  get SKILL_BANK() {
+    const s = (ms, en) => ({ ms, en });
+    return {
+      admin: [s('Microsoft Office', 'Microsoft Office'), s('Pengurusan fail & rekod', 'Filing & records'), s('Penyediaan minit mesyuarat', 'Meeting minutes'), s('Pengurusan jadual', 'Scheduling'), s('Surat-menyurat rasmi', 'Business correspondence'), s('Perolehan & pembelian', 'Procurement & purchasing')],
+      sales: [s('Teknik jualan', 'Sales techniques'), s('Rundingan', 'Negotiation'), s('Pengurusan hubungan pelanggan', 'Customer relationship management'), s('Pengetahuan produk', 'Product knowledge'), s('Penyediaan sebut harga', 'Preparing quotations'), s('Mencapai sasaran jualan', 'Meeting sales targets')],
+      cashier: [s('Sistem POS', 'POS system'), s('Pengendalian tunai', 'Cash handling'), s('Imbangan kaunter harian', 'Daily cash balancing'), s('Khidmat pelanggan', 'Customer service'), s('Pengiraan pantas', 'Quick arithmetic')],
+      cs: [s('Khidmat pelanggan', 'Customer service'), s('Pengendalian aduan', 'Complaint handling'), s('Etika telefon', 'Phone etiquette'), s('Empati', 'Empathy'), s('Sistem tiket aduan', 'Ticketing systems'), s('Penyelesaian masalah', 'Problem solving')],
+      accounts: [s('Perakaunan', 'Accounting'), s('UBS Accounting', 'UBS Accounting'), s('SQL Accounting', 'SQL Accounting'), s('AutoCount', 'AutoCount'), s('Penyesuaian bank', 'Bank reconciliation'), s('Akaun belum bayar & belum terima', 'Accounts payable & receivable'), s('Penggajian (payroll)', 'Payroll')],
+      warehouse: [s('Pengurusan stok', 'Stock management'), s('Forklift', 'Forklift'), s('Penerimaan & penghantaran barang', 'Receiving & dispatch'), s('Kiraan stok', 'Stock counting'), s('Keselamatan gudang', 'Warehouse safety'), s('Sistem inventori', 'Inventory systems')],
+      fnb: [s('Penyediaan makanan', 'Food preparation'), s('Kebersihan & keselamatan makanan', 'Food hygiene & safety'), s('Barista', 'Barista'), s('Layanan pelanggan', 'Table service'), s('Operasi dapur', 'Kitchen operations'), s('Pengurusan stok bahan', 'Ingredient stock control')],
+      clerk: [s('Kemasukan data', 'Data entry'), s('Menaip pantas', 'Fast typing'), s('Pengurusan fail & rekod', 'Filing & records'), s('Microsoft Excel', 'Microsoft Excel'), s('Microsoft Word', 'Microsoft Word'), s('Ketelitian', 'Attention to detail')],
+      hr: [s('Pengambilan pekerja', 'Recruitment'), s('Penggajian (payroll)', 'Payroll'), s('Akta Kerja 1955', 'Employment Act 1955'), s('KWSP, PERKESO & LHDN', 'EPF, SOCSO & LHDN'), s('Rekod pekerja', 'Employee records'), s('Latihan & pembangunan', 'Training & development')],
+      marketing: [s('Media sosial', 'Social media'), s('Canva', 'Canva'), s('Penulisan kandungan', 'Copywriting'), s('Iklan Facebook & TikTok', 'Facebook & TikTok ads'), s('Suntingan video (CapCut)', 'Video editing (CapCut)'), s('E-dagang (Shopee / Lazada)', 'E-commerce (Shopee / Lazada)'), s('Adobe Photoshop', 'Adobe Photoshop')],
+      teacher: [s('Pengajaran & pembelajaran', 'Teaching & learning'), s('Pengurusan bilik darjah', 'Classroom management'), s('Perancangan pelajaran', 'Lesson planning'), s('Penilaian murid', 'Student assessment'), s('Pengucapan awam', 'Public speaking'), s('Canva', 'Canva')],
+      tech: [s('Penyelenggaraan mesin', 'Machine maintenance'), s('Pendawaian elektrik', 'Electrical wiring'), s('Membaca lukisan teknikal', 'Reading technical drawings'), s('Mengesan & membaiki kerosakan', 'Troubleshooting'), s('Keselamatan pekerjaan (OSH)', 'Workplace safety (OSH)'), s('Kawalan kualiti', 'Quality control')],
+      it: [s('Sokongan IT', 'IT support'), s('Rangkaian komputer', 'Computer networking'), s('Pembangunan web (HTML, CSS)', 'Web development (HTML, CSS)'), s('Python', 'Python'), s('SQL', 'SQL'), s('Membaiki perkakasan komputer', 'Hardware troubleshooting'), s('Microsoft 365', 'Microsoft 365')],
+      driver: [s('Pemanduan berhemah', 'Defensive driving'), s('Pengetahuan laluan', 'Route knowledge'), s('Penghantaran tepat masa', 'On-time delivery'), s('Penyelenggaraan kenderaan asas', 'Basic vehicle maintenance'), s('Waze & Google Maps', 'Waze & Google Maps'), s('Dokumen penghantaran', 'Delivery documentation')],
+      computer: [s('Microsoft Word', 'Microsoft Word'), s('Microsoft Excel', 'Microsoft Excel'), s('PowerPoint', 'PowerPoint'), s('Google Workspace', 'Google Workspace'), s('Canva', 'Canva'), s('Kemasukan data', 'Data entry'), s('Menaip pantas', 'Fast typing')],
+      soft: [s('Komunikasi', 'Communication'), s('Kerja berpasukan', 'Teamwork'), s('Penyelesaian masalah', 'Problem solving'), s('Pengurusan masa', 'Time management'), s('Kepimpinan', 'Leadership'), s('Ketelitian', 'Attention to detail'), s('Mudah menyesuaikan diri', 'Adaptability'), s('Khidmat pelanggan', 'Customer service')],
+    };
+  }
+  // which job types the person's title / latest job / scanned ad point to (best first)
+  jobCats(raw) {
+    const text = ' ' + String(raw).toLowerCase().replace(/[^a-z0-9&]+/g, ' ') + ' ';
+    const has = (kw) => text.indexOf(' ' + kw + ' ') >= 0 || (kw.length > 4 && text.indexOf(kw) >= 0);
+    const kws = this.JOB_KEYWORDS;
+    return this.DUTY_BANK.map((c) => ({ id: c.id, c, score: (kws[c.id] || []).concat([c.ms.toLowerCase(), c.en.toLowerCase()]).reduce((s, w) => s + (has(w) ? w.length : 0), 0) }))
+      .filter((x) => x.score > 0 && x.id !== 'general' && x.id !== 'intern').sort((a, b) => b.score - a.score);
+  }
+  skillGroupsVals() {
+    const t = this.T();
+    const lang = this.state.lang;
+    const d = this.D();
+    const mine = this.splitList(d.skills);
+    const low = mine.map((x) => x.toLowerCase());
+    const bank = this.SKILL_BANK;
+    const isOn = (sk) => low.indexOf(sk.ms.toLowerCase()) >= 0 || low.indexOf(sk.en.toLowerCase()) >= 0;
+    const toggle = (sk) => () => {
+      const cur = this.splitList(this.D().skills);
+      const at = cur.findIndex((x) => x.toLowerCase() === sk.ms.toLowerCase() || x.toLowerCase() === sk.en.toLowerCase());
+      if (at >= 0) cur.splice(at, 1); else cur.push(sk[lang] || sk.ms);
+      this.setF('skills', cur.join(', '));
+      if (at < 0) this.track('skill_pick');
+    };
+    const seen = {};
+    const chips = (list) => list.filter((sk) => { const k = sk.en.toLowerCase(); if (seen[k]) return false; seen[k] = 1; return true; }).map((sk) => {
+      const on = isOn(sk);
+      return { label: (on ? '✓ ' : '') + (sk[lang] || sk.ms), toggle: toggle(sk), bg: on ? '#007AFF' : '#F5F5F7', fg: on ? '#fff' : '#1D1D1F', border: on ? '#007AFF' : '#F5F5F7' };
+    });
+    const job = [d.title, ((d.exp || [])[0] || {}).role, (d.target || {}).title].filter(Boolean).join(' ');
+    const cats = this.jobCats(job).slice(0, 2);
+    const groups = [];
+    if (cats.length) {
+      const items = [].concat.apply([], cats.map((c) => bank[c.id] || []));
+      groups.push({ title: t.pickForJob + ' ' + cats.map((c) => c.c[lang] || c.c.ms).join(' & '), items: chips(items) });
+    }
+    groups.push({ title: t.pickComputer, items: chips(bank.computer) });
+    groups.push({ title: t.pickSoft, items: chips(bank.soft) });
+    return groups.filter((g) => g.items.length);
+  }
+
+  // ---------- Languages with a level ----------
+  get LANG_LIST() {
+    const l = (ms, en) => ({ ms, en });
+    return [l('Bahasa Melayu', 'Malay'), l('Bahasa Inggeris', 'English'), l('Mandarin', 'Mandarin'), l('Bahasa Tamil', 'Tamil'), l('Bahasa Arab', 'Arabic'), l('Kantonis', 'Cantonese'), l('Bahasa Jepun', 'Japanese'), l('Bahasa Korea', 'Korean')];
+  }
+  get LANG_LEVELS() {
+    return [{ n: 1, ms: 'Asas', en: 'Basic' }, { n: 2, ms: 'Baik', en: 'Good' }, { n: 3, ms: 'Fasih', en: 'Fluent' }, { n: 4, ms: 'Penutur jati', en: 'Native' }];
+  }
+  // words people already use for a level → 1 to 4 (0 = not known)
+  langLevelNum(txt) {
+    const s = String(txt || '').toLowerCase();
+    if (!s.trim()) return 0;
+    if (/natif|native|penutur jati|bahasa ibunda|ibunda|mother tongue|first language/.test(s)) return 4;
+    if (/fasih|fluent|professional|proficien|advanced|excellent|cemerlang|mahir/.test(s)) return 3;
+    if (/baik|good|intermediate|sederhana|conversational|moderate/.test(s)) return 2;
+    if (/asas|basic|beginner|elementary|sedikit|limited/.test(s)) return 1;
+    return 0;
+  }
+  parseLangs(str) {
+    return this.splitList(str).map((x) => {
+      const m = x.match(/^(.*?)\s*\((.*)\)\s*$/);
+      const name = (m ? m[1] : x).trim(), level = m ? m[2].trim() : '';
+      return { name, level, n: this.langLevelNum(level) };
+    }).filter((x) => x.name);
+  }
+  writeLangs(arr) { this.setF('languages', arr.map((x) => x.name + (x.level ? ' (' + x.level + ')' : '')).join(', ')); }
+  langVals() {
+    const t = this.T();
+    const lang = this.state.lang;
+    const rows = this.parseLangs(this.D().languages);
+    const levels = this.LANG_LEVELS;
+    const addLang = (name) => {
+      name = String(name || '').trim();
+      if (!name) return;
+      const cur = this.parseLangs(this.D().languages);
+      if (cur.some((x) => x.name.toLowerCase() === name.toLowerCase())) return;
+      cur.push({ name, level: '' });
+      this.writeLangs(cur);
+      this.track('lang_add');
+    };
+    const taken = rows.map((x) => x.name.toLowerCase());
+    return {
+      langRows: rows.map((r, i) => ({
+        name: r.name,
+        oldLevel: !!r.level && !r.n, oldText: t.langOldLevel + r.level,
+        remove: () => { const cur = this.parseLangs(this.D().languages); cur.splice(i, 1); this.writeLangs(cur); },
+        levels: levels.map((lv) => ({
+          label: lv[lang] || lv.ms, bg: r.n === lv.n ? '#007AFF' : '#F5F5F7', fg: r.n === lv.n ? '#fff' : '#1D1D1F',
+          pick: () => { const cur = this.parseLangs(this.D().languages); if (!cur[i]) return; cur[i].level = lv[lang] || lv.ms; this.writeLangs(cur); },
+        })),
+      })),
+      langAdd: this.LANG_LIST.filter((x) => taken.indexOf(x.ms.toLowerCase()) < 0 && taken.indexOf(x.en.toLowerCase()) < 0).slice(0, 6)
+        .map((x) => ({ label: x[lang] || x.ms, add: () => addLang(x[lang] || x.ms) })),
+      langCustom: this.state.langCustom || '', onLangCustom: (ev) => this.setState({ langCustom: ev.target.value }),
+      addLangCustom: () => { addLang(this.state.langCustom); this.setState({ langCustom: '' }); },
+      onLangKey: (ev) => { if (ev.key === 'Enter') { ev.preventDefault(); addLang(this.state.langCustom); this.setState({ langCustom: '' }); } },
+    };
+  }
+
   // ---------- data ----------
   blank() { return { name: '', title: '', phone: '', email: '', location: '', linkedin: '', summary: '', photo: '', exp: [this.blankExp()], edu: [this.blankEdu()], skills: '', languages: '', licence: '', fresh: false, certs: [], projects: [], cocu: [], refs: [] }; }
   // sample for "Isi contoh" when fresh graduate mode is on
@@ -1984,6 +2152,15 @@ class Component extends DCLogic {
 .rv a{color:inherit;text-decoration:none}
 .rv ul{margin:4px 0 0;padding-left:18px}
 .rv li{margin:2px 0}
+.rv p,.rv li,.rv .job-note{text-align:justify}
+.rv .lv{margin-bottom:9px}
+.rv .lv-top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:0 8px}
+.rv .lv-l{font-size:11.5px;opacity:.75;margin-left:auto;text-align:right}
+.rv .lv-bar{display:flex;gap:3px;margin-top:4px}
+.rv .lv-bar div{flex:1;height:5px;border-radius:2px;background:#E2E4E8}
+.rv .lv-bar div.on{background:var(--m-bar)}
+.rv-klasik .lv-bar div{background:transparent;border:1px solid var(--k-head);border-radius:0}
+.rv-klasik .lv-bar div.on{background:var(--k-head)}
 .rv .job{margin-bottom:14px}
 .rv .job:last-child{margin-bottom:0}
 .rv .job-top{display:flex;justify-content:space-between;gap:12px;align-items:baseline}
@@ -2146,7 +2323,11 @@ class Component extends DCLogic {
     if (loc) contacts.push(e(loc));
     if (web) contacts.push(/^[\w.-]+\.[a-z]{2,}(\/\S*)?$/i.test(web.replace(/^https?:\/\//i, '')) ? link(/^https?:\/\//i.test(web) ? web : 'https://' + web, web.replace(/^https?:\/\/(www\.)?/i, '')) : e(web));
     const skills = this.splitList(d.skills).map(e);
-    const langs = this.splitList(d.languages).map(e);
+    const langList = this.parseLangs(d.languages);
+    const langs = langList.map((x) => e(x.name) + (x.level ? ' (' + e(x.level) + ')' : ''));
+    // colour templates: name, level word and a 4-step bar (the word stays, so ATS and people can read it)
+    const langBars = (cls) => langList.map((x) => '<div class="lv blk ' + cls + '"><div class="lv-top"><span>' + e(x.name) + '</span>' + (x.level ? '<span class="lv-l">' + e(x.level) + '</span>' : '') + '</div>' +
+      (x.n ? '<div class="lv-bar">' + [1, 2, 3, 4].map((i) => '<div' + (i <= x.n ? ' class="on"' : '') + '></div>').join('') + '</div>' : '') + '</div>').join('');
     const bullets = (txt) => {
       const ls = String(txt || '').split('\n').map((x) => x.replace(/^[-•*]\s*/, '').trim()).filter(Boolean);
       return ls.length ? '<ul>' + ls.map((l) => '<li class="blk">' + e(l) + '</li>').join('') + '</ul>' : '';
@@ -2195,7 +2376,7 @@ class Component extends DCLogic {
         (photo ? '<img class="k-photo" src="' + photo + '" alt="">' : '') +
         sec(t.hContact, contacts.map((c) => '<div class="k-item blk">' + c + '</div>').join(''), true) +
         sec(t.hSkills, skills.map((c) => '<div class="k-item blk">• ' + c + '</div>').join(''), true) +
-        sec(t.hLangs, langs.map((c) => '<div class="k-item blk">' + c + '</div>').join(''), true) +
+        sec(t.hLangs, langBars('k-item'), true) +
         sec(t.hLicence, licence ? '<div class="k-item blk">' + licence + '</div>' : '', true);
       const main = '<h1>' + name + '</h1><div class="k-title">' + title + '</div>' + mainFlow() + refsSec;
       return root('rv-klasik', '<div class="k-side">' + side + '</div><div class="k-main">' + main + '</div>');
@@ -2220,7 +2401,7 @@ class Component extends DCLogic {
       const head = '<div class="c-head"><div><h1>' + name + '</h1><div class="c-title">' + title + '</div><div class="c-contact">' +
         contacts.map((c) => '<span>' + c + '</span>').join('') + '</div></div>' + (photo ? '<img class="c-photo" src="' + photo + '" alt="">' : '') + '</div>';
       const cItem = (c) => '<div class="c-item blk">' + c + '</div>';
-      const side = sec(t.hSkills, skills.map(cItem).join(''), true) + sec(t.hLangs, langs.map(cItem).join(''), true) + sec(t.hLicence, licence ? cItem(licence) : '', true);
+      const side = sec(t.hSkills, skills.map(cItem).join(''), true) + sec(t.hLangs, langBars('c-item'), true) + sec(t.hLicence, licence ? cItem(licence) : '', true);
       return root('rv-kreatif', head + '<div class="c-body"><div class="c-main">' + mainFlow() + refsSec + '</div>' + (side ? '<div class="c-side">' + side + '</div>' : '<div></div>') + '</div>');
     }
     // moden (default)
@@ -2228,7 +2409,7 @@ class Component extends DCLogic {
       contacts.map((c) => '<span>' + c + '</span>').join('') + '</div></div>' + (photo ? '<img class="m-photo" src="' + photo + '" alt="">' : '') + '</div>';
     const body = '<div class="m-body"><div>' + mainFlow() + refsSec + '</div><div class="side">' +
       sec(t.hSkills, skills.map((c) => '<div class="lang blk">' + c + '</div>').join(''), true) +
-      sec(t.hLangs, langs.map((c) => '<div class="lang blk">' + c + '</div>').join(''), true) +
+      sec(t.hLangs, langBars('lang'), true) +
       sec(t.hLicence, licence ? '<div class="lang blk">' + licence + '</div>' : '', true) + '</div></div>';
     return root('rv-moden', head + body);
   }
@@ -2894,8 +3075,6 @@ class Component extends DCLogic {
     const skillFields = [
       Object.assign({ label: t.skills, value: d.skills || '', placeholder: t.skillsPh, onChange: (ev) => this.setF('skills', ev.target.value) },
         this.micProps('skills', (txt) => this.setF('skills', this.joinList(this.D().skills, txt)))),
-      Object.assign({ label: t.languages, value: d.languages || '', placeholder: t.langsPh, onChange: (ev) => this.setF('languages', ev.target.value) },
-        this.micProps('languages', (txt) => this.setF('languages', this.joinList(this.D().languages, txt)))),
     ];
 
     const tabs = [
@@ -2964,7 +3143,7 @@ class Component extends DCLogic {
       toggleFresh: () => { const on = !this.D().fresh; this.setD({ fresh: on }); this.track('fresh_mode', { on }); },
       freshBg: fresh ? '#EAF3FF' : '#fff', freshBorder: fresh ? '#B3D4FF' : '#E5E5EA',
       switchBg: fresh ? '#34C759' : '#D1D1D6', knobLeft: fresh ? '21px' : '3px',
-      personalFields, listItems, skillFields, skillChips: this.splitList(d.skills),
+      personalFields, listItems, skillFields, skillGroups: step === 3 ? this.skillGroupsVals() : [], ...(step === 3 ? this.langVals() : { langRows: [], langAdd: [] }),
       addLabel: step === 1 ? t.addExp : t.addEdu,
       addItem: () => { const k = this.state.step === 1 ? 'exp' : 'edu'; this.setD({ [k]: (this.D()[k] || []).concat([k === 'exp' ? this.blankExp() : this.blankEdu()]) }); },
       hasPhoto: !!d.photo, noPhoto: !d.photo, photoSrc: d.photo || '',
