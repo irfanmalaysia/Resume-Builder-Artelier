@@ -675,6 +675,10 @@ if ('serviceWorker' in navigator) { window.addEventListener('load', function () 
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 4v11M7 10l5 5 5-5M5 20h14" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
         {{ downloadLabel }}
       </div>
+      <div onClick="{{ openShare }}" style="margin-top:10px; display:flex; align-items:center; justify-content:center; gap:9px; background:var(--accent,#007AFF); color:#fff; padding:15px; border-radius:16px; font-size:15px; font-weight:800; cursor:pointer;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 12l16-8-6 16-2.5-6.5z" stroke="#fff" stroke-width="2.2" stroke-linejoin="round"></path><path d="M11.5 13.5L20 4" stroke="#fff" stroke-width="2.2" stroke-linecap="round"></path></svg>
+        {{ t.shareBtn }}
+      </div>
       <div style="text-align:center; font-size:11.5px; color:#8E8E93; margin-top:9px;">{{ t.downloadHint }}</div>
       <div onClick="{{ printDownload }}" style="text-align:center; font-size:11.5px; color:#6E6E73; margin-top:6px; text-decoration:underline; cursor:pointer;">{{ t.printAlt }}</div>
       <div onClick="{{ goBuild }}" style="margin-top:12px; text-align:center; padding:14px; border-radius:15px; background:#fff; border:1px solid #E5E5EA; font-size:14px; font-weight:800; cursor:pointer;">{{ t.editInfo }}</div>
@@ -910,6 +914,109 @@ if ('serviceWorker' in navigator) { window.addEventListener('load', function () 
     </div>
   </sc-if>
 
+  <!-- ===== SEND / SHARE ===== -->
+  <sc-if value="{{ shareOpen }}" hint-placeholder-val="{{ false }}">
+    <div style="position:absolute; inset:0; z-index:91; display:flex; flex-direction:column; justify-content:flex-end;">
+      <div onClick="{{ closeShare }}" class="{{ shareBgAnim }}" style="position:absolute; inset:0; background:rgba(29,29,31,.45);"></div>
+      <div data-share-sheet="1" class="{{ shareAnim }}" style="position:relative; background:#F5F5F7; border-radius:26px 26px 0 0; max-height:90%; display:flex; flex-direction:column; padding:10px 0 0;">
+        <div style="width:40px; height:5px; border-radius:3px; background:#D1D1D6; margin:0 auto 12px;"></div>
+        <div style="padding:0 20px; display:flex; align-items:flex-start; justify-content:space-between; gap:10px;">
+          <div>
+            <div style="font-size:18px; font-weight:800;">{{ t.shareTitle }}</div>
+            <div style="font-size:12px; color:#8E8E93; margin-top:3px; line-height:1.4;">{{ shareStatus }}</div>
+          </div>
+          <div onClick="{{ closeShare }}" style="flex:none; font-size:13px; font-weight:800; padding:9px 14px; border-radius:12px; background:#1D1D1F; color:#fff; cursor:pointer;">{{ t.done }}</div>
+        </div>
+        <div class="scroll" style="overflow-y:auto; flex:1; min-height:0; padding:14px 20px calc(24px + env(safe-area-inset-bottom));">
+          <!-- where to -->
+          <div style="display:flex; background:#fff; border:1px solid #E5E5EA; border-radius:14px; padding:4px; gap:4px;">
+            <sc-for list="{{ shareModes }}" as="sm" hint-placeholder-count="3">
+              <div onClick="{{ sm.go }}" style="flex:1; text-align:center; padding:10px 4px; border-radius:11px; font-size:13px; font-weight:800; cursor:pointer; background:{{ sm.bg }}; color:{{ sm.fg }};">{{ sm.label }}</div>
+            </sc-for>
+          </div>
+
+          <!-- files -->
+          <div style="background:#fff; border-radius:18px; padding:12px 14px; margin-top:12px;">
+            <sc-for list="{{ shareFileRows }}" as="fr" hint-placeholder-count="1">
+              <div style="display:flex; align-items:center; gap:10px; padding:4px 0;">
+                <div style="width:32px; height:32px; flex:none; border-radius:9px; background:#FFE9E7; color:#D93025; display:flex; align-items:center; justify-content:center; font-size:9.5px; font-weight:800;">PDF</div>
+                <span style="flex:1; min-width:0; font-size:12.5px; font-weight:700; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">{{ fr.name }}</span>
+              </div>
+            </sc-for>
+            <sc-if value="{{ shareCanLetter }}" hint-placeholder-val="{{ true }}">
+              <div onClick="{{ toggleShareLetter }}" style="display:flex; align-items:center; gap:10px; margin-top:8px; padding-top:10px; border-top:1px solid #F0F0F3; cursor:pointer;">
+                <div style="width:22px; height:22px; flex:none; border-radius:7px; border:2px solid {{ shareLetterBorder }}; background:{{ shareLetterBg }}; color:#fff; display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:800;">{{ shareLetterTick }}</div>
+                <span style="font-size:13px; font-weight:700;">{{ t.shareWithLetter }}</span>
+              </div>
+            </sc-if>
+          </div>
+
+          <!-- WhatsApp -->
+          <sc-if value="{{ shareIsWa }}" hint-placeholder-val="{{ true }}">
+            <div style="background:#fff; border-radius:18px; padding:14px; margin-top:12px; display:flex; flex-direction:column; gap:8px;">
+              <span style="font-size:12px; font-weight:700; color:#6E6E73;">{{ t.shareWaNo }}</span>
+              <input class="fld" type="tel" value="{{ sharePhone }}" placeholder="{{ t.shareWaNoPh }}" onChange="{{ onSharePhone }}">
+              <span style="font-size:11.5px; color:#8E8E93; line-height:1.4;">{{ t.shareWaNoHint }}</span>
+            </div>
+            <sc-if value="{{ shareHasPhone }}" hint-placeholder-val="{{ true }}">
+              <div style="background:#fff; border-radius:18px; padding:14px; margin-top:12px;">
+                <div style="display:flex; gap:10px; align-items:flex-start;">
+                  <div style="width:24px; height:24px; flex:none; border-radius:50%; background:#1D1D1F; color:#fff; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:800;">1</div>
+                  <div style="flex:1;">
+                    <div style="font-size:13.5px; font-weight:800;">{{ t.shareWaStep1 }}</div>
+                    <div style="font-size:11.5px; color:#8E8E93; margin-top:2px; line-height:1.4;">{{ t.shareWaStep1d }}</div>
+                    <div onClick="{{ shareWaChat }}" style="margin-top:9px; display:flex; align-items:center; justify-content:center; gap:8px; padding:12px; border-radius:13px; background:#25D366; color:#fff; font-size:14px; font-weight:800; cursor:pointer;">{{ t.shareWaOpen }}</div>
+                  </div>
+                </div>
+                <div style="display:flex; gap:10px; align-items:flex-start; margin-top:14px;">
+                  <div style="width:24px; height:24px; flex:none; border-radius:50%; background:#1D1D1F; color:#fff; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:800;">2</div>
+                  <div style="flex:1;">
+                    <div style="font-size:13.5px; font-weight:800;">{{ t.shareWaStep2 }}</div>
+                    <div style="font-size:11.5px; color:#8E8E93; margin-top:2px; line-height:1.4;">{{ shareWaStep2d }}</div>
+                    <div onClick="{{ shareFilesOnly }}" style="margin-top:9px; text-align:center; padding:12px; border-radius:13px; background:{{ shareBtnBg }}; color:#fff; font-size:14px; font-weight:800; cursor:pointer;">{{ shareAttachLabel }}</div>
+                  </div>
+                </div>
+              </div>
+            </sc-if>
+            <sc-if value="{{ shareNoPhone }}" hint-placeholder-val="{{ false }}">
+              <div onClick="{{ shareWithText }}" style="margin-top:12px; text-align:center; padding:14px; border-radius:15px; background:{{ shareBtnBg }}; color:#fff; font-size:14.5px; font-weight:800; cursor:pointer;">{{ shareWaNoPhoneLabel }}</div>
+            </sc-if>
+          </sc-if>
+
+          <!-- e-mail -->
+          <sc-if value="{{ shareIsEmail }}" hint-placeholder-val="{{ false }}">
+            <div style="background:#fff; border-radius:18px; padding:14px; margin-top:12px; display:flex; flex-direction:column; gap:8px;">
+              <span style="font-size:12px; font-weight:700; color:#6E6E73;">{{ t.shareEmailTo }}</span>
+              <input class="fld" type="email" value="{{ shareEmail }}" placeholder="{{ t.shareEmailPh }}" onChange="{{ onShareEmail }}">
+              <span style="font-size:12px; font-weight:700; color:#6E6E73; margin-top:4px;">{{ t.shareSubject }}</span>
+              <input class="fld" type="text" value="{{ shareSubject }}" onChange="{{ onShareSubject }}">
+            </div>
+            <div onClick="{{ shareEmailGo }}" style="margin-top:12px; text-align:center; padding:14px; border-radius:15px; background:{{ shareBtnBg }}; color:#fff; font-size:14.5px; font-weight:800; cursor:pointer;">{{ shareEmailLabel }}</div>
+            <div style="font-size:11.5px; color:#8E8E93; margin-top:8px; line-height:1.45; text-align:center;">{{ shareEmailHint }}</div>
+          </sc-if>
+
+          <!-- other apps -->
+          <sc-if value="{{ shareIsOther }}" hint-placeholder-val="{{ false }}">
+            <div onClick="{{ shareWithText }}" style="margin-top:12px; text-align:center; padding:14px; border-radius:15px; background:{{ shareBtnBg }}; color:#fff; font-size:14.5px; font-weight:800; cursor:pointer;">{{ shareOtherLabel }}</div>
+            <div style="font-size:11.5px; color:#8E8E93; margin-top:8px; line-height:1.45; text-align:center;">{{ t.shareOtherHint }}</div>
+          </sc-if>
+
+          <!-- message -->
+          <div style="background:#fff; border-radius:18px; padding:14px; margin-top:12px;">
+            <div style="display:flex; align-items:center; justify-content:space-between; gap:8px;">
+              <span style="font-size:12px; font-weight:700; color:#6E6E73;">{{ t.shareMsg }}</span>
+              <div style="display:flex; gap:6px;">
+                <div onClick="{{ resetShareMsg }}" style="font-size:12px; font-weight:800; padding:6px 10px; border-radius:9px; background:#F5F5F7; cursor:pointer;">{{ t.shareReset }}</div>
+                <div onClick="{{ copyShareMsg }}" style="font-size:12px; font-weight:800; padding:6px 10px; border-radius:9px; background:#F5F5F7; cursor:pointer;">{{ t.shareCopy }}</div>
+              </div>
+            </div>
+            <textarea class="fld" rows="7" value="{{ shareMsg }}" onChange="{{ onShareMsg }}" style="min-height:150px; margin-top:8px; font-size:13.5px;"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
   <!-- ===== TEMPLATE DETAIL ===== -->
   <sc-if value="{{ detailOpen }}" hint-placeholder-val="{{ false }}">
     <div class="scroll {{ detAnim }}" style="position:absolute; inset:0; z-index:85; background:{{ detBg }}; overflow-y:auto; padding:calc(14px + env(safe-area-inset-top)) 20px 30px;">
@@ -1097,6 +1204,17 @@ class Component extends DCLogic {
         pickSkills: 'Tekan untuk pilih kemahiran', pickSkillsHint: 'Tekan sekali untuk tambah, tekan lagi untuk buang. Anda masih boleh taip sendiri di atas.', pickForJob: 'Untuk', pickComputer: 'Komputer & perisian', pickSoft: 'Kemahiran insaniah',
         langsTitle: 'Bahasa & tahap penguasaan', langOtherPh: 'Bahasa lain, cth. Bahasa Iban', add: 'Tambah', langOldLevel: 'Tahap sekarang: ',
         langLevelTip: 'Tahap ditulis sebagai perkataan (cth. "Fasih") supaya sistem ATS boleh baca. Templat berwarna turut tunjuk palang tahap.',
+        shareBtn: 'Hantar ke majikan', shareTitle: 'Hantar resume', shareModeWa: 'WhatsApp', shareModeEmail: 'E-mel', shareModeOther: 'Lain-lain',
+        sharePreparing: 'Menyediakan PDF…', shareReady: 'PDF sedia untuk dihantar.', shareFail: 'PDF tak dapat disediakan. Cuba butang Muat turun PDF.', shareWithLetter: 'Sertakan surat permohonan',
+        shareWaNo: 'Nombor WhatsApp majikan', shareWaNoPh: 'cth. 012-345 6789', shareWaNoHint: 'Biasanya ada dalam iklan kerja. Kosongkan jika anda nak pilih sendiri dalam WhatsApp.',
+        shareWaStep1: 'Buka chat dengan majikan', shareWaStep1d: 'WhatsApp dibuka dengan mesej anda siap ditaip. Tekan hantar.', shareWaOpen: 'Buka WhatsApp',
+        shareWaStep2: 'Lampirkan resume', shareWaStep2dShare: 'Kembali ke sini dan tekan butang ini. Pilih WhatsApp, kemudian pilih chat majikan (ada di bahagian atas).', shareWaStep2dSave: 'PDF akan dimuat turun. Dalam chat WhatsApp, tekan ikon klip kertas → Dokumen → pilih fail PDF.',
+        shareAttach: 'Kongsi PDF', shareSave: 'Muat turun PDF', shareWaNoPhoneShare: 'Kongsi PDF ke WhatsApp', shareWaNoPhoneSave: 'Muat turun PDF & buka WhatsApp',
+        shareEmailTo: 'E-mel majikan', shareEmailPh: 'cth. hr@syarikat.com.my', shareSubject: 'Tajuk e-mel', shareEmailShare: 'Hantar e-mel dengan PDF', shareEmailSave: 'Muat turun PDF & buka e-mel',
+        shareEmailHintShare: 'Pilih Gmail atau aplikasi e-mel anda. Alamat e-mel majikan disalin — tampal di ruang "Kepada" jika belum ada.', shareEmailHintSave: 'PDF dimuat turun dahulu. Dalam e-mel, lampirkan fail PDF itu sebelum hantar.',
+        shareOtherShare: 'Kongsi PDF', shareOtherSave: 'Muat turun PDF', shareOtherHint: 'Telegram, Google Drive, Simpan ke Fail dan lain-lain.',
+        shareMsg: 'Mesej', shareReset: 'Asal', shareCopy: 'Salin', shareCopied: 'Mesej disalin.', shareEmailCopied: 'Alamat e-mel disalin — tampal di ruang "Kepada".', shareNeedPhone: 'Masukkan nombor WhatsApp majikan dahulu.', shareWait: 'Tunggu sekejap, PDF sedang disediakan…',
+        shareSavedTip: 'PDF dimuat turun. Lampirkan fail itu dalam chat atau e-mel.',
         scoreTitle: 'Skor resume', scoreSub: 'Ikut tip di bawah untuk naikkan skor anda.', scorePerfect: 'Hebat! Resume anda lengkap dan kemas.', fixBtn: 'Baiki',
         lvl0: 'Perlu dibaiki', lvl1: 'Sederhana', lvl2: 'Baik', lvl3: 'Cemerlang',
         tName: 'Isi nama penuh anda.', tTitle: 'Isi jawatan atau bidang yang anda pohon.', tPhone: 'Tambah nombor telefon.', tEmail: 'Tambah e-mel yang sah (cth. nama@gmail.com).', tLoc: 'Tambah lokasi (bandar, negeri).',
@@ -1194,6 +1312,17 @@ class Component extends DCLogic {
         pickSkills: 'Tap to pick skills', pickSkillsHint: 'Tap once to add, tap again to remove. You can still type your own above.', pickForJob: 'For', pickComputer: 'Computer & software', pickSoft: 'Soft skills',
         langsTitle: 'Languages & level', langOtherPh: 'Other language, e.g. Iban', add: 'Add', langOldLevel: 'Current level: ',
         langLevelTip: 'The level is written as a word (e.g. "Fluent") so ATS systems can read it. Colour templates also show a level bar.',
+        shareBtn: 'Send to employer', shareTitle: 'Send your resume', shareModeWa: 'WhatsApp', shareModeEmail: 'E-mail', shareModeOther: 'Other',
+        sharePreparing: 'Preparing PDF…', shareReady: 'PDF ready to send.', shareFail: "Couldn't prepare the PDF. Try the Download PDF button.", shareWithLetter: 'Include cover letter',
+        shareWaNo: "Employer's WhatsApp number", shareWaNoPh: 'e.g. 012-345 6789', shareWaNoHint: "Usually in the job ad. Leave empty if you'd rather pick the chat in WhatsApp.",
+        shareWaStep1: 'Open a chat with the employer', shareWaStep1d: 'WhatsApp opens with your message already typed. Tap send.', shareWaOpen: 'Open WhatsApp',
+        shareWaStep2: 'Attach your resume', shareWaStep2dShare: "Come back here and tap this button. Choose WhatsApp, then pick the employer's chat (it's at the top).", shareWaStep2dSave: 'The PDF will download. In the WhatsApp chat, tap the paper clip → Document → pick the PDF.',
+        shareAttach: 'Share PDF', shareSave: 'Download PDF', shareWaNoPhoneShare: 'Share PDF to WhatsApp', shareWaNoPhoneSave: 'Download PDF & open WhatsApp',
+        shareEmailTo: "Employer's e-mail", shareEmailPh: 'e.g. hr@company.com.my', shareSubject: 'E-mail subject', shareEmailShare: 'Send e-mail with PDF', shareEmailSave: 'Download PDF & open e-mail',
+        shareEmailHintShare: 'Choose Gmail or your e-mail app. The employer\'s address is copied — paste it into "To" if it\'s not there.', shareEmailHintSave: 'The PDF downloads first. In the e-mail, attach that PDF before sending.',
+        shareOtherShare: 'Share PDF', shareOtherSave: 'Download PDF', shareOtherHint: 'Telegram, Google Drive, Save to Files and more.',
+        shareMsg: 'Message', shareReset: 'Reset', shareCopy: 'Copy', shareCopied: 'Message copied.', shareEmailCopied: 'E-mail address copied — paste it into "To".', shareNeedPhone: "Enter the employer's WhatsApp number first.", shareWait: 'One moment, the PDF is still being prepared…',
+        shareSavedTip: 'PDF downloaded. Attach the file in your chat or e-mail.',
         scoreTitle: 'Resume score', scoreSub: 'Follow the tips below to raise your score.', scorePerfect: 'Great! Your resume is complete and polished.', fixBtn: 'Fix',
         lvl0: 'Needs work', lvl1: 'Fair', lvl2: 'Good', lvl3: 'Excellent',
         tName: 'Add your full name.', tTitle: 'Add the job title or field you are applying for.', tPhone: 'Add a phone number.', tEmail: 'Add a valid email (e.g. name@gmail.com).', tLoc: 'Add your location (city, state).',
@@ -1957,6 +2086,188 @@ class Component extends DCLogic {
     };
   }
 
+  // ---------- Send to employer (WhatsApp / e-mail / other apps) ----------
+  // render any document off-screen, split into A4 pages, ready for buildPdf
+  async renderForPdf(tpl) {
+    if (this._printHTML && this._printTpl === tpl) return this._printHTML;
+    this.ensureCSS();
+    const host = document.createElement('div');
+    host.style.cssText = 'position:fixed;left:-20000px;top:0;width:794px;pointer-events:none;';
+    host.innerHTML = '<div style="position:relative;width:794px;">' + this.resumeHTML(tpl) + '</div>';
+    document.body.appendChild(host);
+    try {
+      const imgs = Array.prototype.slice.call(host.querySelectorAll('img'));
+      await Promise.all(imgs.map((im) => (im.complete ? Promise.resolve() : new Promise((r) => { im.onload = im.onerror = r; }))));
+      this.paginate(host.firstChild, 1);
+      const root = host.querySelector('.rv');
+      return root ? root.outerHTML : '';
+    } finally { host.remove(); }
+  }
+  fileBase() { return String(this.D().name || '').replace(/[^A-Za-z0-9 _-]/g, '').trim().replace(/\s+/g, '_'); }
+  shareFileNames() {
+    const b = this.fileBase();
+    const n = [(b ? b + '_' : '') + 'Resume.pdf'];
+    if (this.state.shareLetter && this.hasLetterInfo()) n.push((b ? b + '_' : '') + 'Surat_Permohonan.pdf');
+    return n;
+  }
+  hasLetterInfo() { const cl = this.CL(); return !!(String(cl.company || '').trim() || String(cl.position || '').trim() || String(cl.body || '').trim() || (this.D().target || {}).title); }
+  async prepareShareFiles() {
+    const t = this.T();
+    const token = (this._shareToken = (this._shareToken || 0) + 1);
+    this._shareFiles = null;
+    this.setState({ shareBusy: true, shareErr: '' });
+    try {
+      const names = this.shareFileNames();
+      const tpls = [this.state.tpl, 'letter'].slice(0, names.length);
+      const files = [];
+      for (let i = 0; i < tpls.length; i++) {
+        const blob = await this.buildPdf(await this.renderForPdf(tpls[i]));
+        files.push(new File([blob], names[i], { type: 'application/pdf' }));
+      }
+      if (token !== this._shareToken) return;
+      this._shareFiles = files;
+      this.setState({ shareBusy: false });
+    } catch (e) {
+      if (token !== this._shareToken) return;
+      this.setState({ shareBusy: false, shareErr: t.shareFail });
+    }
+  }
+  canShareFiles() {
+    try { return !!(navigator.canShare && navigator.share && navigator.canShare({ files: [new File(['x'], 'a.pdf', { type: 'application/pdf' })] })); } catch (e) { return false; }
+  }
+  // number from the ad → wa.me format (Malaysia: 012… → 6012…)
+  waNumber(raw) {
+    let n = String(raw || '').replace(/\D/g, '');
+    if (!n) return '';
+    if (n.indexOf('0') === 0) n = '6' + n; else if (n.indexOf('1') === 0) n = '60' + n;
+    return n.length >= 10 ? n : '';
+  }
+  // contact details in a job ad (WhatsApp number & e-mail)
+  adContacts(raw) {
+    const txt = String(raw || '');
+    const em = txt.match(/[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}/);
+    const ph = txt.match(/(?:\+?6)?01\d[\s-]?\d{3,4}[\s-]?\d{4}/);
+    return { email: em ? em[0] : '', phone: ph ? ph[0].trim() : '' };
+  }
+  shareJob() {
+    const d = this.D(), cl = this.CL(), tg = d.target || {};
+    return { position: String(cl.position || tg.title || d.title || '').trim(), company: String(cl.company || tg.company || '').trim() };
+  }
+  autoShareMsg() {
+    const d = this.D();
+    const en = this.state.lang === 'en';
+    const j = this.shareJob();
+    const name = String(d.name || '').trim(), phone = String(d.phone || '').trim();
+    if (en) {
+      return 'Dear Sir/Madam,\n\n' + (name ? 'My name is ' + name + ' and I ' : 'I ') + 'would like to apply for ' + (j.position ? 'the ' + j.position + ' position' : 'a suitable position') + (j.company ? ' at ' + j.company : '') +
+        '. Attached is my resume for your consideration.\n\n' + (phone ? 'I can be reached at ' + phone + '. ' : '') + 'Thank you for your time.' + (name ? '\n\n' + name : '');
+    }
+    return 'Salam sejahtera tuan/puan,\n\n' + (name ? 'Saya ' + name + ' ingin ' : 'Saya ingin ') + 'memohon ' + (j.position ? 'jawatan ' + j.position : 'jawatan yang sesuai') + (j.company ? ' di ' + j.company : '') +
+      '. Bersama-sama ini saya lampirkan resume saya untuk pertimbangan pihak tuan/puan.\n\n' + (phone ? 'Saya boleh dihubungi di ' + phone + '. ' : '') + 'Terima kasih.' + (name ? '\n\n' + name : '');
+  }
+  autoShareSubject() {
+    const en = this.state.lang === 'en';
+    const j = this.shareJob(), name = String(this.D().name || '').trim();
+    return (en ? 'Application for ' + (j.position || 'a position') : 'Permohonan Jawatan ' + (j.position || '')).trim() + (name ? ' – ' + name : '');
+  }
+  openShareNow() {
+    const tg = this.D().target || {};
+    const c = this.adContacts(tg.text);
+    this.setState({ shareOpen: true, shareClosing: false, shareMode: this.state.shareMode || 'wa', shareMsg: null, shareSubject: null,
+      sharePhone: this.state.sharePhoneSet ? this.state.sharePhone : (tg.phone || c.phone || ''), shareEmail: this.state.shareEmailSet ? this.state.shareEmail : (tg.email || c.email || ''),
+      shareLetter: this.state.shareLetter === undefined ? this.state.docMode === 'letter' : this.state.shareLetter });
+    this.track('share_open');
+    setTimeout(() => this.prepareShareFiles(), 30);
+  }
+  copyText(txt) {
+    try { if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(txt).catch(() => {}); return true; } } catch (e) {}
+    try { const ta = document.createElement('textarea'); ta.value = txt; ta.style.cssText = 'position:fixed;left:-9999px'; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove(); return true; } catch (e) { return false; }
+  }
+  // hand the PDF(s) to the phone's share menu, or download them where sharing files isn't possible
+  async sendFiles(opts) {
+    const t = this.T();
+    const files = this._shareFiles;
+    if (!files) { this.showToast(this.state.shareErr || t.shareWait); return 'wait'; }
+    if (this.canShareFiles()) {
+      const data = { files };
+      if (opts && opts.text) data.text = opts.text;
+      if (opts && opts.title) data.title = opts.title;
+      try { await navigator.share(data); return 'shared'; }
+      catch (e) {
+        if (e && e.name === 'AbortError') return 'cancel';
+        // some apps refuse text together with files: try the files alone
+        try { await navigator.share({ files }); return 'shared'; } catch (e2) { if (e2 && e2.name === 'AbortError') return 'cancel'; }
+      }
+    }
+    for (const f of files) await this.saveBlob(f, f.name);
+    return 'saved';
+  }
+  shareVals() {
+    const t = this.T();
+    const st = this.state;
+    if (!st.shareOpen) return { shareOpen: false };
+    const mode = st.shareMode || 'wa';
+    const canShare = this.canShareFiles();
+    const msg = st.shareMsg === null || st.shareMsg === undefined ? this.autoShareMsg() : st.shareMsg;
+    const subject = st.shareSubject === null || st.shareSubject === undefined ? this.autoShareSubject() : st.shareSubject;
+    const num = this.waNumber(st.sharePhone);
+    const busy = !!st.shareBusy;
+    const lbl = (txt) => (busy ? t.sharePreparing : txt);
+    const after = (res, ev) => { if (res === 'saved') this.showToast(t.shareSavedTip); if (res === 'shared' || res === 'saved') this.track(ev, { files: (this._shareFiles || []).length, how: res }); };
+    const modeBtn = (key, label) => ({ label, bg: mode === key ? '#1D1D1F' : 'transparent', fg: mode === key ? '#fff' : '#1D1D1F', go: () => this.setState({ shareMode: key }) });
+    const letterOn = !!st.shareLetter;
+    return {
+      shareOpen: true,
+      shareAnim: st.shareClosing ? 'anim-sheet-out' : 'anim-sheet', shareBgAnim: st.shareClosing ? 'anim-fade-out' : 'anim-fade',
+      closeShare: () => { if (this.state.shareClosing) return; this.setState({ shareClosing: true }); setTimeout(() => this.setState({ shareOpen: false, shareClosing: false }), 270); },
+      shareStatus: st.shareErr ? st.shareErr : busy ? t.sharePreparing : t.shareReady,
+      shareModes: [modeBtn('wa', t.shareModeWa), modeBtn('email', t.shareModeEmail), modeBtn('other', t.shareModeOther)],
+      shareIsWa: mode === 'wa', shareIsEmail: mode === 'email', shareIsOther: mode === 'other',
+      shareFileRows: this.shareFileNames().map((name) => ({ name })),
+      shareCanLetter: this.hasLetterInfo(),
+      shareLetterBg: letterOn ? '#007AFF' : '#fff', shareLetterBorder: letterOn ? '#007AFF' : '#C7C7CC', shareLetterTick: letterOn ? '✓' : '',
+      toggleShareLetter: () => { this.setState({ shareLetter: !this.state.shareLetter }); setTimeout(() => this.prepareShareFiles(), 0); },
+      shareBtnBg: busy ? '#AAAAAA' : '#007AFF',
+      // WhatsApp
+      sharePhone: st.sharePhone || '', onSharePhone: (ev) => this.setState({ sharePhone: ev.target.value, sharePhoneSet: true }),
+      shareHasPhone: !!num, shareNoPhone: !num,
+      shareWaChat: () => { window.open('https://wa.me/' + num + '?text=' + encodeURIComponent(msg), '_blank'); this.track('share_wa_chat'); },
+      shareWaStep2d: canShare ? t.shareWaStep2dShare : t.shareWaStep2dSave,
+      shareAttachLabel: lbl(canShare ? t.shareAttach : t.shareSave),
+      shareFilesOnly: async () => { after(await this.sendFiles(), 'share_wa_file'); },
+      shareWaNoPhoneLabel: lbl(canShare ? t.shareWaNoPhoneShare : t.shareWaNoPhoneSave),
+      shareWithText: async () => {
+        if (mode === 'wa' && !canShare) { const r = await this.sendFiles(); if (r === 'saved') { window.open('https://wa.me/?text=' + encodeURIComponent(msg), '_blank'); after(r, 'share_wa_file'); } return; }
+        if (canShare) this.copyText(msg);
+        after(await this.sendFiles({ text: msg }), mode === 'wa' ? 'share_wa_file' : 'share_other');
+      },
+      // e-mail
+      shareEmail: st.shareEmail || '', onShareEmail: (ev) => this.setState({ shareEmail: ev.target.value, shareEmailSet: true }),
+      shareSubject: subject, onShareSubject: (ev) => this.setState({ shareSubject: ev.target.value }),
+      shareEmailLabel: lbl(canShare ? t.shareEmailShare : t.shareEmailSave),
+      shareEmailHint: canShare ? t.shareEmailHintShare : t.shareEmailHintSave,
+      shareEmailGo: async () => {
+        const to = String(this.state.shareEmail || '').trim();
+        if (canShare) {
+          if (to) { this.copyText(to); this.showToast(t.shareEmailCopied); }
+          after(await this.sendFiles({ text: msg, title: subject }), 'share_email');
+          return;
+        }
+        const r = await this.sendFiles();
+        if (r === 'saved') {
+          window.location.href = 'mailto:' + encodeURIComponent(to) + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(msg);
+          after(r, 'share_email');
+        }
+      },
+      // other apps
+      shareOtherLabel: lbl(canShare ? t.shareOtherShare : t.shareOtherSave),
+      // message
+      shareMsg: msg, onShareMsg: (ev) => this.setState({ shareMsg: ev.target.value }),
+      resetShareMsg: () => this.setState({ shareMsg: null, shareSubject: null }),
+      copyShareMsg: () => { if (this.copyText(msg)) this.showToast(t.shareCopied); },
+    };
+  }
+
   // ---------- data ----------
   blank() { return { name: '', title: '', phone: '', email: '', location: '', linkedin: '', summary: '', photo: '', exp: [this.blankExp()], edu: [this.blankEdu()], skills: '', languages: '', licence: '', fresh: false, certs: [], projects: [], cocu: [], refs: [] }; }
   // sample for "Isi contoh" when fresh graduate mode is on
@@ -2615,9 +2926,9 @@ class Component extends DCLogic {
   }
 
   // Draws the exact preview layout into a real PDF: text stays text (ATS-readable), links stay clickable.
-  async buildPdf() {
+  async buildPdf(htmlArg) {
     const JsPDF = await this.loadJsPDF();
-    const html = this._printHTML && this._printTpl === this.docTpl() ? this._printHTML : '';
+    const html = htmlArg || (this._printHTML && this._printTpl === this.docTpl() ? this._printHTML : '');
     if (!html) throw new Error('no preview');
     this.ensureCSS();
     const host = document.createElement('div');
@@ -3199,6 +3510,7 @@ class Component extends DCLogic {
       atsNoPhoto: tpl === 'ats',
       download: () => this.download(), printDownload: () => this.download('print'),
       downloadLabel: this.state.pdfBusy ? t.pdfMaking : t.download,
+      ...this.shareVals(), openShare: () => this.openShareNow(),
       ...this.scanVals(), ...this.matchVals(this.state.docMode === 'letter'), openScan: () => this.openScanNow(),
       toast: this.state.toast, hasToast: !!this.state.toast,
       sheetOpen, sheetCats, sheetItems,
