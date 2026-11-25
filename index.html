@@ -500,7 +500,7 @@ if ('serviceWorker' in navigator) { window.addEventListener('load', function () 
 
   <!-- ============ PREVIEW ============ -->
   <sc-if value="{{ isPreview }}" hint-placeholder-val="{{ false }}">
-  <div data-screen-label="Preview" class="scroll" style="height:100%; overflow-y:auto; padding:calc(76px + env(safe-area-inset-top)) 0 calc(108px + env(safe-area-inset-bottom));">
+  <div data-screen-label="Preview" class="scroll" style="height:100%; overflow-y:auto; padding:calc(76px + env(safe-area-inset-top)) 0 calc(184px + env(safe-area-inset-bottom));">
     <div style="padding:2px 20px 0;">
       <div style="font-size:21px; font-weight:800;">{{ previewTitle }}</div>
     </div>
@@ -658,24 +658,10 @@ if ('serviceWorker' in navigator) { window.addEventListener('load', function () 
     </div>
     </sc-if>
     <div style="padding:16px 20px 0;">
-      <div style="background:#fff; border:1px solid #E5E5EA; border-radius:20px; padding:14px 16px; display:flex; align-items:center; justify-content:space-between; gap:10px;">
-        <div>
-          <div style="font-size:12px; color:#8E8E93; font-weight:700;">{{ curTierName }}</div>
-          <div style="display:flex; align-items:baseline; gap:8px; margin-top:2px;">
-            <span style="font-size:20px; font-weight:800;">{{ t.free }}</span>
-            <sc-if value="{{ isResumeDoc }}" hint-placeholder-val="{{ true }}"><span style="font-size:13px; color:#AAAAAA; text-decoration:line-through; font-weight:700;">{{ curPrice }}</span></sc-if>
-          </div>
-        </div>
-        <span style="font-size:11px; font-weight:800; background:var(--accent,#007AFF); padding:5px 9px; border-radius:8px; text-align:center; white-space:pre-line; line-height:1.25; color:#fff;">{{ t.launchPromo }}</span>
-      </div>
       <sc-if value="{{ atsNoPhoto }}" hint-placeholder-val="{{ false }}">
-        <div style="font-size:12px; color:#6E6E73; margin-top:10px; line-height:1.45;">{{ t.atsPhotoNote }}</div>
+        <div style="font-size:12px; color:#6E6E73; margin-bottom:10px; line-height:1.45;">{{ t.atsPhotoNote }}</div>
       </sc-if>
-      <div onClick="{{ download }}" style="margin-top:14px; display:flex; align-items:center; justify-content:center; gap:9px; background:#1D1D1F; color:#fff; padding:16px; border-radius:16px; font-size:15px; font-weight:800; cursor:pointer;">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 4v11M7 10l5 5 5-5M5 20h14" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-        {{ downloadLabel }}
-      </div>
-      <div onClick="{{ openShare }}" style="margin-top:10px; display:flex; align-items:center; justify-content:center; gap:9px; background:var(--accent,#007AFF); color:#fff; padding:15px; border-radius:16px; font-size:15px; font-weight:800; cursor:pointer;">
+      <div onClick="{{ openShare }}" style="display:flex; align-items:center; justify-content:center; gap:9px; background:var(--accent,#007AFF); color:#fff; padding:15px; border-radius:16px; font-size:15px; font-weight:800; cursor:pointer;">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M4 12l16-8-6 16-2.5-6.5z" stroke="#fff" stroke-width="2.2" stroke-linejoin="round"></path><path d="M11.5 13.5L20 4" stroke="#fff" stroke-width="2.2" stroke-linecap="round"></path></svg>
         {{ t.shareBtn }}
       </div>
@@ -1091,11 +1077,27 @@ if ('serviceWorker' in navigator) { window.addEventListener('load', function () 
 
   <!-- ===== TOAST ===== -->
   <sc-if value="{{ hasToast }}" hint-placeholder-val="{{ false }}">
-    <div class="anim-up" style="position:absolute; left:20px; right:20px; bottom:calc(90px + env(safe-area-inset-bottom)); z-index:120; background:#1D1D1F; color:#fff; border-radius:14px; padding:13px 16px; font-size:13px; font-weight:600; box-shadow:0 10px 30px rgba(29,29,31,.25);">{{ toast }}</div>
+    <div class="anim-up" style="position:absolute; left:20px; right:20px; bottom:calc(90px + env(safe-area-inset-bottom)); margin-bottom:{{ toastLift }}; z-index:120; background:#1D1D1F; color:#fff; border-radius:14px; padding:13px 16px; font-size:13px; font-weight:600; box-shadow:0 10px 30px rgba(29,29,31,.25);">{{ toast }}</div>
   </sc-if>
 
-  <!-- ============ TAB BAR ============ -->
-  <div style="position:absolute; bottom:0; left:0; right:0; background:#fff; border-top:1px solid #E5E5EA; padding:10px 18px calc(10px + env(safe-area-inset-bottom)); display:flex; align-items:center; z-index:50;">
+  <!-- ============ BOTTOM: pinned download bar (preview only) + TAB BAR ============ -->
+  <div style="position:absolute; bottom:0; left:0; right:0; z-index:50; display:flex; flex-direction:column;">
+  <sc-if value="{{ isPreview }}" hint-placeholder-val="{{ false }}">
+    <div data-dl-bar="1" class="anim-fade" style="background:#fff; border-top:1px solid #E5E5EA; padding:10px 18px; display:flex; align-items:center; gap:14px;">
+      <div style="flex:none; min-width:0;">
+        <div style="font-size:10.5px; font-weight:800; letter-spacing:.3px; text-transform:uppercase; color:#007AFF; white-space:nowrap;">{{ promoShort }}</div>
+        <div style="display:flex; align-items:baseline; gap:6px; margin-top:1px;">
+          <span style="font-size:19px; font-weight:800; line-height:1.15;">{{ t.free }}</span>
+          <sc-if value="{{ isResumeDoc }}" hint-placeholder-val="{{ true }}"><span style="font-size:13px; color:#AAAAAA; text-decoration:line-through; font-weight:700;">{{ curPrice }}</span></sc-if>
+        </div>
+      </div>
+      <div onClick="{{ download }}" style="flex:1; min-width:0; display:flex; align-items:center; justify-content:center; gap:8px; background:#1D1D1F; color:#fff; padding:14px 12px; border-radius:14px; font-size:15px; font-weight:800; cursor:pointer; white-space:nowrap;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" style="flex:none;"><path d="M12 4v11M7 10l5 5 5-5M5 20h14" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        {{ downloadLabel }}
+      </div>
+    </div>
+  </sc-if>
+  <div style="background:#fff; border-top:1px solid #E5E5EA; padding:10px 18px calc(10px + env(safe-area-inset-bottom)); display:flex; align-items:center;">
     <sc-for list="{{ tabs }}" as="tb" hint-placeholder-count="3">
       <div onClick="{{ tb.go }}" style="flex:1; display:flex; justify-content:center; cursor:pointer;">
         <sc-if value="{{ tb.active }}" hint-placeholder-val="{{ false }}">
@@ -1115,6 +1117,7 @@ if ('serviceWorker' in navigator) { window.addEventListener('load', function () 
         </sc-if>
       </div>
     </sc-for>
+  </div>
   </div>
 
 </div>
@@ -3506,7 +3509,7 @@ class Component extends DCLogic {
           scoreTips: sc.tips.map((tp) => ({ gain: '+' + tp.pts, text: tp.text, canFix: tp.step !== null && tp.step !== undefined, fix: () => this.setState({ screen: 'build', step: tp.step }) })),
         };
       })(),
-      curPrice: this.price(cur.tier),
+      curPrice: this.price(cur.tier), promoShort: String(t.launchPromo || '').replace(/\s*\n\s*/g, ' '), toastLift: screen === 'preview' ? '72px' : '0px',
       atsNoPhoto: tpl === 'ats',
       download: () => this.download(), printDownload: () => this.download('print'),
       downloadLabel: this.state.pdfBusy ? t.pdfMaking : t.download,
