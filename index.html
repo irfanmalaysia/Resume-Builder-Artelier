@@ -20,7 +20,10 @@ if ('serviceWorker' in navigator) { window.addEventListener('load', function () 
 <meta property="og:type" content="website">
 <meta property="og:title" content="ArtelierIrfan Resume | Bina Resume Profesional Percuma">
 <meta property="og:description" content="Bina resume profesional dalam 5 minit dan muat turun PDF. Percuma.">
-<meta property="og:image" content="assets/logo.png">
+<meta property="og:url" content="https://irfanmalaysia.github.io/Resume-Builder-Artelier/">
+<meta property="og:image" content="https://irfanmalaysia.github.io/Resume-Builder-Artelier/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
 <style>html,body{margin:0;height:100%;background:#E8E8ED;overscroll-behavior:none}</style>
 <script src="vendor/react.production.min.js"></script>
 <script src="vendor/react-dom.production.min.js"></script>
@@ -189,7 +192,7 @@ if ('serviceWorker' in navigator) { window.addEventListener('load', function () 
         <sc-for list="{{ carCards }}" as="cc" hint-placeholder-count="3">
           <div data-card="1" onClick="{{ cc.tap }}" style="flex:none; width:214px; scroll-snap-align:center; cursor:pointer; transform:scale(.84); opacity:.55; will-change:transform; position:relative;">
             <div data-rv="{{ cc.id }}" data-rv-crop="1" style="width:214px; height:303px; border-radius:14px; overflow:hidden; background:#fff; pointer-events:none; box-shadow:0 14px 30px rgba(29,29,31,.18);"></div>
-            <div style="position:absolute; top:10px; left:10px; background:{{ cc.badgeBg }}; color:{{ cc.badgeFg }}; font-size:10px; font-weight:800; letter-spacing:.6px; text-transform:uppercase; padding:4px 8px; border-radius:8px;">{{ cc.tierLabel }}</div>
+            <div style="position:absolute; top:-6px; right:-6px; background:{{ cc.badgeBg }}; color:{{ cc.badgeFg }}; font-size:10px; font-weight:800; letter-spacing:.6px; text-transform:uppercase; padding:4px 8px; border-radius:8px; box-shadow:0 2px 6px rgba(29,29,31,.2);">{{ cc.tierLabel }}</div>
           </div>
         </sc-for>
       </div>
@@ -2337,7 +2340,7 @@ class Component extends DCLogic {
       { id: 'bank', lvl: 'high', key: 'scamBank', words: ['otp', 'tac', 'kata laluan', 'password', 'username bank', 'log masuk bank', 'nombor akaun bank', 'no akaun bank', 'akaun bank anda', 'bank account number'] },
       { id: 'easy', lvl: 'med', key: 'scamEasy', words: ['kerja mudah', 'like video', 'like & share', 'like and share', 'tugasan online', 'task online', 'online task', 'review produk', 'pendapatan pasif', 'komisen tinggi', 'easy money'] },
       { id: 'chat', lvl: 'med', key: 'scamChat', words: ['telegram', 't.me/', 'pm saya', 'dm saya', 'whatsapp sahaja', 'whatsapp only'] },
-      { id: 'pressure', lvl: 'med', key: 'scamPressure', words: ['segera', 'slot terhad', 'hari ini sahaja', 'tempat terhad', 'urgent', 'limited slot', 'limited slots', 'today only'] },
+      { id: 'pressure', lvl: 'med', key: 'scamPressure', words: ['hubungi segera', 'mohon segera sebelum', 'slot terhad', 'tempat terhad', 'hari ini sahaja', 'terhad kepada', 'limited slots', 'today only', 'apply now before'] },
       { id: 'noco', lvl: 'low', key: 'scamNoCo', words: [] },
       { id: 'ic', lvl: 'low', key: 'scamIc', words: ['salinan ic', 'salinan kad pengenalan', 'salinan mykad', 'gambar ic', 'nombor ic', 'no ic', 'no. ic', 'no kp', 'nombor kad pengenalan', 'ic number', 'ic copy', 'copy of ic', 'copy of your ic'] },
     ];
@@ -3572,7 +3575,7 @@ class Component extends DCLogic {
           carBg: cur.bg, carName: nm(cur), carBest: lang === 'en' ? cur.bestEn : cur.bestMs, carPrice: this.price(cur.tier),
           carCards: TPL.map((x, i) => ({
             id: x.id, scale: i === idx ? '1' : '0.84', opacity: i === idx ? '1' : '0.55',
-            tierLabel: x.tier === 'ats' ? 'ATS' : t.standard, badgeBg: x.tier === 'ats' ? '#1D1D1F' : accent, badgeFg: '#fff',
+            tierLabel: x.tier === 'ats' ? 'ATS' : t.free, badgeBg: x.tier === 'ats' ? '#1D1D1F' : accent, badgeFg: '#fff',
             tap: () => (i === idx ? (this.setState({ detailId: x.id }), this.track('template_detail', { template: x.id })) : goTo(i)),
           })),
           carDots: TPL.map((x, i) => ({ w: i === idx ? '22px' : '7px', bg: i === idx ? '#007AFF' : 'rgba(29,29,31,.2)', go: () => goTo(i) })),
