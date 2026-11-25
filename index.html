@@ -822,7 +822,37 @@ if ('serviceWorker' in navigator) { window.addEventListener('load', function () 
 
       <!-- 3) result -->
       <sc-if value="{{ scanIsResult }}" hint-placeholder-val="{{ false }}">
-        <div class="anim-fade" style="background:#fff; border-radius:22px; padding:16px; margin-top:18px; display:flex; flex-direction:column; gap:10px;">
+        <!-- job-scam warning check (keyword rules only, runs on the phone) -->
+        <div data-scam-card="1" class="anim-fade" style="background:#fff; border-radius:22px; padding:16px; margin-top:18px;">
+          <div style="font-size:12px; color:#8E8E93; font-weight:700;">{{ t.scamTitle }}</div>
+          <div style="margin-top:8px; padding:11px 12px; border-radius:14px; background:{{ scamHeadBg }}; color:{{ scamHeadFg }}; font-size:13.5px; font-weight:800; line-height:1.4;">{{ scamHead }}</div>
+          <sc-for list="{{ scamItems }}" as="sw" hint-placeholder-count="2">
+            <div style="display:flex; gap:10px; margin-top:8px; padding:11px 12px; border-radius:14px; background:#F5F5F7;">
+              <span style="flex:none; width:9px; height:9px; border-radius:50%; background:{{ sw.dot }}; margin-top:5px;"></span>
+              <div style="flex:1; min-width:0;">
+                <span style="display:inline-block; font-size:10.5px; font-weight:800; letter-spacing:.4px; text-transform:uppercase; padding:2px 7px; border-radius:6px; background:{{ sw.hlBg }}; color:{{ sw.hlFg }};">{{ sw.level }}</span>
+                <div style="font-size:12.5px; line-height:1.45; font-weight:600; margin-top:5px;">{{ sw.reason }}</div>
+                <sc-if value="{{ sw.hasWords }}" hint-placeholder-val="{{ true }}">
+                  <div style="display:flex; flex-wrap:wrap; gap:5px; margin-top:7px;">
+                    <sc-for list="{{ sw.words }}" as="w" hint-placeholder-count="2">
+                      <span style="font-size:11.5px; font-weight:700; padding:3px 7px; border-radius:6px; background:{{ sw.hlBg }}; color:{{ sw.hlFg }};">“{{ w }}”</span>
+                    </sc-for>
+                  </div>
+                </sc-if>
+              </div>
+            </div>
+          </sc-for>
+          <div style="margin-top:12px; padding-top:12px; border-top:1px solid #F0F0F3;">
+            <div style="font-size:12px; color:#3A3A3C; line-height:1.45;">{{ t.scamCheckTip }}</div>
+            <div onClick="{{ openSemakMule }}" style="margin-top:9px; display:flex; align-items:center; justify-content:center; gap:7px; padding:11px; border-radius:12px; background:#F5F5F7; font-size:13px; font-weight:800; cursor:pointer;">
+              {{ t.scamCheckBtn }}
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5" stroke="#1D1D1F" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+            </div>
+          </div>
+        </div>
+        <div style="font-size:11px; color:#8E8E93; margin-top:6px; padding:0 6px; line-height:1.4;">{{ t.scamDisclaimer }}</div>
+
+        <div class="anim-fade" style="background:#fff; border-radius:22px; padding:16px; margin-top:12px; display:flex; flex-direction:column; gap:10px;">
           <div style="display:flex; flex-direction:column; gap:6px;">
             <span style="font-size:12px; font-weight:700; color:#6E6E73;">{{ t.scanJob }}</span>
             <input class="fld" type="text" value="{{ scanTitle }}" placeholder="{{ t.scanJobPh }}" onChange="{{ onScanTitle }}">
@@ -1189,7 +1219,7 @@ class Component extends DCLogic {
         micBtn: 'Cakap', micStop: 'Berhenti', micListening: 'Sedang mendengar… cakap sekarang.', micDenied: 'Akses mikrofon ditolak. Benarkan mikrofon dalam tetapan pelayar anda.', micFail: 'Suara tidak dapat dikenal pasti. Cuba lagi.',
         editInfo: 'Sunting maklumat', launchPromo: 'Promosi\npelancaran',
         atsPhotoNote: 'Templat ATS Pro tidak memaparkan gambar dan warna — ini lebih selamat untuk sistem ATS.',
-        scanCardTitle: 'Imbas iklan kerja', newBadge: 'BAHARU', scanCardText: 'Snap atau muat naik iklan. Kami tunjuk kemahiran yang majikan cari.',
+        scanCardTitle: 'Imbas iklan kerja', newBadge: 'BAHARU', scanCardText: 'Snap iklan — semak tanda scam & kemahiran yang majikan cari.',
         scanHead: 'Semak resume anda dengan iklan kerja', scanIntro: 'Ambil gambar iklan kerja, atau pilih tangkapan skrin. Kami baca teksnya dan tunjuk kemahiran & syarat yang majikan cari — dan apa yang belum ada dalam resume anda.',
         scanPrivacy: 'Gambar kekal dalam telefon anda — tidak dihantar ke mana-mana.', scanCamera: 'Ambil gambar iklan', scanGallery: 'Pilih gambar / tangkapan skrin',
         scanPaste: 'Atau tampal teks iklan', scanPasteHint: 'Sesuai untuk iklan dari WhatsApp, JobStreet atau Facebook.', scanPastePh: 'Tampal teks iklan di sini…', scanCheck: 'Semak iklan',
@@ -1218,6 +1248,18 @@ class Component extends DCLogic {
         shareOtherShare: 'Kongsi PDF', shareOtherSave: 'Muat turun PDF', shareOtherHint: 'Telegram, Google Drive, Simpan ke Fail dan lain-lain.',
         shareMsg: 'Mesej', shareReset: 'Asal', shareCopy: 'Salin', shareCopied: 'Mesej disalin.', shareEmailCopied: 'Alamat e-mel disalin — tampal di ruang "Kepada".', shareNeedPhone: 'Masukkan nombor WhatsApp majikan dahulu.', shareWait: 'Tunggu sekejap, PDF sedang disediakan…',
         shareSavedTip: 'PDF dimuat turun. Lampirkan fail itu dalam chat atau e-mel.',
+        scamTitle: 'Semakan tanda amaran', scamHeadHigh: '⚠️ Berhati-hati — iklan ini ada tanda amaran serius', scamHeadWarn: 'Ada beberapa tanda yang perlu disemak',
+        scamHeadNone: 'Tiada tanda amaran biasa ditemui. Ini tidak menjamin iklan ini selamat — sentiasa semak syarikat sebelum hantar maklumat.',
+        scamLvlHigh: 'Serius', scamLvlMed: 'Sederhana', scamLvlLow: 'Rendah',
+        scamPay: 'Minta bayaran sebelum bekerja. Majikan sah tidak minta anda bayar untuk dapat kerja.',
+        scamBank: 'Minta maklumat perbankan sulit (OTP, kata laluan atau akaun bank). Jangan sesekali kongsi maklumat ini.',
+        scamEasy: 'Janji wang mudah atau gaji yang terlalu tinggi untuk kerja yang tidak perlukan pengalaman.',
+        scamChat: 'Hubungan hanya melalui chat peribadi — tiada e-mel syarikat atau alamat pejabat dalam iklan.',
+        scamPressure: 'Mendesak anda bertindak cepat. Tekanan masa biasa digunakan supaya anda tidak sempat menyemak.',
+        scamNoCo: 'Tiada nama syarikat atau organisasi ditemui dalam iklan.',
+        scamIc: 'Minta salinan atau nombor IC sebelum sebarang temu duga disebut.',
+        scamCheckTip: 'Ragu-ragu? Semak nombor telefon / akaun bank di Semak Mule PDRM atau hubungi NSRC 997.', scamCheckBtn: 'Buka Semak Mule PDRM',
+        scamDisclaimer: 'Semakan automatik berdasarkan kata kunci. Bukan pengesahan rasmi.',
         scoreTitle: 'Skor resume', scoreSub: 'Ikut tip di bawah untuk naikkan skor anda.', scorePerfect: 'Hebat! Resume anda lengkap dan kemas.', fixBtn: 'Baiki',
         lvl0: 'Perlu dibaiki', lvl1: 'Sederhana', lvl2: 'Baik', lvl3: 'Cemerlang',
         tName: 'Isi nama penuh anda.', tTitle: 'Isi jawatan atau bidang yang anda pohon.', tPhone: 'Tambah nombor telefon.', tEmail: 'Tambah e-mel yang sah (cth. nama@gmail.com).', tLoc: 'Tambah lokasi (bandar, negeri).',
@@ -1297,7 +1339,7 @@ class Component extends DCLogic {
         micBtn: 'Speak', micStop: 'Stop', micListening: 'Listening… speak now.', micDenied: 'Microphone access was blocked. Allow the microphone in your browser settings.', micFail: 'Could not catch that. Please try again.',
         editInfo: 'Edit details', launchPromo: 'Launch\npromo',
         atsPhotoNote: 'ATS Pro hides the photo and colours — safer for ATS screening systems.',
-        scanCardTitle: 'Scan a job ad', newBadge: 'NEW', scanCardText: 'Snap or upload the ad. We show the skills the employer wants.',
+        scanCardTitle: 'Scan a job ad', newBadge: 'NEW', scanCardText: 'Snap an ad — check for scam signs & the skills employers want.',
         scanHead: 'Check your resume against a job ad', scanIntro: "Take a photo of the job ad, or pick a screenshot. We read the text and show the skills & requirements the employer wants — and what's still missing from your resume.",
         scanPrivacy: 'Your photo stays on your phone — it is not sent anywhere.', scanCamera: 'Take a photo of the ad', scanGallery: 'Choose image / screenshot',
         scanPaste: 'Or paste the ad text', scanPasteHint: 'Handy for ads from WhatsApp, JobStreet or Facebook.', scanPastePh: 'Paste the ad text here…', scanCheck: 'Check ad',
@@ -1326,6 +1368,18 @@ class Component extends DCLogic {
         shareOtherShare: 'Share PDF', shareOtherSave: 'Download PDF', shareOtherHint: 'Telegram, Google Drive, Save to Files and more.',
         shareMsg: 'Message', shareReset: 'Reset', shareCopy: 'Copy', shareCopied: 'Message copied.', shareEmailCopied: 'E-mail address copied — paste it into "To".', shareNeedPhone: "Enter the employer's WhatsApp number first.", shareWait: 'One moment, the PDF is still being prepared…',
         shareSavedTip: 'PDF downloaded. Attach the file in your chat or e-mail.',
+        scamTitle: 'Warning sign check', scamHeadHigh: '⚠️ Be careful — this ad has serious warning signs', scamHeadWarn: 'Some signs worth checking',
+        scamHeadNone: "No common warning signs found. This doesn't guarantee the ad is safe — always check the company before sharing your details.",
+        scamLvlHigh: 'Serious', scamLvlMed: 'Medium', scamLvlLow: 'Low',
+        scamPay: "Asks for payment before you start work. Real employers don't ask you to pay to get a job.",
+        scamBank: 'Asks for private banking details (OTP, password or bank account). Never share these.',
+        scamEasy: 'Promises easy money, or pay that is far too high for work that needs no experience.',
+        scamChat: 'Contact only through private chat — no company e-mail or office address in the ad.',
+        scamPressure: "Pushes you to act fast. Time pressure is often used so you don't have time to check.",
+        scamNoCo: 'No company or organisation name found in the ad.',
+        scamIc: 'Asks for your IC copy or IC number before any interview is mentioned.',
+        scamCheckTip: "Not sure? Check the phone number / bank account at PDRM's Semak Mule or call NSRC 997.", scamCheckBtn: 'Open PDRM Semak Mule',
+        scamDisclaimer: 'Automatic keyword check. Not an official verification.',
         scoreTitle: 'Resume score', scoreSub: 'Follow the tips below to raise your score.', scorePerfect: 'Great! Your resume is complete and polished.', fixBtn: 'Fix',
         lvl0: 'Needs work', lvl1: 'Fair', lvl2: 'Good', lvl3: 'Excellent',
         tName: 'Add your full name.', tTitle: 'Add the job title or field you are applying for.', tPhone: 'Add a phone number.', tEmail: 'Add a valid email (e.g. name@gmail.com).', tLoc: 'Add your location (city, state).',
@@ -1869,7 +1923,7 @@ class Component extends DCLogic {
     const g = this.guessAd(text);
     const a = this.analyseAd(text);
     this.setState({ scanStage: 'result', scanText: text, scanTitle: g.title, scanCompany: g.company, scanShowText: false, scanErr: '' });
-    this.track('scan_ad', { source, found: a.total, have: a.have });
+    this.track('scan_ad', { source, found: a.total, have: a.have, warn: this.scamCheck(text).level });
   }
   addFromAd(k) {
     const t = this.T();
@@ -1915,7 +1969,7 @@ class Component extends DCLogic {
     const sugg = this.smartSuggest(role || this.state.scanText || '');
     const lines = String(((d.exp || [])[0] || {}).desc || '').split('\n').map((l) => l.trim());
     const duties = sugg.matched ? sugg.items.slice(0, 6) : [];
-    return Object.assign(out, {
+    return Object.assign(out, this.scamVals(this.state.scanText), {
       scanTitle: this.state.scanTitle || '', onScanTitle: (ev) => this.setState({ scanTitle: ev.target.value }),
       scanCompany: this.state.scanCompany || '', onScanCompany: (ev) => this.setState({ scanCompany: ev.target.value }),
       scanPct: a.total ? pct + '%' : '—', scanWidth: pct + '%', scanCount: a.have + ' / ' + a.total + ' ' + t.matchOf,
@@ -2268,6 +2322,99 @@ class Component extends DCLogic {
       shareMsg: msg, onShareMsg: (ev) => this.setState({ shareMsg: ev.target.value }),
       resetShareMsg: () => this.setState({ shareMsg: null, shareSubject: null }),
       copyShareMsg: () => { if (this.copyText(msg)) this.showToast(t.shareCopied); },
+    };
+  }
+
+  // ---------- Job-scam warning signs (keyword rules only — never says "scam", the user decides) ----------
+  // Add words any time: lowercase, one phrase per item. Extra spaces and upper/lower case are ignored.
+  get SCAM_RULES() {
+    return [
+      { id: 'pay', lvl: 'high', key: 'scamPay', words: ['yuran', 'deposit', 'bayar dahulu', 'bayar dulu', 'bayaran pendaftaran', 'beli kit', 'top up', 'topup', 'top-up', 'registration fee', 'pay first', 'upfront payment'] },
+      { id: 'bank', lvl: 'high', key: 'scamBank', words: ['otp', 'tac', 'kata laluan', 'password', 'username bank', 'log masuk bank', 'nombor akaun bank', 'no akaun bank', 'akaun bank anda', 'bank account number'] },
+      { id: 'easy', lvl: 'med', key: 'scamEasy', words: ['kerja mudah', 'like video', 'like & share', 'like and share', 'tugasan online', 'task online', 'online task', 'review produk', 'pendapatan pasif', 'komisen tinggi', 'easy money'] },
+      { id: 'chat', lvl: 'med', key: 'scamChat', words: ['telegram', 't.me/', 'pm saya', 'dm saya', 'whatsapp sahaja', 'whatsapp only'] },
+      { id: 'pressure', lvl: 'med', key: 'scamPressure', words: ['segera', 'slot terhad', 'hari ini sahaja', 'tempat terhad', 'urgent', 'limited slot', 'limited slots', 'today only'] },
+      { id: 'noco', lvl: 'low', key: 'scamNoCo', words: [] },
+      { id: 'ic', lvl: 'low', key: 'scamIc', words: ['salinan ic', 'salinan kad pengenalan', 'salinan mykad', 'gambar ic', 'nombor ic', 'no ic', 'no. ic', 'no kp', 'nombor kad pengenalan', 'ic number', 'ic copy', 'copy of ic', 'copy of your ic'] },
+    ];
+  }
+  // find a phrase anywhere in the text (any case, any spacing); returns each match as it is written in the ad
+  scamFind(text, phrase) {
+    const esc = phrase.trim().split(/\s+/).map((w) => w.replace(/[.*+?^${}()|[\]\\\/]/g, '\\$&')).join('\\s+');
+    const pre = /^[a-z0-9]/i.test(phrase) ? '(^|[^a-z0-9])' : '()';
+    const post = /[a-z0-9]$/i.test(phrase) ? '(?![a-z0-9])' : '';
+    const re = new RegExp(pre + '(' + esc + ')' + post, 'gi');
+    const out = []; let m;
+    while ((m = re.exec(text))) { out.push({ word: m[2].replace(/\s+/g, ' '), at: m.index + m[1].length }); if (m[0].length === 0) re.lastIndex++; }
+    return out;
+  }
+  // every "RM…" amount in the ad, with whether it is a daily rate
+  scamMoney(text) {
+    const re = /rm\s*(\d[\d,]*(?:\.\d+)?)(\s*k(?![a-z]))?(\s*(?:\/|se|per|a|setiap)?\s*(?:hari|day|daily)(?![a-z]))?/gi;
+    const out = []; let m;
+    while ((m = re.exec(text))) {
+      let v = parseFloat(m[1].replace(/,/g, '')) || 0;
+      if (m[2]) v *= 1000;
+      out.push({ word: m[0].replace(/\s+/g, ' ').trim(), value: v, daily: !!m[3] });
+    }
+    return out;
+  }
+  scamCheck(raw) {
+    const text = String(raw || '');
+    const items = [];
+    const uniq = (arr) => { const seen = {}; return arr.filter((w) => { const k = w.toLowerCase(); if (seen[k]) return false; seen[k] = 1; return true; }); };
+    const finds = (words) => [].concat.apply([], words.map((w) => this.scamFind(text, w)));
+    const add = (r, words) => items.push({ id: r.id, lvl: r.lvl, key: r.key, words: uniq(words) });
+    this.SCAM_RULES.forEach((r) => {
+      if (r.id === 'easy') {
+        const w = finds(r.words).map((x) => x.word);
+        const money = this.scamMoney(text);
+        money.filter((x) => x.daily && x.value >= 300).forEach((x) => w.push(x.word));
+        const noExp = finds(['tiada pengalaman', 'tak perlu pengalaman', 'tidak perlu pengalaman']);
+        const big = money.filter((x) => !x.daily && x.value >= 5000);
+        if (noExp.length && big.length) { w.push(noExp[0].word); big.forEach((x) => w.push(x.word)); }
+        if (w.length) add(r, w);
+      } else if (r.id === 'chat') {
+        const w = finds(r.words);
+        if (!w.length) return;
+        const emails = text.match(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}/gi) || [];
+        const coEmail = emails.some((e) => !/@(gmail|yahoo|ymail|hotmail|outlook|live|icloud|me)\./i.test(e));
+        const address = /(^|[^a-z])(jalan|jln|lorong|lrg|taman|tmn|persiaran|lebuh|kampung|kg|wisma|menara|plaza|kompleks|lot\s*\d+)(?![a-z])|(^|\D)\d{5}(?!\d)/i.test(text);
+        if (!coEmail && !address) add(r, w.map((x) => x.word));
+      } else if (r.id === 'noco') {
+        const has = finds(['sdn bhd', 'sdn. bhd.', 'bhd', 'berhad', 'enterprise', 'plt', 'syarikat', 'koperasi', 'jabatan', 'kementerian', 'majlis']).length > 0;
+        if (!has) add(r, []);
+      } else if (r.id === 'ic') {
+        const ic = finds(r.words);
+        if (!ic.length) return;
+        const iv = finds(['temu duga', 'temuduga', 'interview', 'sesi temu']);
+        const firstIc = Math.min.apply(null, ic.map((x) => x.at));
+        if (!iv.length || Math.min.apply(null, iv.map((x) => x.at)) > firstIc) add(r, ic.map((x) => x.word));
+      } else {
+        const w = finds(r.words);
+        if (w.length) add(r, w.map((x) => x.word));
+      }
+    });
+    const level = items.some((x) => x.lvl === 'high') ? 'high' : items.length ? 'warn' : 'none';
+    return { level, items };
+  }
+  scamVals(raw) {
+    const t = this.T();
+    const r = this.scamCheck(raw);
+    const LV = {
+      high: { label: t.scamLvlHigh, dot: '#FF3B30', hlBg: '#FFE9E7', hlFg: '#B42318' },
+      med: { label: t.scamLvlMed, dot: '#FF9500', hlBg: '#FFF4E5', hlFg: '#8A4B00' },
+      low: { label: t.scamLvlLow, dot: '#FFCC00', hlBg: '#FFF8D6', hlFg: '#6B5900' },
+    };
+    const head = r.level === 'high' ? [t.scamHeadHigh, '#FFE9E7', '#B42318'] : r.level === 'warn' ? [t.scamHeadWarn, '#FFF4E5', '#8A4B00'] : [t.scamHeadNone, '#E3F6E8', '#1E6B34'];
+    const order = { high: 0, med: 1, low: 2 };
+    return {
+      scamHead: head[0], scamHeadBg: head[1], scamHeadFg: head[2],
+      scamItems: r.items.slice().sort((a, b) => order[a.lvl] - order[b.lvl]).map((x) => ({
+        level: LV[x.lvl].label, dot: LV[x.lvl].dot, hlBg: LV[x.lvl].hlBg, hlFg: LV[x.lvl].hlFg,
+        reason: t[x.key], words: x.words, hasWords: x.words.length > 0,
+      })),
+      openSemakMule: () => { window.open('https://semakmule.rmp.gov.my', '_blank', 'noopener'); this.track('scam_semakmule'); },
     };
   }
 
